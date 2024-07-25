@@ -1,3 +1,6 @@
 <template>
-    <h1>sdad</h1>
+    <div class="">
+        <navbar />
+        <div class=""></div>
+    </div>
 </template>
