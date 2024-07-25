@@ -52,6 +52,7 @@
 }
 .sign {
     margin-right: 20px;
-    
+    border-right: solid  2px;
+    padding-right: 20px;
 }
 </style>
