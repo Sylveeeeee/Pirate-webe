@@ -1,10 +1,12 @@
 <template>
-    <div class="ad">s</div>
+    <div class="ad">
+    </div>
 </template>
 <style>
 .ad {
-    height: 300px;
+    height: 400px;
     background-color: rgb(156, 0, 0);
     margin-block: 10px;
 }
 </style>
+
