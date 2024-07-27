@@ -4,8 +4,8 @@
         <div class="Search">Search</div>
         <div class="cart"></div>
         <div class="sign-login">
-            <div class="sign">สมัครสมาชิก</div>
-            <div class="login">เข้าสู่ระบบ</div>
+            <div class="sign"><a href="signup">ลงชื่อเข้าใช้</a></div>
+            <div class="login"> <a href="login">เข้าสู่ระบบ</a></div>
         </div>
     </div>
 </template>

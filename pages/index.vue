@@ -52,6 +52,7 @@
 }
 .pr {
     display: flex;
+    justify-content: center;
     min-width: 90%;
     flex-wrap: wrap;
     background: #000;
