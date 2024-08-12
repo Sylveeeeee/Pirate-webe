@@ -19,7 +19,7 @@
 #item {
     height: 50px;
     margin: 30px;
-    background-color: aqua;
+    
     align-items: center;
     display: flex;
     padding-inline: 20px;
@@ -27,7 +27,7 @@
 #howtobuy {
     height: 50px;
     margin: 30px;
-    background-color: aqua;
+    
     align-items: center;
     display: flex;
     padding-inline: 20px;
@@ -35,7 +35,7 @@
 #topup {
     height: 50px;
     margin: 30px;
-    background-color: aqua;
+    
     align-items: center;
     display: flex;
     padding-inline: 20px;
@@ -43,7 +43,7 @@
 #random {
     height: 50px;
     margin: 30px;
-    background-color: aqua;
+    
     align-items: center;
     display: flex;
     padding-inline: 20px;
