@@ -2,14 +2,25 @@
     <div class="nav">
         <div class="logo"> PirateID</div>
         <div class="Search">Search</div>
-        <div class="cart"></div>
+        <div class="cart"><i class="fa-solid fa-cart-shopping"></i></div>
         <div class="sign-login">
-            <div class="sign"><a href="signup">สมัครสมาขิก</a></div>
-            <div class="login"> <a href="login">เข้าสู่ระบบ</a></div>
+            <div class="sign"><a href="signup" >
+                <div class="BTsign">สมัครสมาชิก</div>              
+            </a></div>
+            <div class="login"> <a href="login" >
+                <div class="BTlogin">เข้าสู๋ระบบ</div>
+                
+            </a></div>
         </div>
     </div>
 </template>
 <style>
+.BTsign {
+    color: aliceblue;
+}
+.BTlogin {
+    color: aliceblue;
+}
 .nav{
     background-color: black;
     height: 60px;
@@ -22,22 +33,26 @@
 .logo {
     margin-right: 100px;
     height: 60px;
+    width: 60px;
     color: aliceblue;
     align-items: center;
     display: flex;
-    background-color: rgb(234, 0, 255);
+    background-color: rgb(126, 126, 126);
+    border-radius: 50%;
 }
 .Search {
     height: 30px;
     width: 400px;
-    background-color: aqua;
+    background-color: rgb(126, 126, 126);
     display: flex;
     align-items: center;
     margin-right: 70px;
+    color: aliceblue;
+    padding-left: 10px;
 }
 .cart {
     height: 60px;
-    background-color: blanchedalmond;
+    
     width: 60px;
     border-radius: 50%;
     margin-right: 20px;
@@ -45,10 +60,10 @@
 .sign-login {
     height: 60px;
     width: auto;
-    background-color: aqua;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-inline: solid aqua;
 }
 .sign {
     margin-right: 20px;
