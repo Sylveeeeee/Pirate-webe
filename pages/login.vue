@@ -66,6 +66,7 @@
     margin-bottom: 20px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: aqua;
+    text-align: left;
   }
   
   label {
