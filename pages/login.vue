@@ -67,6 +67,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: aqua;
     text-align: left;
+    width: 330px;
   }
   
   label {
