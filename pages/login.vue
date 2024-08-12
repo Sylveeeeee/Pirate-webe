@@ -189,4 +189,12 @@
   .register a:hover {
     text-decoration: underline;
   }
+
+  .btn-primary:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+
+  }
   </style>

@@ -23,7 +23,7 @@
 }
 .nav{
     background-color: black;
-    height: 60px;
+    height: 100px;
     width: auto;
     color: black;
     display: flex;
@@ -39,16 +39,18 @@
     display: flex;
     background-color: rgb(126, 126, 126);
     border-radius: 50%;
+    margin-top: 10px;
 }
 .Search {
     height: 30px;
-    width: 400px;
+    width: 500px;
     background-color: rgb(126, 126, 126);
     display: flex;
     align-items: center;
     margin-right: 70px;
     color: aliceblue;
     padding-left: 10px;
+    border-radius: 3px;
 }
 .cart {
     height: 60px;
@@ -70,4 +72,13 @@
     padding-right: 20px;
     border-right: aqua solid;
 }
+
+.BTsign {
+    font-family: "Prompt", sans-serif;
+   font-weight: 100;
+   font-style: normal;
+    
+}
+
+
 </style>

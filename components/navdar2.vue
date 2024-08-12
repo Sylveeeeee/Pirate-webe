@@ -23,6 +23,7 @@
     align-items: center;
     display: flex;
     padding-inline: 20px;
+    
 }
 #howtobuy {
     height: 50px;
@@ -48,5 +49,48 @@
     display: flex;
     padding-inline: 20px;
 }
+
+#item:hover {
+    background-color: aqua;
+    color: black;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+   
+
+}
+
+#howtobuy:hover {
+    background-color: aqua;
+    color: black;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+}
+
+#topup:hover {
+    background-color: aqua;
+    color: black;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+
+}
+
+#random:hover {
+    background-color: aqua;
+    color: black;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    
+
+}
+
 
 </style>

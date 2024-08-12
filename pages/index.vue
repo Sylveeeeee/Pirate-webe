@@ -3,16 +3,17 @@
         <navbar />
         <navdar2 />
         <advert />
+        
         <div class="body2">
             <div class="prpanel">
                 <a id="font">Steam Key</a>
                 <div class="pr">
-                    <div class="pr1"></div>
-                    <div class="pr2"></div>
-                    <div class="pr3"></div>
-                    <div class="pr4"></div>
-                    <div class="pr5"></div>
-                    <div class="pr6"></div>
+                    <button class="pr1">ROV</button>
+                    <button class="pr2">PUBG</button>
+                    <button class="pr3">VALORANT</button>
+                    <button class="pr4">ELDER RING</button>
+                    <button class="pr5">FORZA</button>
+                    <button class="pr6">DOTA</button>
                     <div class="pr7"></div>
                     <div class="pr8"></div>
                     <div class="pr9"></div>
@@ -24,6 +25,7 @@
     </div>
 </template>
 <style>
+
 .body {
     display: flex;
     flex-direction: column;
@@ -56,44 +58,62 @@
     justify-content: center;
     min-width: 90%;
     flex-wrap: wrap;
-    background: #000;
+    background: #1d1d1d;
     
 }
 .pr1 {
-    height: 270px;
-    width: 240px;
-    background: #9c9c9c;
+    height: 100px;
+    width: 150px;
+    background: #4e4e4e;
     padding-inline: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
 }
 .pr2 {
-    height: 270px;
-    width: 240px;
+    height: 100px;
+    width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
 }
 .pr3 {
-    height: 270px;
-    width: 240px;
-    background: #9c9c9c;
+    height: 100px;
+    width: 150px;
+    background: #4e4e4e;
     padding-inline: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
 }
 .pr4 {
-    height: 270px;
-    width: 240px;
+    height: 100px;
+    width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
 }
 .pr5 {
-    height: 270px;
-    width: 240px;
-    background: #9c9c9c;
-    padding-inline: 10px;
-}
-.pr6 {
-    height: 270px;
-    width: 240px;
+    height: 100px;
+    width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
+}
+.pr6 {
+    height: 100px;
+    width: 150px;
+    background: #4e4e4e;
+    padding-inline: 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
 }
 .pr7 {
     height: 270px;
@@ -119,5 +139,55 @@
     background: #4e4e4e;
     padding-inline: 10px;
 }
+
+.pr1:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    transition: all .4s ease-in-out;
+}
+
+.pr2:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    transition: all .4s ease-in-out;
+}
+
+.pr3:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    transition: all .4s ease-in-out;
+}
+
+.pr4:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    transition: all .4s ease-in-out;
+}
+
+.pr5:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    transition: all .4s ease-in-out;
+}
+
+.pr6:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    transition: all .4s ease-in-out;
+}
+
+
 
 </style>

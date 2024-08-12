@@ -23,6 +23,9 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed !important;
+            background-size: cover;
         }
 
         .container {
@@ -57,6 +60,11 @@
 
         .button:hover {
             opacity: 0.8;
+            border: solid;
+            border-color: aqua;
+            background-color: transparent;
+            color: aqua;
+            transition: all .4s ease-in-out;
         }
 
         .social-buttons {
@@ -110,9 +118,29 @@
            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
            width: 350px;
            border-radius: 10px;
+           background-repeat: no-repeat;
+           background-attachment: fixed !important;
+           background-size: cover;
         }
 
         .social-button:hover {
             opacity: 0.8;
+            
+        }
+
+        .facebook:hover {
+            border: solid;
+            border-color: #3b5998;
+            background-color: transparent;
+            color: #3b5998;
+            transition: all .4s ease-in-out;
+        }
+
+        .google:hover {
+            border: solid;
+            border-color: #dd4b39;
+            background-color: transparent;
+            color: #dd4b39;
+            transition: all .4s ease-in-out;
         }
     </style>
