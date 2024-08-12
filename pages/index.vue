@@ -27,6 +27,7 @@
 .body {
     display: flex;
     flex-direction: column;
+    background: #1d1d1d;
 }
 .body2 {
     display: flex;
@@ -37,7 +38,7 @@
     background: #000;
 }
 .prpanel {
-    background-color: aquamarine;
+    color: aqua;
     width: 1300px;
     display: flex;
     flex-direction: column;

@@ -63,11 +63,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-inline: solid aqua;
 }
 .sign {
     margin-right: 20px;
     border-right: solid  2px;
     padding-right: 20px;
+    border-right: aqua solid;
 }
 </style>
