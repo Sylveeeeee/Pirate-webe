@@ -80,5 +80,13 @@
     
 }
 
+.BTsign:hover {
+    color: aqua;
+}
+
+.BTlogin:hover {
+    color: aqua;
+}
+
 
 </style>

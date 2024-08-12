@@ -6,7 +6,7 @@
         
         <div class="body2">
             <div class="prpanel">
-                <a id="font">Steam Key</a>
+
                 <div class="pr">
                     <button class="pr1">ROV</button>
                     <button class="pr2">PUBG</button>
@@ -14,6 +14,7 @@
                     <button class="pr4">ELDER RING</button>
                     <button class="pr5">FORZA</button>
                     <button class="pr6">DOTA</button>
+                    
                     <div class="pr7"></div>
                     <div class="pr8"></div>
                     <div class="pr9"></div>
@@ -69,6 +70,8 @@
     margin: 20px;
     border-radius: 5px;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
 }
 .pr2 {
     height: 100px;
@@ -78,6 +81,7 @@
     margin: 20px;
     border-radius: 5px;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr3 {
     height: 100px;
@@ -87,6 +91,7 @@
     margin: 20px;
     border-radius: 5px;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr4 {
     height: 100px;
@@ -96,6 +101,7 @@
     margin: 20px;
     border-radius: 5px;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr5 {
     height: 100px;
@@ -105,6 +111,7 @@
     margin: 20px;
     border-radius: 5px;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr6 {
     height: 100px;
@@ -114,6 +121,7 @@
     margin: 20px;
     border-radius: 5px;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr7 {
     height: 270px;

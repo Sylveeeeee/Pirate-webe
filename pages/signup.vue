@@ -64,7 +64,7 @@
             border-color: aqua;
             background-color: transparent;
             color: aqua;
-            transition: all .4s ease-in-out;
+            transition: all .1s ease-in-out;
         }
 
         .social-buttons {
@@ -133,7 +133,7 @@
             border-color: #3b5998;
             background-color: transparent;
             color: #3b5998;
-            transition: all .4s ease-in-out;
+            transition: all .1s ease-in-out;
         }
 
         .google:hover {
@@ -141,6 +141,6 @@
             border-color: #dd4b39;
             background-color: transparent;
             color: #dd4b39;
-            transition: all .4s ease-in-out;
+            transition: all .1s ease-in-out;
         }
     </style>
