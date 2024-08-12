@@ -78,6 +78,7 @@
         color: #ccff00;
         text-decoration: none;
     }
+    
 </style>
 
 <input type="email" id="email" name="email" required>

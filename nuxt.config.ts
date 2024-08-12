@@ -30,5 +30,7 @@ export default defineNuxtConfig({
         "noscript": []
       }
   },
-  devtools: { enabled: true }
+
+  devtools: { enabled: true },
+  compatibilityDate: "2024-08-12"
 })
