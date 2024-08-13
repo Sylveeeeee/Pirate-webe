@@ -1,7 +1,9 @@
 <template>
     <div class="nav">
         <div class="logo"> PirateID</div>
-        <div class="Search">Search</div>
+        <label for="Search"></label>
+        <input type="Search" id="site-search" name="q" placeholder="Search" />
+        <button class="spinbutton">Search</button>
         <div class="cart"><i class="fa-solid fa-cart-shopping"></i></div>
         <div class="sign-login">
             <div class="sign"><a href="signup" >
@@ -46,19 +48,23 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.Search {
-    height: 30px;
-    width: 500px;
-    background-color: rgb(126, 126, 126);
-    display: flex;
-    align-items: center;
-    margin-right: 70px;
-    color: aliceblue;
-    padding-left: 10px;
-    border-radius: 3px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: 50;
+
+label {
+    position: absolute;
+    width: 200px;
 }
+
+input {
+    position: relative;
+    width: 400px;
+    height: 30px;
+}
+
+.spinbutton {
+    height: 30px;
+}
+
+
 .cart {
     height: 60px;
     

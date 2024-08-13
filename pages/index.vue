@@ -128,6 +128,8 @@
     width: 240px;
     background: #9c9c9c;
     padding-inline: 10px;
+    background-image: url(nrk.jpeg);
+    display: block;
 }
 .pr8 {
     height: 270px;
