@@ -51,8 +51,8 @@
 }
 
 #item:hover {
-    background-color: aqua;
-    color: black;
+    background-color: rgba(0, 255, 255, 0.055);
+    color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
@@ -62,8 +62,8 @@
 }
 
 #howtobuy:hover {
-    background-color: aqua;
-    color: black;
+    background-color: rgba(0, 255, 255, 0.055);
+    color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
@@ -72,8 +72,8 @@
 }
 
 #topup:hover {
-    background-color: aqua;
-    color: black;
+    background-color: rgba(0, 255, 255, 0.055);
+    color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
@@ -82,8 +82,8 @@
 }
 
 #random:hover {
-    background-color: aqua;
-    color: black;
+    background-color: rgba(0, 255, 255, 0.055);
+    color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;

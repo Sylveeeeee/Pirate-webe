@@ -65,7 +65,7 @@
     
 }
 .pr1 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -76,7 +76,7 @@
     
 }
 .pr2 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -86,7 +86,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr3 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -96,7 +96,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr4 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -106,7 +106,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr5 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -116,7 +116,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr6 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -129,7 +129,7 @@
     height: 300px;
     width: 240px;
    
-    padding-inline: 10px;
+    margin-right: 10px;
     display: flex;
     justify-items: center;
 }
@@ -137,7 +137,7 @@
     height: 300px;
     width: 240px;
    
-    padding-inline: 10px;
+    margin-right: 10px;
     display: flex;
     justify-items: center;
 }
@@ -145,7 +145,7 @@
     height: 300px;
     width: 240px;
    
-    padding-inline: 10px;
+    margin-right: 10px;
     display: flex;
     justify-items: center;
 }
@@ -153,7 +153,7 @@
     height: 300px;
     width: 240px;
    
-    padding-inline: 10px;
+    margin-right: 10px;
     display: flex;
     justify-items: center;
 }
@@ -205,6 +205,40 @@
     color: aqua;
     transition: all .4s ease-in-out;
 }
+
+.pr7:hover {
+    border:0.2px solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    
+}
+
+
+.pr8:hover {
+    border:0.2px solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    
+}
+
+.pr9:hover {
+    border:0.2px solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    
+}
+
+.pr10:hover {
+    border:0.2px solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    
+}
+
 
 
 

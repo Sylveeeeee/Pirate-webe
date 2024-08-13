@@ -14,4 +14,14 @@
     border-radius: 5px;
     margin-top: 10px;
 }
+
+.BTadd:hover {
+    border: solid;
+    border-color: aqua;
+    background-color: aqua;
+    color: black;
+    font-style: bold;
+    
+
+}
 </style>
