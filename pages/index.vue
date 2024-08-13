@@ -15,10 +15,12 @@
                     <button class="pr5">FORZA</button>
                     <button class="pr6">DOTA</button>
                     
-                    <div class="pr7"></div>
-                    <div class="pr8"></div>
-                    <div class="pr9"></div>
-                    <div class="pr10"></div>
+                    <div class="pr7">
+                        <infor/>
+                    </div>
+                    <div class="pr8"><infor/></div>
+                    <div class="pr9"><infor/></div>
+                    <div class="pr10"><infor/></div>
                 </div>
             </div>
         </div>
@@ -124,28 +126,36 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr7 {
-    height: 270px;
+    height: 300px;
     width: 240px;
-    background: #9c9c9c;
+   
     padding-inline: 10px;
+    display: flex;
+    justify-items: center;
 }
 .pr8 {
-    height: 270px;
+    height: 300px;
     width: 240px;
-    background: #4e4e4e;
+   
     padding-inline: 10px;
+    display: flex;
+    justify-items: center;
 }
 .pr9 {
-    height: 270px;
+    height: 300px;
     width: 240px;
-    background: #9c9c9c;
+   
     padding-inline: 10px;
+    display: flex;
+    justify-items: center;
 }
 .pr10 {
-    height: 270px;
+    height: 300px;
     width: 240px;
-    background: #4e4e4e;
+   
     padding-inline: 10px;
+    display: flex;
+    justify-items: center;
 }
 
 .pr1:hover {
