@@ -1,146 +1,66 @@
 <template>
-    <div class="register-form">
-        <div class="container">
-        <h1>REGISTER</h1>
-        <button class="button">Register with Phone Number</button>
-        <div class="or">OR</div>
-        <button class="button">Register with Email</button>
-        <div class="social-button">
-            <button class="social-button google">G</button>
-            <button class="social-button facebook">F</button>
+    <div class="BG">
+        <div class="rgp"> 
+          <div class="Frg">REGISTER</div>
+          <div class="rgN">Register with mobile number</div>
+          <div class="r">OR</div>
+          <div class="rgE">Register with email</div>
         </div>
     </div>
-    </div>
-    
 </template>
-
 <style>
-        body {
-            background-color: #033642;
-            color: #fff;
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-repeat: no-repeat;
-            background-attachment: fixed !important;
-            background-size: cover;
-        }
 
-        .container {
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-            text-align: center;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            color: aqua;
-
-
-        }
-
-        .button {
-            display: inline-block;
-            padding: 20px;
-            background-color: rgb(255, 255, 255);
-            color: #000;
-            border: none;
-            border-radius: 5px;
-            margin: 1rem 0;
-            cursor: pointer;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-weight: 400;
-            font-style: normal
-        }
-
-        .button:hover {
-            opacity: 0.8;
-            border: solid;
-            border-color: aqua;
-            background-color: transparent;
-            color: aqua;
-            transition: all .1s ease-in-out;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .social-button {
-            padding: 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-            
-
-        }
-
-        .google {
-            background-color: #dd4b39;
-            color: #fff;
-            margin-left: 10px;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-weight: 200;
-            padding: 20px;
-            font-size: 15px;
-        }
-
-        .facebook {
-            background-color: #3b5998;
-            color: #fff;
-            margin-right: 10px;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-weight: 200;
-            padding: 20px;
-            font-size: 15px;
-        }
-
-        .or {
-            margin: 1rem 0;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-weight: 400;
-            font-style: normal;
-
-        }
-
-        .register-form {
-           background-color: #222;
-           padding: 30px;
-           border-radius: 5px;
-           box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-           width: 350px;
-           border-radius: 10px;
-           background-repeat: no-repeat;
-           background-attachment: fixed !important;
-           background-size: cover;
-        }
-
-        .social-button:hover {
-            opacity: 0.8;
-            
-        }
-
-        .facebook:hover {
-            border: solid;
-            border-color: #3b5998;
-            background-color: transparent;
-            color: #3b5998;
-            transition: all .1s ease-in-out;
-        }
-
-        .google:hover {
-            border: solid;
-            border-color: #dd4b39;
-            background-color: transparent;
-            color: #dd4b39;
-            transition: all .1s ease-in-out;
-        }
-    </style>
+body {
+     background:    #000;
+}
+.rgEoF{
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    color: white;
+    font-size: 20px;
+}
+.Frg {
+    color: aliceblue;
+    margin-bottom: 100px;
+    font-size: 50px;
+    border-bottom-style:solid;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+}
+.r {
+    font-size: 20px;
+    color: aliceblue;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.rgp {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.932);
+    height: 500px;
+}
+.rgN {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 500px;
+    background-color: aqua;
+    border-radius: 6px;
+    font-size: 20px;
+}
+.rgE {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 500px;
+    background-color: aqua;
+    border-radius: 6px;
+    font-size: 20px;
+}
+</style>

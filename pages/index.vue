@@ -27,8 +27,17 @@
         <div class="foot"></div>
     </div>
 </template>
-<style>
+<style scoped>
 
+</style>
+<style>
+div {
+    font-family: "Noto Sans Thai", sans-serif;  
+    font-optical-sizing: auto;
+    font-weight: 100px;
+    font-style: normal;
+    font-variation-settings:"wdth" 87.5;
+}
 .body {
     display: flex;
     flex-direction: column;

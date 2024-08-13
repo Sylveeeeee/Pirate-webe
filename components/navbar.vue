@@ -85,14 +85,6 @@ input {
     padding-right: 20px;
     border-right: aqua solid;
 }
-
-.BTsign {
-    font-family: "Prompt", sans-serif;
-   font-weight: 100;
-   font-style: normal;
-    
-}
-
 .BTsign:hover {
     color: aqua;
 }
