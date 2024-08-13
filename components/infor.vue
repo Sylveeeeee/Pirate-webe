@@ -40,10 +40,21 @@
 }
 .card {   
     width: 240px;    
+    height: 350px;
     display: flex;
     flex-direction: column;
     box-shadow: 1px 1px 2px black;  
     background: #53535327;
+}
+
+.card:hover {
+    border: 0.5px solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
+    border-radius: 2px;
+   
+    
 }
 
 

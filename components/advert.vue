@@ -9,7 +9,7 @@
                     <img src="public\Eldenring.jpg" id="Eldenring">
                 </div>
                 <div class="ad3">
-                    <img src="public\forza5.jpg" id="forza5">
+                    <img src="public\forza.jpg" id="forza">
                 </div>
                 <div class="ad4">
                     <img src="public\gta.jpg" id="gta">
@@ -33,7 +33,7 @@
 #dota2 {
     height: 400px;
 }
-#forza5 {
+#forza {
     height: 400px;
 }
 #Eldenring {

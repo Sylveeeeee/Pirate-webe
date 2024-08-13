@@ -21,6 +21,12 @@
                     <div class="pr8"><infor/></div>
                     <div class="pr9"><infor/></div>
                     <div class="pr10"><infor/></div>
+                    <div class="pr11"><infor/></div>
+                    <div class="pr12"><infor/></div>
+                    <div class="pr13"><infor/></div>
+                    <div class="pr14"><infor/></div>
+                    <div class="pr15"><infor/></div>
+                    <div class="pr16"><infor/></div>
                 </div>
             </div>
         </div>
@@ -92,58 +98,77 @@ div {
 .pr1 {
     height: 50px;
     width: 150px;
-    background: #4e4e4e;
+    background: #323232;
     padding-inline: 10px;
     margin: 20px;
     border-radius: 5px;
     color: white;
+    border: 3px solid;
+    border-color: #323232;
 }
 .pr2 {
     height: 50px;
     width: 150px;
-    background: #4e4e4e;
+    background: #323232;
     padding-inline: 10px;
     margin: 20px;
     border-radius: 5px;
     color: white;
+    border: 3px solid;
+    border-color: #323232;
 }
 .pr3 {
     height: 50px;
     width: 150px;
-    background: #4e4e4e;
+    background: #323232;
     padding-inline: 10px;
     margin: 20px;
     border-radius: 5px;
     color: white;
+    border: 3px solid;
+    border-color: #323232;
 }
 .pr4 {
     height: 50px;
     width: 150px;
-    background: #4e4e4e;
+    background: #323232;
     padding-inline: 10px;
     margin: 20px;
     border-radius: 5px;
     color: white;
+    border: 3px solid;
+    border-color: #323232;
 }
 .pr5 {
     height: 50px;
     width: 150px;
-    background: #4e4e4e;
+    background: #323232;
     padding-inline: 10px;
     margin: 20px;
     border-radius: 5px;
     color: white;
+    border: 3px solid;
+    border-color: #323232;
 }
 .pr6 {
     height: 50px;
     width: 150px;
-    background: #4e4e4e;
+    background: #323232;
     padding-inline: 10px;
     margin: 20px;
     border-radius: 5px;
     color: white;
+    border: 3px solid;
+    border-color: #323232;
 }
 .pr7 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+}
+.pr8 {
     height: 350px;
     width: 240px;
     
@@ -151,29 +176,74 @@ div {
     display: flex;
     justify-items: center;
 }
-.pr8 {
-    height: 300px;
-    width: 240px;
-   
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-}
 .pr9 {
-    height: 300px;
+    height: 350px;
     width: 240px;
-   
+    
     margin-right: 10px;
     display: flex;
     justify-items: center;
 }
 .pr10 {
-    height: 300px;
+    height: 350px;
     width: 240px;
-   
+    
     margin-right: 10px;
     display: flex;
     justify-items: center;
+}
+
+.pr11 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+}
+
+.pr12 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.pr13 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.pr14 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.pr15 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.pr16 {
+    height: 350px;
+    width: 240px;
+    margin-right: 10px;
+    display: flex;
+    justify-items: center;
+    margin-top: 20px;
 }
 
 .pr1:hover {
@@ -224,38 +294,7 @@ div {
     transition: all .4s ease-in-out;
 }
 
-.pr7:hover {
-    border:0.2px solid;
-    border-color: aqua;
-    background-color: transparent;
-    color: aqua;
-    
-}
 
-
-.pr8:hover {
-    border:0.2px solid;
-    border-color: aqua;
-    background-color: transparent;
-    color: aqua;
-    
-}
-
-.pr9:hover {
-    border:0.2px solid;
-    border-color: aqua;
-    background-color: transparent;
-    color: aqua;
-    
-}
-
-.pr10:hover {
-    border:0.2px solid;
-    border-color: aqua;
-    background-color: transparent;
-    color: aqua;
-    
-}
 
 
 

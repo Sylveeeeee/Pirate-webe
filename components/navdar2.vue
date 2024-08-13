@@ -1,6 +1,6 @@
 <template>
     <div class="nav2">
-        <a id="item">สินค้าทั้งหมด</a>
+        <a id="item">หน้าหลัก</a>
         <a id="howtobuy">วิธีซื้อ</a>
         <a id="topup">เติมเงิน</a>
         <a id="random">สุ่มรางวัล</a>
@@ -51,7 +51,7 @@
 }
 
 #item:hover {
-    background-color: rgba(0, 255, 255, 0.055);
+    background-color: rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
@@ -62,7 +62,7 @@
 }
 
 #howtobuy:hover {
-    background-color: rgba(0, 255, 255, 0.055);
+    background-color: rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
@@ -72,7 +72,7 @@
 }
 
 #topup:hover {
-    background-color: rgba(0, 255, 255, 0.055);
+    background-color:  rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
@@ -82,7 +82,7 @@
 }
 
 #random:hover {
-    background-color: rgba(0, 255, 255, 0.055);
+    background-color: rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
