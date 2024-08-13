@@ -85,6 +85,8 @@ input {
     padding-right: 20px;
     border-right: aqua solid;
 }
+
+
 .BTsign:hover {
     color: aqua;
 }

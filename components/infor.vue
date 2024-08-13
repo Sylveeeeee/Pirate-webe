@@ -15,12 +15,10 @@
     border-bottom-right-radius: 5px;
 }
 #EDL {
-    height: 200px;
-    
+    height: 300px;  
 }
 .BT {
-    
-    margin-top: 15px;
+    padding-bottom: 5px;
     height: 50px;
     display: flex;
     align-items: center;
@@ -33,22 +31,19 @@
     color: white;
   
 }
-.PT {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    height: 200px;
+.PT {  
+    height: 300px;
     display: flex;
     align-items: center;
     overflow: hidden;
     justify-content: center;
 }
-.card {
-    height: 300px;
-    width: 240px;
-    border-radius:20px;
+.card {   
+    width: 240px;    
     display: flex;
     flex-direction: column;
-    
+    box-shadow: 1px 1px 2px black;  
+    background: #53535327;
 }
 
 

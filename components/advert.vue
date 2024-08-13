@@ -1,23 +1,35 @@
 <template>
-    <div class="ad">
-        <div class="ad1">
-            <img src="public\dota2.jpg" id="dota2">
-        </div>
-        <div class="ad2">
-            <img src="public\Eldenring.jpg" id="Eldenring">
-        </div>
-        <div class="ad3">
-            <img src="public\forza5.jpg" id="forza5">
-        </div>
-        <div class="ad4">
-            <img src="public\gta.jpg" id="gta">
-        </div>
-        <div class="ad5">
-            <img src="public\cod2.jpg" id="cod2">
+    <div class="TBAD">
+        <div class="TBad">
+            <div class="ad">
+                <div class="ad1">
+                    <img src="public\dota2.jpg" id="dota2">
+                </div>
+                <div class="ad2">
+                    <img src="public\Eldenring.jpg" id="Eldenring">
+                </div>
+                <div class="ad3">
+                    <img src="public\forza5.jpg" id="forza5">
+                </div>
+                <div class="ad4">
+                    <img src="public\gta.jpg" id="gta">
+                </div>
+                <div class="ad5">
+                    <img src="public\cod2.jpg" id="cod2">
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <style>
+.TBAD {
+    width: 100%;
+    overflow: hidden;
+}
+.TBad {
+    width: 85vmin; 
+    
+}
 #dota2 {
     height: 400px;
 }
@@ -38,32 +50,28 @@
     margin-block: 10px;
     display: flex;
     align-items: center;
-    
+    width: 100%;
+    animation: slide 16s infinite; 
 }
-
 .ad1 {
-    height: 400px;
-    animation: slide 16s infinite;
+    margin-right: 25px;
+    height: 400px; 
 }
-
 .ad2 {
-    height: 400px;
-    animation: slide 16s infinite;
+    margin-right: 25px;
+    height: 400px; 
 }
-
 .ad3 {
-    height: 400px;
-    animation: slide 16s infinite;
+    margin-right: 25px;
+    height: 400px;  
 }
-
 .ad4 {
-    height: 400px;
-    animation: slide 16s infinite;
-    
+    margin-right: 25px;
+    height: 400px; 
 }
 .ad5 {
-    height: 400px;
-    animation: slide 16s infinite;
+    margin-right: 25px;
+    height: 400px; 
 }
 @keyframes slide{
     0%{

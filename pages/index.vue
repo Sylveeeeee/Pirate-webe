@@ -1,12 +1,13 @@
 <template>
+<div class="BGH">
+    <navbar />
+    <navdar2 />
+    <div class="TBadvert">
+        <advert />  
+    </div>
     <div class="body">
-        <navbar />
-        <navdar2 />
-        <advert />
-        
         <div class="body2">
             <div class="prpanel">
-
                 <div class="pr">
                     <button class="pr1">ROV</button>
                     <button class="pr2">PUBG</button>
@@ -14,10 +15,9 @@
                     <button class="pr4">ELDER RING</button>
                     <button class="pr5">FORZA</button>
                     <button class="pr6">DOTA</button>
-                    
-                    <div class="pr7">
-                        <infor/>
-                    </div>
+                </div>
+                <div class="TBpr">
+                    <div class="pr7"><infor/></div>
                     <div class="pr8"><infor/></div>
                     <div class="pr9"><infor/></div>
                     <div class="pr10"><infor/></div>
@@ -26,11 +26,9 @@
         </div>
         <div class="foot"></div>
     </div>
+</div>
 </template>
 <style scoped>
-
-</style>
-<style>
 div {
     font-family: "Noto Sans Thai", sans-serif;  
     font-optical-sizing: auto;
@@ -38,14 +36,34 @@ div {
     font-style: normal;
     font-variation-settings:"wdth" 87.5;
 }
-.body {
-    display: flex;
-    flex-direction: column;
-    background: #1d1d1d;
+</style>
+<style>
+.BGH {
+    background: #1d1d1d; 
 }
-.body2 {
+.TBadvert {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+.TBpr {
+    display: flex;
+    justify-content: center;
+    min-width: 90%;
+    width: 100%;
+    flex-wrap: wrap;
+     
+}
+.body {  
+    display: flex;
+    flex-direction: column;
+    
+}
+.body2 {
+    
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 .foot {
     height: 100px;
@@ -69,9 +87,7 @@ div {
     display: flex;
     justify-content: center;
     min-width: 90%;
-    flex-wrap: wrap;
-    background: #1d1d1d;
-    
+    flex-wrap: wrap; 
 }
 .pr1 {
     height: 50px;
@@ -81,8 +97,6 @@ div {
     margin: 20px;
     border-radius: 5px;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    
 }
 .pr2 {
     height: 50px;
@@ -92,7 +106,6 @@ div {
     margin: 20px;
     border-radius: 5px;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr3 {
     height: 50px;
@@ -102,7 +115,6 @@ div {
     margin: 20px;
     border-radius: 5px;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr4 {
     height: 50px;
@@ -112,7 +124,6 @@ div {
     margin: 20px;
     border-radius: 5px;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr5 {
     height: 50px;
@@ -122,7 +133,6 @@ div {
     margin: 20px;
     border-radius: 5px;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr6 {
     height: 50px;
@@ -132,12 +142,11 @@ div {
     margin: 20px;
     border-radius: 5px;
     color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr7 {
-    height: 300px;
+    height: 350px;
     width: 240px;
-   
+    
     margin-right: 10px;
     display: flex;
     justify-items: center;
