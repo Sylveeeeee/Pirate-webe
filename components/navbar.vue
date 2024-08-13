@@ -33,13 +33,18 @@
 .logo {
     margin-right: 100px;
     height: 60px;
-    width: 60px;
-    color: aliceblue;
+    width: 150px;
+    color: aqua;
     align-items: center;
     display: flex;
-    background-color: rgb(126, 126, 126);
-    border-radius: 50%;
+    background-color: rgb(0, 0, 0);
     margin-top: 10px;
+    font-family: fantasy;
+    font-size: 35px;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, aqua , red );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .Search {
     height: 30px;
@@ -51,6 +56,8 @@
     color: aliceblue;
     padding-left: 10px;
     border-radius: 3px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 50;
 }
 .cart {
     height: 60px;
