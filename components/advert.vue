@@ -50,7 +50,6 @@
     margin-block: 10px;
     display: flex;
     align-items: center;
-    width: 100%;
     animation: slide 16s infinite; 
 }
 .ad1 {
