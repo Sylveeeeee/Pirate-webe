@@ -17,6 +17,21 @@
                 <div class="ad5">
                     <img src="public\cod2.jpg" id="cod2">
                 </div>
+                <div class="ad6">
+                    <img src="public\dota2.jpg" id="dota2">
+                </div>
+                <div class="ad7">
+                    <img src="public\Eldenring.jpg" id="Eldenring">
+                </div>
+                <div class="ad8">
+                    <img src="public\forza.jpg" id="forza">
+                </div>
+                <div class="ad9">
+                    <img src="public\gta.jpg" id="gta">
+                </div>
+                <div class="ad10">
+                    <img src="public\cod2.jpg" id="cod2">
+                </div>
                 
             </div>
         </div>
@@ -74,6 +89,26 @@
     margin-right: 25px;
     height: 400px; 
 }
+.ad6 {
+    margin-right: 25px;
+    height: 400px; 
+}
+.ad7 {
+    margin-right: 25px;
+    height: 400px; 
+}
+.ad8 {
+    margin-right: 25px;
+    height: 400px; 
+}
+.ad9 {
+    margin-right: 25px;
+    height: 400px; 
+}
+.ad10 {
+    margin-right: 25px;
+    height: 400px; 
+}
 
 @keyframes slide{
     0%{
@@ -95,10 +130,10 @@
         transform: translateX(-200%);
     }
     80% {
-        transform: translateX(-300%);
+        transform: translateX(-350%);
     }
     100% {
-        transform: translateX(-300%);
+        transform: translateX(-350%);
     }
 }
 </style>
