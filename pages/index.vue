@@ -36,16 +36,14 @@
     </footer>
 </header>
 </template>
-<style scoped>
+<style>
 div {
     font-family: "Noto Sans Thai", sans-serif;  
     font-optical-sizing: auto;
     font-weight: 100px;
     font-style: normal;
-    font-variation-settings:"wdth" 87.5;
+    
 }
-</style>
-<style>
 header {
     width: 100vw;
     height: 100vh;

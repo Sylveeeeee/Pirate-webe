@@ -11,7 +11,7 @@
 <style>
 
 body {
-     background:    #000;
+     background:    #1d1d1d;
 }
 .rgEoF{
     display: flex;
@@ -23,11 +23,13 @@ body {
 .Frg {
     color: aliceblue;
     margin-bottom: 100px;
-    font-size: 50px;
+    font-size: 40px;
     border-bottom-style:solid;
     width: 50px;
     display: flex;
     justify-content: center;
+    font-weight: 500;
+    font-variant-position:"wdth" 80;
 }
 .r {
     font-size: 20px;
@@ -40,7 +42,6 @@ body {
     justify-content: center;
     align-items:center;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.932);
     height: 500px;
 }
 .rgN {
@@ -48,19 +49,19 @@ body {
     align-items: center;
     justify-content: center;
     height: 50px;
-    width: 500px;
+    width:300px;
     background-color: aqua;
     border-radius: 6px;
-    font-size: 20px;
+    font-size: 17px;
 }
 .rgE {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 50px;
-    width: 500px;
+    width: 300px;
     background-color: aqua;
     border-radius: 6px;
-    font-size: 20px;
+    font-size: 17px;
 }
 </style>
