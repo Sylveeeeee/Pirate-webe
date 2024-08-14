@@ -59,12 +59,12 @@ input {
     position: relative;
     width: 400px;
     height: 30px;
-    background-color:#474747;
+    background-color:#5e5e5e;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     border: 1px solid;
     border-color: #474747;
-    color: rgb(51, 51, 51);
+    color: rgb(255, 255, 255);
     
 }
 
