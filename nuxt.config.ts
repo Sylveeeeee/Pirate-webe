@@ -23,7 +23,16 @@ export default defineNuxtConfig({
         "noscript": []
       }
   },
-
-  devtools: { enabled: true },
-  compatibilityDate: "2024-08-12"
+  icon: {
+    componentName: 'NuxtIcon',
+    customCollections: [
+      {
+        prefix: 'my-icon',
+        dir: './assets/my-icons'
+      },
+    ],
+  },
+  devtools: { enabled: false },
+  compatibilityDate: "2024-08-12",
+  modules: ["@nuxt/icon"]
 })

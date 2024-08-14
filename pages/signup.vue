@@ -1,13 +1,15 @@
 <template>
     <div class="BG">
         <div class="rgp"> 
-          <div class="Frg">REGISTER</div>
-          <div class="rgN">Register with mobile number</div>
-          <div class="r">OR</div>
-          <div class="rgE">Register with email</div>
+            <div class="Frg">REGISTER</div>
+            <div class="rgN"> 
+                mobile number</div>
+            <div class="r">OR</div>
+            <BTRegis />
         </div>
     </div>
 </template>
+
 <style>
 
 body {
@@ -44,17 +46,8 @@ body {
     flex-direction: column;
     height: 500px;
 }
+
 .rgN {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    width:300px;
-    background-color: aqua;
-    border-radius: 6px;
-    font-size: 17px;
-}
-.rgE {
     display: flex;
     align-items: center;
     justify-content: center;

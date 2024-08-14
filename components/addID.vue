@@ -1,8 +1,7 @@
 <template>
-    <div class="BTadd">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <a>BUY NOW</a>
-    </div>
+   <div class="BTadd ">
+    <a class="font-semibold">BUY NOW</a>
+</div>
 </template>
 <style>
 .BTadd {
