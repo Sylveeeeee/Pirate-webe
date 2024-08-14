@@ -1,11 +1,11 @@
 <template>
-<div class="BGH">
-    <navbar />
-    <navdar2 />
-    <div class="TBadvert">
-        <advert />  
-    </div>
+<header>
+    <navbar/>
+    <navbar2/>
     <div class="body">
+        <div class="TBadvert">
+            <advert />  
+        </div>
         <div class="body2">
             <div class="prpanel">
                 <div class="pr">
@@ -30,9 +30,11 @@
                 </div>
             </div>
         </div>
-        <div class="foot"></div>
     </div>
-</div>
+    <footer>
+        <div class="footer"></div>
+    </footer>
+</header>
 </template>
 <style scoped>
 div {
@@ -44,8 +46,12 @@ div {
 }
 </style>
 <style>
-.BGH {
-    background: #1d1d1d; 
+header {
+    width: 100vw;
+    height: 100vh;
+    
+    background-position: bottom;
+    background-size: cover;
 }
 .TBadvert {
     display: flex;
@@ -58,20 +64,23 @@ div {
     min-width: 90%;
     width: 100%;
     flex-wrap: wrap;
-     
+    height: auto;   
 }
 .body {  
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    
+    background-color: #ff9b9b;   
 }
 .body2 {
-    
+    background: #ff0000;
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 100vw;
+    
 }
-.foot {
+.footer {
     height: 100px;
     background: #000;
 }
@@ -82,6 +91,7 @@ div {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
+    background: #d0ff00;
 }
 #font {
     display: flex;
@@ -90,6 +100,7 @@ div {
     padding: 20px;
 }
 .pr {
+    background: #00ff15;
     display: flex;
     justify-content: center;
     min-width: 90%;

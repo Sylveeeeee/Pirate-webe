@@ -17,6 +17,7 @@
                 <div class="ad5">
                     <img src="public\cod2.jpg" id="cod2">
                 </div>
+                
             </div>
         </div>
     </div>
@@ -51,7 +52,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    animation: slide 16s infinite; 
+    animation: slide 16s infinite ; 
 }
 .ad1 {
     margin-right: 25px;
@@ -73,6 +74,7 @@
     margin-right: 25px;
     height: 400px; 
 }
+
 @keyframes slide{
     0%{
         transform: translateX(0);
