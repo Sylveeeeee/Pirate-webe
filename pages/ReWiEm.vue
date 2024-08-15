@@ -3,7 +3,7 @@
         <div class="rgP"> 
             <div class="Frg">REGISTER</div>
             <div class="input-group">
-                <input type="text" required>
+                <input type="email, text" required>
                 <label for="">E-mail</label>
             </div>
             <div class="input-group">
@@ -16,7 +16,7 @@
             </div>
             <div class="CoN">
                 <a href="signup">
-                    <div class="BTC">CANCLE<i class="fa-brands fa-google"></i></div>
+                    <div class="BTC">CANCLE</div>
                 </a>
                 <div class="BTN">NEXT</div>
             </div>
@@ -62,7 +62,6 @@ body {
     margin: 20px 0;
     position: relative;
     height: 50;
-    
 }
 .input-group label{
     position: absolute;
@@ -82,7 +81,7 @@ body {
     font-size: 20px;
     font-weight: 300;
     padding: 0 10px;
-    background: transparent;
+    background: transparent ;
     border-radius: 5px;
     border: solid 1px;
     outline: none;
