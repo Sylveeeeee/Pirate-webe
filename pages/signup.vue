@@ -21,9 +21,10 @@ body {
     margin-top: 40px;
     color: white;
     font-size: 20px;
+    font-weight: lighter;
 }
 .Frg {
-    color: aliceblue;
+    color: white;
     margin-bottom: 100px;
     font-size: 40px;
     border-bottom-style:solid;
@@ -41,7 +42,7 @@ body {
 }
 .rgp {
     display: flex;
-    justify-content: center;
+    margin-top: 60px;
     align-items:center;
     flex-direction: column;
     height: 500px;

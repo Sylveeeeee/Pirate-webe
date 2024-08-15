@@ -1,7 +1,7 @@
 <template>
     <a href="ReWiEm">
         <div class="rgE">
-            <a id="Tregis"><i class="fa-brands fa-google"></i>
+            <a id="Tregis">
                 Register width Email</a>
         </div>
     </a>
@@ -16,5 +16,6 @@
     background-color: aqua;
     border-radius: 6px;
     font-size: 17px;
+    color: black;
 }
 </style>

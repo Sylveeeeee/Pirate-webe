@@ -1,4 +1,5 @@
 <template>
+    
 <header>
     <navbar/>
     <navbar2/>
@@ -31,14 +32,13 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer"></div>
-    </footer>
+    <footer><div class="footer"></div></footer>
+    
 </header>
 </template>
 <style>
 div {
-    font-family: "Noto Sans Thai", sans-serif;  
+    font-family: "Noto Sans Thai", sans-serif ;  
     font-optical-sizing: auto;
     font-weight: 100px;
     font-style: normal; 
