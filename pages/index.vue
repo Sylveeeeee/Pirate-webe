@@ -37,12 +37,6 @@
 </header>
 </template>
 <style>
-div {
-    font-family: "Noto Sans Thai", sans-serif ;  
-    font-optical-sizing: auto;
-    font-weight: 100px;
-    font-style: normal; 
-}
 a {text-decoration: none;}
 header {
     width: 100vw;
