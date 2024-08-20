@@ -65,7 +65,7 @@
     
 }
 .pr1 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -76,7 +76,7 @@
     
 }
 .pr2 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -86,7 +86,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr3 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -96,7 +96,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr4 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -106,7 +106,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr5 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;
@@ -116,7 +116,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .pr6 {
-    height: 100px;
+    height: 50px;
     width: 150px;
     background: #4e4e4e;
     padding-inline: 10px;

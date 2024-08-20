@@ -45,9 +45,10 @@
 .card {
     height: 300px;
     width: 240px;
-    border-radius:20px;
+    border-radius:5px;
     display: flex;
     flex-direction: column;
-    
+    overflow: hidden;
+    border: solid red;
 }
 </style>
