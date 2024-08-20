@@ -39,6 +39,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1d1d1d;
+    height: 100vh;
 
   }
   .container {
@@ -46,10 +48,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffffff; 
-    background-repeat: no-repeat;
-    background-attachment: fixed !important;
-    background-size: cover;
+    color: #ffffff;
   }
   
   .login-form {
@@ -58,6 +57,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     width: 400px;
+    margin-bottom: 300px;
   }
   
   h1 {

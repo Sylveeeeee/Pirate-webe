@@ -17,5 +17,14 @@
     border-radius: 6px;
     font-size: 17px;
     color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+.rgE:hover {
+    background-color: transparent;
+    border: 2px solid;
+    border-color: aqua;
+    color: aqua;
+}
+
 </style>

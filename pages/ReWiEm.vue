@@ -16,7 +16,7 @@
             </div>
             <div class="CoN">
                 <a href="signup">
-                    <div class="BTC">CANCLE</div>
+                    <div class="BTC">CANCEL </div>
                 </a>
                 <div class="BTN">NEXT</div>
             </div>
@@ -62,6 +62,7 @@ body {
     margin: 20px 0;
     position: relative;
     height: 50;
+    color: white;
 }
 .input-group label{
     position: absolute;
@@ -104,5 +105,10 @@ body {
 .input-group input:focus,
 .input-group input:valid{
     border: 1px solid aqua;
+}
+
+.BTC:hover {
+    background-color: aqua;
+    color: black;
 }
 </style>

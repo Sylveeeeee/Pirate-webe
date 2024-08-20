@@ -10,7 +10,7 @@
 <style>
 .BGG {
     background: #53535327;
-    height: 100px;
+    height: 150px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -39,13 +39,19 @@
     justify-content: center;
 }
 .card {
-    height: 300px;
+    height: 350px;
     width: 240px;
     border-radius:5px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: solid red;
+    
+}
+
+.card:hover {
+    background-color: transparent;
+    border: 1px solid;
+    border-color: aqua;
 }
 
 

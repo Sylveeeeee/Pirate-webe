@@ -1,144 +1,70 @@
 <template>
-    <div class="TBAD">
-        <div class="TBad">
-            <div class="ad">
-                <div class="ad1">
-                    <img src="public\dota2.jpg" id="dota2">
-                </div>
-                <div class="ad2">
-                    <img src="public\Eldenring.jpg" id="Eldenring">
-                </div>
-                <div class="ad3">
-                    <img src="public\forza.jpg" id="forza">
-                </div>
-                <div class="ad4">
-                    <img src="public\gta.jpg" id="gta">
-                </div>
-                <div class="ad5">
-                    <img src="public\cod2.jpg" id="cod2">
-                </div>
-                <div class="ad6">
-                    <img src="public\dota2.jpg" id="dota2">
-                </div>
-                <div class="ad7">
-                    <img src="public\Eldenring.jpg" id="Eldenring">
-                </div>
-                <div class="ad8">
-                    <img src="public\forza.jpg" id="forza">
-                </div>
-                <div class="ad9">
-                    <img src="public\gta.jpg" id="gta">
-                </div>
-                <div class="ad10">
-                    <img src="public\cod2.jpg" id="cod2">
-                </div>
-                
-            </div>
-        </div>
-    </div>
+    <div id="app">
+<div class="slider">
+<div class="slides" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+<div class="slide" v-for="(image, index) in images" :key="index">
+<img :src="image" :alt="'Slide ' + (index + 1)">
+</div>
+</div>
+<button @click="prevSlide" class="prev">B</button>
+<button @click="nextSlide" class="next">N</button>
+</div>
+</div>
 </template>
-<style>
-.TBAD {
-    width: 100%;
-    overflow: hidden;
-}
-.TBad {
-    width: 85vmin; 
-    
-}
-#dota2 {
-    height: 400px;
-}
-#forza {
-    height: 400px;
-}
-#Eldenring {
-    height: 400px;
-}
-#gta {
-    height: 400px;
-}
-#cod2 {
-    height: 400PX;
-}
-.ad {
-    height: 400px;
-    margin-block: 10px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    animation: slide 16s infinite ; 
-}
-.ad1 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad2 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad3 {
-    margin-right: 25px;
-    height: 400px;  
-}
-.ad4 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad5 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad6 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad7 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad8 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad9 {
-    margin-right: 25px;
-    height: 400px; 
-}
-.ad10 {
-    margin-right: 25px;
-    height: 400px; 
-}
 
-@keyframes slide{
-    0%{
-        transform: translateX(0);
-    }
-    25%{
-        transform: translateX(0);
-    }
-    30% {
-        transform: translateX(-100%);
-    }
-    50% {
-        transform: translateX(-100%);
-    }
-    55% {
-        transform: translateX(-200%);
-    }
-    75% {
-        transform: translateX(-200%);
-    }
-    80% {
-        transform: translateX(-350%);
-    }
-    100% {
-        transform: translateX(-350%);
-    }
+<style>
+.app {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 400px;
+ width: 1000px;
+ background-color: #f0f0f0;
+}
+.slider {
+ position: relative;
+ width: 600px;
+ height: 400px;
+ overflow: hidden;
+ border-radius: 10px;
+ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.slides {
+ display: flex;
+ transition: transform 0.5s ease-in-out;
+}
+.slide {
+ min-width: 100%;
+ box-sizing: border-box;
+}
+.slide img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}
+.prev, .next {
+ position: absolute;
+ top: 50%;
+ transform: translateY(-50%);
+ background-color: rgba(0, 0, 0, 0.5);
+ color: white;
+ border: none;
+ padding: 10px;
+ cursor: pointer;
+ border-radius: 50%;
+}
+.prev {
+ left: 10px;
+}
+.next {
+ right: 10px;
+}
+.prev:hover, .next:hover {
+ background-color: rgba(0, 0, 0, 0.8);
 }
 </style>
-
-
-
 
 

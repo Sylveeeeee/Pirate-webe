@@ -63,10 +63,10 @@ header {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #ff9b9b;   
+    background-color: #191919;   
 }
 .body2 {
-    background: #ff0000;
+    background: #191919;
     display: flex;
     justify-content: center;
     width: 100vw;
@@ -83,7 +83,7 @@ header {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
-    background: #d0ff00;
+    background: #191919;
 }
 #font {
     display: flex;
@@ -92,7 +92,7 @@ header {
     padding: 20px;
 }
 .pr {
-    background: #00ff15;
+    background: #191919;
     display: flex;
     justify-content: center;
     min-width: 90%;
