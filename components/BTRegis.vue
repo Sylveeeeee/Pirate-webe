@@ -1,8 +1,8 @@
 <template>
-    <a href="js\form-login.php">
+    <a href="ReWiEm">
         <div class="rgE">
             <a id="Tregis">
-                Register width Email</a>
+                Register with Email</a>
         </div>
     </a>
 </template>

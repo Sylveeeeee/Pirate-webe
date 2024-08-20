@@ -1,7 +1,7 @@
 <template>
     <div class="BG">
         <div class="rgP"> 
-            <div class="Frg">REGISTER</div>
+            <div class="Frg">REGISTER </div>
             <div class="input-group">
                 <input type="email, text" required>
                 <label for="">E-mail</label>
