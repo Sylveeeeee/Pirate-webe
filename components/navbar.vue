@@ -2,7 +2,7 @@
     <div class="nav">
         <div class="logo"> PirateID</div>
         <label for="Search"></label>
-        <input type="Search" id="site-search" name="q" placeholder="Search" />
+        <input type="Search" id="site-search" name="q" placeholder="SEARCH" />
         <button class="spinbutton">Search</button>
         <div class="cart"><i class="fa-solid fa-cart-shopping"></i></div>
         <div class="sign-login">
@@ -10,7 +10,8 @@
                 <div class="BTsign">สมัครสมาชิก</div>              
             </a></div>
             <div class="login"> <a href="login" >
-                <div class="BTlogin">เข้าสู๋ระบบ</div>
+                <div class="BTlogin">เข้าสู๋ระบบ 
+                </div>
                 
             </a></div>
         </div>
@@ -52,16 +53,30 @@
 label {
     position: absolute;
     width: 200px;
+    
 }
 
 input {
     position: relative;
     width: 400px;
     height: 30px;
+    background-color:#5e5e5e;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border: 1px solid;
+    border-color: #474747;
+    color: rgb(255, 255, 255);
+    
 }
 
 .spinbutton {
     height: 30px;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border: 1px solid;
+    border-color: black;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 
@@ -86,12 +101,6 @@ input {
     border-right: aqua solid;
 }
 
-.BTsign {
-    font-family: "Prompt", sans-serif;
-   font-weight: 100;
-   font-style: normal;
-    
-}
 
 .BTsign:hover {
     color: aqua;
@@ -100,6 +109,13 @@ input {
 .BTlogin:hover {
     color: aqua;
 }
+
+.spinbutton:hover {
+    background-color: rgba(0, 255, 255, 0.381) ;
+    color:aqua;
+    
+}
+
 
 
 </style>
