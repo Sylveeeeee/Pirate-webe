@@ -10,7 +10,7 @@
 <style>
 .BGG {
     background: #53535327;
-    height: 100px;
+    height: 150px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -38,23 +38,20 @@
     overflow: hidden;
     justify-content: center;
 }
-.card {   
-    width: 240px;    
+.card {
     height: 350px;
+    width: 240px;
+    border-radius:5px;
     display: flex;
     flex-direction: column;
-    box-shadow: 1px 1px 2px black;  
-    background: #53535327;
+    overflow: hidden;
+    
 }
 
 .card:hover {
-    border: 0.5px solid;
-    border-color: aqua;
     background-color: transparent;
-    color: aqua;
-    border-radius: 2px;
-   
-    
+    border: 1px solid;
+    border-color: aqua;
 }
 
 

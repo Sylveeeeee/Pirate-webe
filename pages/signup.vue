@@ -4,7 +4,7 @@
             <div class="Frg">REGISTER</div>
             <div class="rgN"> 
                 mobile number</div>
-            <div class="r">OR</div>
+            <div class="r">---------------  OR  ---------------</div>
             <BTRegis />
         </div>
     </div>
@@ -25,14 +25,14 @@ body {
 }
 .Frg {
     color: white;
+    margin-top: 50px;
     margin-bottom: 100px;
     font-size: 40px;
     border-bottom-style:solid;
     width: 50px;
     display: flex;
     justify-content: center;
-    font-weight: 500;
-    font-variant-position:"wdth" 80;
+    font-size: 40px;
 }
 .r {
     font-size: 20px;

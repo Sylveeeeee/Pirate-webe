@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['./assets/main.css'],
@@ -8,6 +7,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
+  nitro: {
+    preset: 'node',
+    // หากไม่ต้องการ devServer, ให้ลบออกหรือกำหนดเป็นอ็อบเจ็กต์ที่ว่าง
+  },
   compatibilityDate: '2024-08-19',
-})
+});

@@ -1,4 +1,6 @@
 <template>
+  <div class="sss">
+
     <div class="container">
       <div class="login-form">
         <h1>LOG IN</h1>
@@ -29,20 +31,24 @@
         <a href="#" class="btn btn-secondary">Register</a>
       </div>
     </div>
+  </div>
   </template>
   
-  <style scoped>
-  .container {
+  <style>
+  .sss {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1d1d1d;
     height: 100vh;
-    width: 100vw;
-    background-color: #033642;
-    color: #ffffff; 
-    background-repeat: no-repeat;
-    background-attachment: fixed !important;
-    background-size: cover;
+
+  }
+  .container {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
   }
   
   .login-form {
@@ -50,7 +56,8 @@
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 350px;
+    width: 400px;
+    margin-bottom: 300px;
   }
   
   h1 {

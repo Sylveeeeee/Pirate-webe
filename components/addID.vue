@@ -11,7 +11,7 @@
     color: aliceblue;
     background-color: rgb(59, 59, 59);
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 40px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 

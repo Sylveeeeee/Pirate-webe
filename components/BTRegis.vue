@@ -2,7 +2,7 @@
     <a href="register">
         <div class="rgE">
             <a id="Tregis">
-                Register width Email</a>
+                Register with Email</a>
         </div>
     </a>
 </template>
@@ -18,4 +18,12 @@
     font-size: 17px;
     color: black;
 }
+
+.rgE:hover {
+    background-color: transparent;
+    border: 2px solid;
+    border-color: aqua;
+    color: aqua;
+}
+
 </style>

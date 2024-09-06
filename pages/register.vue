@@ -1,10 +1,10 @@
 <template>
     <div class="BG">
         <div class="rgP"> 
-            <div class="Frg">REGISTER</div>
+            <div class="text-4xl mb-50px">REGISTER</div>
             <form @submit.prevent="register">
                 <div class="input-group">
-                    <input v-model="email" type="email" required>
+                    <input v-model="email" type="email,text" required>
                     <label for="">E-mail</label>
                 </div>
                 <div class="input-group">
@@ -28,17 +28,37 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+const router = useRouter()
 
-const register = () => {
+const register = async () => {
   if (password.value !== confirmPassword.value) {
     alert('Passwords do not match')
     return
   }
-  console.log({ email: email.value, password: password.value })
+
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.value, password: password.value }),
+    })
+    
+    const result = await response.json()
+
+    if (response.ok) {
+      alert('Registration successful')
+      router.push('/login') // Redirect to login page after registration
+    } else {
+      alert(result.error || 'Registration failed')
+    }
+  } catch (error) {
+    console.error('Registration failed:', error)
+  }
 }
 </script>
 
@@ -84,7 +104,8 @@ body {
 .input-group {
     margin: 20px 0;
     position: relative;
-    height: 50px;
+    height: 50;
+    color: white;
 }
 
 .input-group label {
@@ -106,7 +127,7 @@ body {
     font-size: 20px;
     font-weight: 300;
     padding: 0 10px;
-    background: #2c2c2c;
+    background: #1d1d1d;
     border-radius: 5px;
     border: solid 1px;
     outline: none;
@@ -132,5 +153,10 @@ body {
 .input-group input:focus,
 .input-group input:valid {
     border: 1px solid aqua;
+}
+
+.BTC:hover {
+    background-color: aqua;
+    color: black;
 }
 </style>

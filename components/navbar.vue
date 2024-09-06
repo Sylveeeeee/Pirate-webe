@@ -7,10 +7,10 @@
         <div class="cart"><i class="fa-solid fa-cart-shopping"></i></div>
         <div class="sign-login">
             <div class="sign"><a href="signup" >
-                <div class="BTsign">สมัครสมาชิก</div>              
+                <div class="BTsign">สมัครสมาชิก</div>           
             </a></div>
             <div class="login"> <a href="login" >
-                <div class="BTlogin">เข้าสู๋ระบบ 
+                <div class="BTlogin">เข้าสู๋ระบบ
                 </div>
                 
             </a></div>
@@ -77,6 +77,7 @@ input {
     border-color: black;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
+    margin: 2px;
 }
 
 
