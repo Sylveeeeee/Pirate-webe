@@ -2,39 +2,58 @@
     <div class="BG">
         <div class="rgP"> 
             <div class="Frg">REGISTER</div>
-            <div class="input-group">
-                <input type="email, text" required>
-                <label for="">E-mail</label>
-            </div>
-            <div class="input-group">
-                <input type="password" required>
-                <label for="">Password</label>
-            </div>
-            <div class="input-group">
-                <input type="password" required>
-                <label for="">Confirm Password</label>
-            </div>
-            <div class="CoN">
-                <a href="signup">
-                    <div class="BTC">CANCLE</div>
-                </a>
-                <div class="BTN">NEXT</div>
-            </div>
+            <form @submit.prevent="register">
+                <div class="input-group">
+                    <input v-model="email" type="email" required>
+                    <label for="">E-mail</label>
+                </div>
+                <div class="input-group">
+                    <input v-model="password" type="password" required>
+                    <label for="">Password</label>
+                </div>
+                <div class="input-group">
+                    <input v-model="confirmPassword" type="password" required>
+                    <label for="">Confirm Password</label>
+                </div>
+                <div class="CoN">
+                    <a href="signup">
+                        <div class="BTC">CANCEL</div>
+                    </a>
+                    <button type="submit" class="BTN">NEXT</button>
+                </div>
+            </form>
         </div>
     </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+
+const register = () => {
+  if (password.value !== confirmPassword.value) {
+    alert('Passwords do not match')
+    return
+  }
+  console.log({ email: email.value, password: password.value })
+}
+</script>
+
 <style>
 .BTN {
     height: 50px;
     width: 240px;
-    background:aqua;
+    background: aqua;
     justify-content: center;
     align-items: center;
     display: flex;
     border-radius: 5px;
     font-size: 20px;
-    
 }
+
 .BTC {
     height: 50px;
     width: 240px;
@@ -45,25 +64,30 @@
     border: solid aqua 1px;
     border-radius: 5px;
     font-size: 20px;
-    color: #ffffff;
+    color: aqua;
 }
+
 .CoN {
     margin-top: 20px;
     display: flex;
     align-items: center;
 }
+
 body {
     background: #1d1d1d;
 }
+
 * {
     box-sizing: border-box;
 }
+
 .input-group {
     margin: 20px 0;
     position: relative;
-    height: 50;
+    height: 50px;
 }
-.input-group label{
+
+.input-group label {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -75,34 +99,38 @@ body {
     transition: .3s;
     width: auto;
 }
+
 .input-group input {
     width: 500px;
     height: 50px;
     font-size: 20px;
     font-weight: 300;
     padding: 0 10px;
-    background: transparent ;
+    background: #2c2c2c;
     border-radius: 5px;
     border: solid 1px;
     outline: none;
 }
+
 .rgP {
     display: flex;
     margin-top: 60px;
-    align-items:center;
+    align-items: center;
     flex-direction: column;
     height: 500px;
     min-height: 100vh;
 }
+
 .input-group input:focus~label,
 .input-group input:valid~label {
-    top:0;
+    top: 0;
     font-size: 16px;
     background: #1d1d1d;
     color: aqua;
 }
+
 .input-group input:focus,
-.input-group input:valid{
+.input-group input:valid {
     border: 1px solid aqua;
 }
 </style>

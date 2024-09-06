@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
-    "axios": "^1.7.4",
+    "@nuxt/http": "^0.6.4",
+    "@prisma/client": "^5.19.1",
+    "axios": "^1.7.7",
     "nuxt": "^3.12.4",
-    "vue": "latest"
+    "prisma": "^5.19.1",
+    "vue": "latest",
+    "vue-router": "^4.4.3"
   },
   "devDependencies": {
     "@iconify-json/fa-solid": "^1.1.9",

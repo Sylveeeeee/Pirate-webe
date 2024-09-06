@@ -1,5 +1,5 @@
 <template>
-    <a href="js\form-login.php">
+    <a href="register">
         <div class="rgE">
             <a id="Tregis">
                 Register width Email</a>
