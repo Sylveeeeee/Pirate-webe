@@ -4,7 +4,7 @@
             <div class="text-4xl mb-50px">REGISTER</div>
             <form @submit.prevent="register">
                 <div class="input-group">
-                    <input v-model="email" type="email,text" required>
+                    <input v-model="email" type="email" required>
                     <label for="">E-mail</label>
                 </div>
                 <div class="input-group">
@@ -36,30 +36,38 @@ const confirmPassword = ref('')
 const router = useRouter()
 
 const register = async () => {
+  // ตรวจสอบว่ารหัสผ่านและการยืนยันรหัสผ่านตรงกัน
   if (password.value !== confirmPassword.value) {
-    alert('Passwords do not match')
-    return
+    alert('Passwords do not match');
+    return;
   }
 
   try {
+    // ส่งคำร้องไปยัง API ของเซิร์ฟเวอร์เพื่อทำการลงทะเบียน
     const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value, password: password.value }),
-    })
-    
-    const result = await response.json()
+      method: 'POST',  // ส่งข้อมูลด้วยวิธี POST
+      headers: { 'Content-Type': 'application/json' },  // กำหนดรูปแบบของข้อมูลที่ส่งเป็น JSON
+      body: JSON.stringify({ email: email.value, password: password.value })  // ส่งข้อมูล email และ password
+    });
 
+    // แปลงคำตอบที่ได้จากเซิร์ฟเวอร์เป็น JSON
+    const result = await response.json();
+
+    // ตรวจสอบว่าการลงทะเบียนสำเร็จหรือไม่
     if (response.ok) {
-      alert('Registration successful')
-      router.push('/login') // Redirect to login page after registration
+      alert('Registration successful');
+      router.push('/login');  // หากสำเร็จจะนำผู้ใช้ไปยังหน้า login
     } else {
-      alert(result.error || 'Registration failed')
+      // แสดงข้อความผิดพลาดหากการลงทะเบียนล้มเหลว
+      alert(result.error || 'Registration failed');
     }
   } catch (error) {
-    console.error('Registration failed:', error)
+    // จัดการข้อผิดพลาดกรณีที่ไม่สามารถติดต่อเซิร์ฟเวอร์ได้
+    console.error('Registration failed:', error);
+    alert('Something went wrong, please try again later.');
   }
-}
+};
+
 </script>
 
 <style>
