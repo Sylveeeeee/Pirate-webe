@@ -58,6 +58,7 @@
 }
 .prev {
  left: 10px;
+ 
 }
 .next {
  right: 10px;

@@ -4,7 +4,7 @@
             <div class="Frg">REGISTER</div>
             <div class="rgN"> 
                 mobile number</div>
-            <div class="r">---------------  OR  ---------------</div>
+            <div class="r">---------------  OR  --------------</div>
             <BTRegis />
         </div>
     </div>
