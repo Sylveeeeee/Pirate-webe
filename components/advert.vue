@@ -1,71 +1,67 @@
 <template>
-    <div id="app">
-<div class="slider">
-<div class="slides" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-<div class="slide" v-for="(image, index) in images" :key="index">
-<img :src="image" :alt="'Slide ' + (index + 1)">
-</div>
-</div>
-<button @click="prevSlide" class="prev">B</button>
-<button @click="nextSlide" class="next">N</button>
-</div>
-</div>
+  <div class="slider">
+    <div class="slider-images">
+      <img :src="images[currentIndex]" alt="Slider Image" />
+    </div>
+    <button @click="prevImage">PREV</button>
+    <button @click="nextImage">NEXT</button>
+  </div>
 </template>
 
-<style>
-.app {
- font-family: Arial, sans-serif;
- margin: 0;
- padding: 0;
- display: flex;
- justify-content: center;
- align-items: center;
- height: 400px;
- width: 1000px;
- background-color: #f0f0f0;
-}
+<script>
+export default {
+  data() {
+    return {
+      currentIndex: 0,
+      images: [
+        'https://via.placeholder.com/600x300?text=Image+1',
+        'https://via.placeholder.com/600x300?text=Image+2',
+        'https://via.placeholder.com/600x300?text=Image+3'
+      ]
+    };
+  },
+  methods: {
+    prevImage() {
+      this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    },
+    nextImage() {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    }
+  },
+  mounted() {
+    setInterval(this.nextImage, 3000); // Change image every 3 seconds
+  }
+};
+</script>
+
+<style scoped>
 .slider {
- position: relative;
- width: 600px;
- height: 400px;
- overflow: hidden;
- border-radius: 10px;
- box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 1100px;
+  margin: 0 auto;
 }
-.slides {
- display: flex;
- transition: transform 0.5s ease-in-out;
+
+.slider-images img {
+  width: 100%;
+  display: block;
 }
-.slide {
- min-width: 100%;
- box-sizing: border-box;
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: black;
+  color: aqua;
+  border-radius: 100%;
+  padding: 10px;
+  cursor: pointer;
 }
-.slide img {
- width: 100%;
- height: 100%;
- object-fit: cover;
+
+button:nth-of-type(1) {
+  left: 0;
 }
-.prev, .next {
- position: absolute;
- top: 50%;
- transform: translateY(-50%);
- background-color: rgba(0, 0, 0, 0.5);
- color: white;
- border: none;
- padding: 10px;
- cursor: pointer;
- border-radius: 50%;
-}
-.prev {
- left: 10px;
- 
-}
-.next {
- right: 10px;
-}
-.prev:hover, .next:hover {
- background-color: rgba(0, 0, 0, 0.8);
+
+button:nth-of-type(2) {
+  right: 0;
 }
 </style>
-
-
