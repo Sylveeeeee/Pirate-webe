@@ -10,24 +10,97 @@
         <div class="body2">
             <div class="prpanel">
                 <div class="pr">
-                    <button class="pr1">ROV</button>
+                    <button class="pr1">NARAKA</button>
                     <button class="pr2">PUBG</button>
-                    <button class="pr3">VALORANT</button>
-                    <button class="pr4">ELDER RING</button>
+                    <button class="pr3">APEX LEGEND</button>
+                    <button class="pr4">ELDEN RING</button>
                     <button class="pr5">FORZA</button>
-                    <button class="pr6">DOTA</button>
+                    <button class="pr6">GTA V</button>
                 </div>
                 <div class="TBpr">
-                    <div class="pr7"><infor/></div>
-                    <div class="pr8"><infor/></div>
-                    <div class="pr9"><infor/></div>
-                    <div class="pr10"><infor/></div>
-                    <div class="pr11"><infor/></div>
-                    <div class="pr12"><infor/></div>
-                    <div class="pr13"><infor/></div>
-                    <div class="pr14"><infor/></div>
-                    <div class="pr15"><infor/></div>
-                    <div class="pr16"><infor/></div>
+                    <div class="pr7">
+                        <div class="card">
+                            <img src="public/nrk.jpeg">
+                            <div class="card-content">
+                                <h3>Naraka</h3>
+                                <p>Full Red-Star Skin</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/dg.jpg">
+                            <div class="card-content">
+                                <h3>Digimon</h3>
+                                <p>Cheap IDs available</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/gc.jpg">
+                            <div class="card-content">
+                                <h3>Grand Chase</h3>
+                                <p>Cheap IDs available</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/apx.jpg">
+                            <div class="card-content">
+                                <h3>APEX</h3>
+                                <p>Full Main Gun Skin</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/gh.jpg">
+                            <div class="card-content">
+                                <h3>Green hell</h3>
+                                <p>Only Green hell</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/r6.jpg">
+                            <div class="card-content">
+                                <h3>Rainbow 6</h3>
+                                <p>Full Gun skins</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/wk.jpg">
+                            <div class="card-content">
+                                <h3>Wukong</h3>
+                                <p>Available Now!</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/g4.jpg">
+                            <div class="card-content">
+                                <h3>Gundam 4</h3>
+                                <p>Available Now!</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/dz.jpg">
+                            <div class="card-content">
+                                <h3>DragonBall Z</h3>
+                                <p>Available Now!</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="public/ark.jpg">
+                            <div class="card-content">
+                                <h3>Ark Survival</h3>
+                                <p>Available Now!</p>
+                                <a href="" class="btn-buy">BUY NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -60,7 +133,7 @@ header {
 }
 .body {  
     width: 100vw;
-    height: 100vh;
+    height: a;
     display: flex;
     flex-direction: column;
     background-color: #191919;   
@@ -70,11 +143,12 @@ header {
     display: flex;
     justify-content: center;
     width: 100vw;
+    height: auto;
     
 }
 .footer {
     height: 100px;
-    background: #000;
+    background:#191919;
 }
 .prpanel {
     color: aqua;
@@ -165,89 +239,62 @@ header {
     border-color: #323232;
 }
 .pr7 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
     display: flex;
-    justify-items: center;
-}
-.pr8 {
-    height: 350px;
-    width: 240px;
-    
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-}
-.pr9 {
-    height: 350px;
-    width: 240px;
-    
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-}
-.pr10 {
-    height: 350px;
-    width: 240px;
-    
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
+    justify-content: center;
+    flex-wrap: wrap; 
 }
 
-.pr11 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
+.card {
+    width: 200px;
+    height: auto;
+    background-color: rgb(33, 32, 32);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px;
+
 }
 
-.pr12 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-    margin-top: 20px;
+.card img {
+    width: 100%;
+    height: 250px;
 }
 
-.pr13 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-    margin-top: 20px;
+.card-content {
+    padding: 16px;
+
 }
 
-.pr14 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-    margin-top: 20px;
+.card-content h3 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: white;
+
 }
 
-.pr15 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-    margin-top: 20px;
+.card-content p {
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    line-height: 1.3;
 }
 
-.pr16 {
-    height: 350px;
-    width: 240px;
-    margin-right: 10px;
-    display: flex;
-    justify-items: center;
-    margin-top: 20px;
+.card-content .btn-buy {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color:  rgb(33, 32, 32);
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 16px;
+    color: aqua;
+    border: 1px solid;
+    border-color: aqua;
+    color: white;
 }
+
+.card-content .btn-buy:hover {
+    background-color: aqua;
+    color: black;
+}
+
 
 .pr1:hover {
     border: solid;
@@ -295,6 +342,13 @@ header {
     background-color: transparent;
     color: aqua;
     transition: all .4s ease-in-out;
+}
+
+.card:hover {
+    border: 1px solid;
+    border-color: aqua;
+    background-color: transparent;
+    color: aqua;
 }
 
 

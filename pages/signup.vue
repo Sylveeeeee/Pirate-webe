@@ -33,6 +33,7 @@ body {
     display: flex;
     justify-content: center;
     font-size: 40px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 .r {
     font-size: 20px;

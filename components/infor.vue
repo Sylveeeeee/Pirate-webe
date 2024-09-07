@@ -1,6 +1,8 @@
 <template>
     <div class="card">
-        <div class="PT"><img src="public\Eldenring.jpg" id="EDL"></div>
+        <div class="PT">
+            <img src="public\Eldenring.jpg" id="EDL">
+        </div>
         <div class="BGG">
             <div class="NM">Elden Ring</div>
             <div class="BT"> <addID /> </div>
