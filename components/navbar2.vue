@@ -1,11 +1,22 @@
 <template>
     <div class="nav2">
-        <a id="item">หน้าหลัก</a>
+        <button @click="goToIndex">
+            <div class="item">หน้าหลัก</div>
+        </button>
         <a id="howtobuy">วิธีซื้อ</a>
         <a id="topup">เติมเงิน</a>
         <a id="random">สุ่มรางวัล</a>
     </div>
 </template>
+<script>
+export default {
+  methods: {
+    goToIndex() {
+      this.$router.push('/');
+    }
+  }
+}
+</script>
 <style>
 .nav2 {
     background-color: rgb(0, 0, 0);
@@ -16,7 +27,7 @@
     justify-content: center;
     align-items: center;
 }
-#item {
+.item {
     height: 50px;
     margin: 30px;
     
@@ -50,7 +61,7 @@
     padding-inline: 20px;
 }
 
-#item:hover {
+.item:hover {
     background-color: rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;

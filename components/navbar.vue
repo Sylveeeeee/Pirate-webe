@@ -4,7 +4,10 @@
         <label for="Search"></label>
         <input type="Search" id="site-search" name="q" placeholder="SEARCH" />
         <button class="spinbutton">Search</button>
-        <div class="cart"><i class="fa-solid fa-cart-shopping"></i></div>
+        <a href="cart">
+            <div class="cart"> </div>
+            <i class="fa-solid fa-cart-shopping"></i> 
+        </a>
         <div class="sign-login">
             <div class="sign"><a href="signup" >
                 <div class="BTsign">สมัครสมาชิก</div>           
@@ -77,16 +80,17 @@ input {
     border-color: black;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
-    margin: 2px;
+    margin-right: 20px;
 }
 
 
 .cart {
     height: 60px;
-    
+    background: #ff9494;
     width: 60px;
     border-radius: 50%;
     margin-right: 20px;
+    
 }
 .sign-login {
     height: 60px;
