@@ -3,9 +3,17 @@
         <button @click="goToIndex">
             <div class="item">หน้าหลัก</div>
         </button>
-        <a id="howtobuy">วิธีซื้อ</a>
-        <a id="topup">เติมเงิน</a>
-        <a id="random">สุ่มรางวัล</a>
+        <button @click="goToHTB">
+            <a id="howtobuy">วิธีซื้อ</a>           
+        </button>
+        <button @click="goToTopup">
+            <a id="topup">เติมเงิน</a>
+                      
+        </button>
+        <button @click="goToRandom">
+            <a id="random">สุ่มรางวัล</a>
+                       
+        </button>
     </div>
 </template>
 <script>
@@ -13,7 +21,16 @@ export default {
   methods: {
     goToIndex() {
       this.$router.push('/');
-    }
+    },
+    goToHTB() {
+      this.$router.push('/howtobuy');
+    },
+    goToTopup() {
+      this.$router.push('/Topup');
+    },
+    goToRandom() {
+      this.$router.push('/random');
+    },
   }
 }
 </script>

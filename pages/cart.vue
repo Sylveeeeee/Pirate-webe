@@ -83,4 +83,7 @@
     margin-top: 50px;
     display: flex;
 }
+body {
+    background: #1d1d1d;
+}
 </style>
