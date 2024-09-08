@@ -1,5 +1,4 @@
 <template>
-    <h1>
-        howtobuy
-    </h1>
+    <navbar/>
+    <navbar2/>
 </template>
