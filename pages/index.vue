@@ -36,10 +36,10 @@
                             </div>
                         </div>
                         <div class="card">
-                            <img src="public/gc.jpg">
+                            <img src="public/wk.jpg">
                             <div class="card-content">
-                                <h3>Grand Chase</h3>
-                                <p>Cheap IDs available</p>
+                                <h3>Wukong</h3>
+                                <p>Available Now!</p>
                                 <a href="" class="btn-buy">BUY NOW</a>
                             </div>
                         </div>
@@ -68,9 +68,9 @@
                             </div>
                         </div>
                         <div class="card">
-                            <img src="public/wk.jpg">
+                            <img src="public/gc.jpg">
                             <div class="card-content">
-                                <h3>Wukong</h3>
+                                <h3>Grand Chase</h3>
                                 <p>Available Now!</p>
                                 <a href="" class="btn-buy">BUY NOW</a>
                             </div>
@@ -114,7 +114,6 @@ a {text-decoration: none;}
 header {
     width: 100vw;
     height: 100vh;
-    
     background-position: bottom;
     background-size: cover;
 }
@@ -133,7 +132,7 @@ header {
 }
 .body {  
     width: 100vw;
-    height: a;
+    height: auto;
     display: flex;
     flex-direction: column;
     background-color: #191919;   
@@ -147,7 +146,7 @@ header {
     
 }
 .footer {
-    height: 100px;
+    height: auto;
     background:#191919;
 }
 .prpanel {
@@ -245,8 +244,8 @@ header {
 }
 
 .card {
-    width: 200px;
-    height: auto;
+    width: 190px;
+    height: 410px;
     background-color: rgb(33, 32, 32);
     border-radius: 8px;
     overflow: hidden;
@@ -265,9 +264,11 @@ header {
 }
 
 .card-content h3 {
-    font-size: 28px;
+    font-size: 25px;
     margin-bottom: 8px;
     color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
 
 }
 
