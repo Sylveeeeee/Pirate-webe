@@ -1,4 +1,4 @@
 <template>
     <navbar/>
-    <navbar2/>
+    <navbar2 />
 </template>

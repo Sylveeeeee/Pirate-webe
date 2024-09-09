@@ -2,11 +2,11 @@
     <div class="nav">
         <div class="logo"> PirateID</div>
         <label for="Search"></label>
-        <input type="Search" id="site-search" name="q" placeholder="SEARCH" />
+        <input type="Search" id="site-search" name="q" placeholder="  SEARCH" />
         <button class="spinbutton">Search</button>
         <a href="cart">
-            <div class="cart"> </div>
-            <i class="fa-solid fa-cart-shopping"></i> 
+            <div class="cart"> 
+            </div>
         </a>
         <div class="sign-login">
             <div class="sign"><a href="signup" >
@@ -21,6 +21,13 @@
     </div>
 </template>
 <style>
+#site-search label {
+    border-radius: 5px;
+    border: solid black;
+}
+#site-search {
+    border-radius: 2px;
+}
 .BTsign {
     color: aliceblue;
 }
@@ -81,6 +88,7 @@ input {
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
     margin-right: 20px;
+    padding-inline: 5px;
 }
 
 
@@ -118,7 +126,8 @@ input {
 .spinbutton:hover {
     background-color: rgba(0, 255, 255, 0.381) ;
     color:aqua;
-    
+    border-radius: 2px;
+
 }
 
 

@@ -1,19 +1,17 @@
 <template>
-    <div class="nav2">
-        <button @click="goToIndex">
-            <div class="item">หน้าหลัก</div>
-        </button>
-        <button @click="goToHTB">
-            <a id="howtobuy">วิธีซื้อ</a>           
-        </button>
-        <button @click="goToTopup">
-            <a id="topup">เติมเงิน</a>
-                      
-        </button>
-        <button @click="goToRandom">
-            <a id="random">สุ่มรางวัล</a>
-                       
-        </button>
+    <div class="nav2 ">
+        <div class="item">
+            <button @click="goToIndex">หน้าหลัก</button>
+        </div>
+        <div class="howtobuy">
+            <button @click="goToHTB"> วิธีซื้อ</button>
+        </div>
+        <div class="topup">
+            <button @click="goToTopup"> เติมเงิน</button>
+        </div>
+        <div class="random">
+            <button @click="goToRandom"> สุ่มรางวัล</button>
+        </div>
     </div>
 </template>
 <script>
@@ -53,7 +51,7 @@ export default {
     padding-inline: 20px;
     
 }
-#howtobuy {
+.howtobuy {
     height: 50px;
     margin: 30px;
     
@@ -61,7 +59,7 @@ export default {
     display: flex;
     padding-inline: 20px;
 }
-#topup {
+.topup {
     height: 50px;
     margin: 30px;
     
@@ -69,7 +67,7 @@ export default {
     display: flex;
     padding-inline: 20px;
 }
-#random {
+.random {
     height: 50px;
     margin: 30px;
     
@@ -89,7 +87,7 @@ export default {
 
 }
 
-#howtobuy:hover {
+.howtobuy:hover {
     background-color: rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
@@ -99,7 +97,7 @@ export default {
 
 }
 
-#topup:hover {
+.topup:hover {
     background-color:  rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
@@ -109,7 +107,7 @@ export default {
 
 }
 
-#random:hover {
+.random:hover {
     background-color: rgba(0, 255, 255, 0.115);
     color:aqua;
     moz-transition: all .4s ease-in-out;
