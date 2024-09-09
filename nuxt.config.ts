@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  
   serverHandlers: [
     { route: '/api/products', handler: '~/server/api/products.ts' }
   ],

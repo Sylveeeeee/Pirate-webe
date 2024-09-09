@@ -109,6 +109,31 @@
     
 </header>
 </template>
+<script>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+export default {
+  setup() {
+    const products = ref([]);
+
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/products'); // URL ของ API ของคุณ
+        products.value = response.data;
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    onMounted(fetchProducts);
+
+    return {
+      products
+    };
+  }
+};
+</script>
 <style>
 a {text-decoration: none;}
 header {
