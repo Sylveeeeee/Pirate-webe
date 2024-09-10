@@ -4,7 +4,12 @@
     <h1>Product List</h1>
     <ul v-if="products.length">
       <li v-for="product in products" :key="product.id">
-        {{ product.name }} - {{ product.price }} THB
+        <img :src="product.image"/>
+        <div class="card-content">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.detail }}</p>
+          <a href="" class="btn-buy">BUY NOW</a></div>
+
       </li>
     </ul>
     <p v-else>No products available</p>

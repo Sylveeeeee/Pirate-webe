@@ -18,90 +18,22 @@
                     <button class="pr6">GTA V</button>
                 </div>
                 <div class="TBpr">
-                    <div class="pr7">
-                        <div class="card">
-                            <img src="public/nrk.jpeg">
+                                          
+                        <ul v-if="products.length" class="pr7"> 
+                        <li v-for="product in products" :key="product.id">                         
+                            <div class="card"> 
+                            <img :src="product.image"/>
                             <div class="card-content">
-                                <h3>Naraka</h3>
-                                <p>Full Red-Star Skin</p>
+                                <h3>{{ product.name }}</h3>
+                                <p>{{ product.detail }}</p>
                                 <a href="" class="btn-buy">BUY NOW</a>
                             </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/dg.jpg">
-                            <div class="card-content">
-                                <h3>Digimon</h3>
-                                <p>Cheap IDs available</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
                             </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/wk.jpg">
-                            <div class="card-content">
-                                <h3>Wukong</h3>
-                                <p>Available Now!</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/apx.jpg">
-                            <div class="card-content">
-                                <h3>APEX</h3>
-                                <p>Full Main Gun Skin</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/gh.jpg">
-                            <div class="card-content">
-                                <h3>Green hell</h3>
-                                <p>Only Green hell</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/r6.jpg">
-                            <div class="card-content">
-                                <h3>Rainbow 6</h3>
-                                <p>Full Gun skins</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/gc.jpg">
-                            <div class="card-content">
-                                <h3>Grand Chase</h3>
-                                <p>Available Now!</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/g4.jpg">
-                            <div class="card-content">
-                                <h3>Gundam 4</h3>
-                                <p>Available Now!</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/dz.jpg">
-                            <div class="card-content">
-                                <h3>DragonBall Z</h3>
-                                <p>Available Now!</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="public/ark.jpg">
-                            <div class="card-content">
-                                <h3>Ark Survival</h3>
-                                <p>Available Now!</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+                        </ul>
                     
-                </div>
+                
+            </div>
             </div>
         </div>
     </div>
@@ -153,7 +85,8 @@ header {
     min-width: 90%;
     width: 100%;
     flex-wrap: wrap;
-    height: auto;   
+    height: auto; 
+      
 }
 .body {  
     width: 100vw;
@@ -263,9 +196,11 @@ header {
     border-color: #323232;
 }
 .pr7 {
+    
     display: flex;
     justify-content: center;
     flex-wrap: wrap; 
+    
 }
 
 .card {
