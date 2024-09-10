@@ -1,27 +1,29 @@
-<<template>
-    <navbar/>
-    <navbar2/>
-    <div class="CA">
-        <div class="cartTB">
-            <a id="CTT">
-                CART
-            </a>
-            <div class="TBP_F">
-                <div class="TBP">
-                    <div class="TL">รายการ</div>
-                    <div class="PPP">
-                        <a id="P1">สินค้า</a>
-                        <a id="P2">ราคา</a>
-                        <a id="P3">จำนวน</a>
+<template>
+    <div>
+        <navbar/>
+        <navbar2/>
+        <div class="CA">
+            <div class="cartTB">
+                <a id="CTT">
+                    CART
+                </a>
+                <div class="TBP_F">
+                    <div class="TBP">
+                        <div class="TL">รายการ</div>
+                        <div class="PPP">
+                            <a id="P1">สินค้า</a>
+                            <a id="P2">ราคา</a>
+                            <a id="P3">จำนวน</a>
+                        </div>
                     </div>
-                </div>
-                <div class="PAY">
-                    <div class="CRP">เลือกช่องทางชำระเงิน</div>
+                    <div class="PAY">
+                        <div class="CRP">เลือกช่องทางชำระเงิน</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</template>>
+</template>
 <style>
 .CRP {
     color: aqua;

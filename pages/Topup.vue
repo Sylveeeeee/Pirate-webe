@@ -1,5 +1,8 @@
 <template>
-    <navbar/>
-    <navbar2/>
-    <producstlist/>
+    <div>
+
+        <navbar/>
+        <navbar2/>
+        
+    </div>
 </template>

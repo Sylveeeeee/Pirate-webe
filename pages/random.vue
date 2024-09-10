@@ -1,6 +1,9 @@
 <template>
-    <navbar/>
-    <navbar2/>
+    <div>
 
-    <h1>random</h1>
+        <navbar/>
+        <navbar2/>
+    
+        <h1>random</h1>
+    </div>
 </template>

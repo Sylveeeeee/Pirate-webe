@@ -26,7 +26,7 @@
                             <div class="card-content">
                                 <h3>{{ product.name }}</h3>
                                 <p>{{ product.detail }}</p>
-                                <a href="" class="btn-buy">BUY NOW</a>
+                                <routerLink :to="`/productdetail/${product.id}`" class="btn-buy">BUY NOW</routerLink>
                             </div>
                             </div>
                         </li>

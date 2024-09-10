@@ -1,4 +1,7 @@
 <template>
-    <navbar/>
-    <navbar2 />
+    <div>
+
+        <navbar/>
+        <navbar2 />
+    </div>
 </template>
