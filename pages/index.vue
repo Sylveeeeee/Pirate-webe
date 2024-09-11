@@ -26,7 +26,7 @@
                             <div class="card-content">
                                 <h3>{{ product.name }}</h3>
                                 <p>{{ product.detail }}</p>
-                                <routerLink :to="`/productdetail/${product.id}`" class="btn-buy">BUY NOW</routerLink>
+                                <NuxtLink :to="`/products/${product.id}`" class="btn-buy">BUY NOW</NuxtLink>
                             </div>
                             </div>
                         </li>
