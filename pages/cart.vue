@@ -15,6 +15,14 @@
                             <a id="P2">ราคา</a>
                             <a id="P3">จำนวน</a>
                         </div>
+                        <div class="flex border-b-2 ">
+                            <div class="w-[150px] h-[200px] ml-[40px] my-[30px] overflow-hidden  items-center flex content-center bg-gray-600 ">
+                                <img src="public\apx.jpg"/>
+                            </div>
+                            <div class="flex flex-col ml-[30px]  my-[25px] ">
+                                <div class="text-[#ffff] text-[20px]">Apex</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="PAY">
                         <div class="CRP">เลือกช่องทางชำระเงิน</div>
