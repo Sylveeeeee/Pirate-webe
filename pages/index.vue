@@ -1,71 +1,64 @@
 <template>
-    
-<header>
+  <header>
     <navbar/>
     <navbar2/>
     <div class="body">
-        <div class="TBadvert">
-            <advert />  
-        </div>
-        <div class="body2">
-            <div class="prpanel">
-                <div class="pr">
-                    <button class="pr1">NARAKA</button>
-                    <button class="pr2">PUBG</button>
-                    <button class="pr3">APEX LEGEND</button>
-                    <button class="pr4">ELDEN RING</button>
-                    <button class="pr5">FORZA</button>
-                    <button class="pr6">GTA V</button>
+      <div class="TBadvert">
+        <advert />  
+      </div>
+      <div class="body2">
+        <div class="prpanel">
+          <div class="pr">
+            <button class="pr1">NARAKA</button>
+            <button class="pr2">PUBG</button>
+            <button class="pr3">APEX LEGEND</button>
+            <button class="pr4">ELDEN RING</button>
+            <button class="pr5">FORZA</button>
+            <button class="pr6">GTA V</button>
+          </div>
+          <div class="TBpr">
+            <ul v-if="products.length" class="pr7"> 
+              <li v-for="product in products" :key="product.id">                         
+                <div class="card"> 
+                  <img :src="product.image" alt="Product Image"/>
+                  <div class="card-content">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.detail }}</p>
+                    <NuxtLink :to="`/products/${product.id}`" class="btn-buy">BUY NOW</NuxtLink>
+                  </div>
                 </div>
-                <div class="TBpr">
-                                          
-                        <ul v-if="products.length" class="pr7"> 
-                        <li v-for="product in products" :key="product.id">                         
-                            <div class="card"> 
-                            <img :src="product.image"/>
-                            <div class="card-content">
-                                <h3>{{ product.name }}</h3>
-                                <p>{{ product.detail }}</p>
-                                <NuxtLink :to="`/products/${product.id}`" class="btn-buy">BUY NOW</NuxtLink>
-                            </div>
-                            </div>
-                        </li>
-                        </ul>
-                    
-                
-            </div>
-            </div>
+              </li>
+            </ul>
+            <p v-else>Loading products...</p>
+          </div>
         </div>
+      </div>
     </div>
-    <footer><div class="footer"></div></footer>
-    
-</header>
+    <footer>
+      <div class="footer"></div>
+    </footer>
+  </header>
 </template>
-<script>
+
+<script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default {
-  setup() {
-    const products = ref([]);
+const products = ref([]);
 
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/products'); // URL ของ API ของคุณ
-        products.value = response.data;
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    onMounted(fetchProducts);
-
-    return {
-      products
-    };
+const fetchProducts = async () => {
+  try {
+    const response = await axios.get('/api/products'); // URL ของ API ที่คุณตั้งค่าไว้
+    products.value = response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
   }
 };
+
+onMounted(fetchProducts);
 </script>
+
+
 <style>
 a {text-decoration: none;}
 header {
