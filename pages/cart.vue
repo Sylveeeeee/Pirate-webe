@@ -1,37 +1,75 @@
 <template>
-    <div>
-        <navbar/>
-        <navbar2/>
-        <div class="CA">
-            <div class="cartTB">
-                <a id="CTT">
-                    CART
-                </a>
-                <div class="TBP_F">
-                    <div class="TBP">
-                        <div class="TL">รายการ</div>
-                        <div class="PPP">
-                            <a id="P1">สินค้า</a>
-                            <a id="P2">ราคา</a>
-                            <a id="P3">จำนวน</a>
-                        </div>
-                        <div class="flex border-b-2 ">
-                            <div class="w-[150px] h-[200px] ml-[40px] my-[30px] overflow-hidden  items-center flex content-center bg-gray-600 ">
-                                <img src="public\apx.jpg"/>
-                            </div>
-                            <div class="flex flex-col ml-[30px]  my-[25px] ">
-                                <div class="text-[#ffff] text-[20px]">Apex</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="PAY">
-                        <div class="CRP">เลือกช่องทางชำระเงิน</div>
-                    </div>
-                </div>
+  <div>
+    <navbar />
+    <navbar2 />
+    <div class="CA">
+      <div class="cartTB">
+        <a id="CTT">
+          CART
+        </a>
+        <div class="TBP_F">
+          <div class="TBP">
+            <div class="TL ">รายการ</div>
+            <div class="PPP flex items-center">
+              <a class="text-[#ffff] text-[30px] w-[380px] h-[40px] flex items-center bg-[#ff505000]">สินค้า</a>
+              <a class="text-[#ffff] text-[30px] w-[200px] h-[40px] flex items-center justify-center bg-[#ffabab00]">ราคา</a>
+              <a class="text-[#ffff] text-[30px] w-[200px] h-[40px] flex items-center justify-center bg-[#ff505000]">จำนวน</a>
             </div>
+            
+            <!-- แสดงรายการสินค้าในตะกร้า -->
+            <div v-for="item in cartItems" :key="item.id" class="flex border-b-2">
+              <div class="flex w-[390px] bg-[#ff505000]">
+                <div class="w-[150px] h-[200px] ml-[40px] my-[30px] overflow-hidden items-center flex content-center">
+                  <img :src="item.image" />
+                </div>
+                <div class="flex flex-col pl-[30px] py-[25px] w-[173px]">
+                  <div class="text-[#ffff] text-[20px]">{{ item.name }}</div>
+                  <div class="text-[16px] text-wrap w-[150px] text-[#ffffff81] my-[10px]">{{ item.description }}</div>
+                </div>
+              </div>
+              <div class="items-center justify-center text-[#ffff] text-[30px] w-[200px] flex bg-[#ffabab00]">฿ {{ item.price }}</div>
+              <div class="items-center content-center text-[#ffff] text-[30px] w-[200px] bg-[#ff505000]">
+                <div class="w-[180px] h-[100px] flex items-center justify-center">
+                  <button @click="decreaseQuantity(item.id)" class="text-[30px] shadow-md bg-[#ffffff10] px-[10px] rounded-[3px] w-[35px] h-[40px] mr-[10px] flex items-center justify-center">-</button>
+                  <button class="text-[25px] border-2 bg-[#ffffff00] px-[20px] rounded-[3px] mr-[10px] w-[35px] h-[40px] justify-center flex">{{ item.quantity }}</button>
+                  <button @click="increaseQuantity(item.id)" class="text-[30px] shadow-md bg-[#ffffff10] px-[10px] rounded-[3px] w-[35px] h-[40px] flex items-center justify-center">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- กรณีไม่มีสินค้าในตะกร้า -->
+            <div v-if="cartItems.length === 0" class="PPP">
+              <a class="text-[#ffff]">ไม่มีสินค้าในตะกร้า</a>
+            </div>
+          </div>
+
+          <!-- การชำระเงิน -->
+          <div class="PAY">
+            <div class="CRP">เลือกช่องทางชำระเงิน</div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
+
+<script setup>
+import { useCartStore } from '~/stores/cartStore';
+const cartStore = useCartStore();
+const cartItems = cartStore.cartItems;
+
+const increaseQuantity = (id) => {
+  const item = cartStore.cartItems.find(item => item.id === id);
+  if (item) {
+    cartStore.addToCart(item);
+  }
+};
+
+const decreaseQuantity = (id) => {
+  cartStore.removeFromCart(id);
+};
+</script>
+
 <style>
 .CRP {
     color: aqua;
@@ -42,20 +80,6 @@
     background: #444444;
     padding: 20px;
 }
-#P3 {
-    font-size: 20px;
-    color: #ffffff;
-}
-#P2 {
-    font-size: 20px;
-    margin-right: 150px;
-    color: #ffffff;
-}
-#P1 {
-    font-size: 20px;
-    margin-right: 400px;
-    color: #ffffff;
-}
 .PPP {
     margin-top: 20px;
     border-bottom: #b1b1b1 solid 2px;
@@ -65,7 +89,7 @@
 .TL {
     padding-inline: 40px;
     color: aqua;
-    font-size: 30px;
+    font-size: 35px;
     
 }
 .TBP {

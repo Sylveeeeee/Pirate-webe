@@ -41,7 +41,7 @@
               <a class="text-[25px] text-[#ffffff98]">
                 {{ product.price || 'ราคา' }}
               </a>
-              <button class="border-2 p-[10px] mt-[10px] px-20 rounded-[5px] text-[#ffffff98]">เพิ่มลงตะกร้า</button>
+              <button @click="addToCart" class="border-2 p-[10px] mt-[10px] px-20 rounded-[5px] text-[#ffffff98]">เพิ่มลงตะกร้า</button>
             </div>
           </div>
         </div>
@@ -57,10 +57,13 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
+import { useCartStore } from '../stores/cartStore';
 
 const product = ref({});
 const route = useRoute();
 const apiUrl = import.meta.env.VITE_API;
+
+const cartStore = useCartStore();
 
 const fetchProductDetail = async () => {
   try {
@@ -69,6 +72,14 @@ const fetchProductDetail = async () => {
     product.value = response.data;
   } catch (error) {
     console.error('Error fetching product details:', error);
+  }
+};
+
+const addToCart = () => {
+  try {
+    cartStore.addProduct(product.value.id); // เพิ่มสินค้าในตะกร้า
+  } catch (error) {
+    console.error('Error adding to cart:', error);
   }
 };
 
