@@ -14,9 +14,9 @@ export default {
     return {
       currentIndex: 0,
       images: [
-        '/forza.jpg',
-        'https://via.placeholder.com/600x300?text=Image+2',
-        'https://via.placeholder.com/600x300?text=Image+3'
+        '/naraka2.jpg',
+        '/wukong.jpg',
+        '/cod2.jpg'
       ]
     };
   },
@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted() {
-    setInterval(this.nextImage, 3000); // Change image every 3 seconds
+    setInterval(this.nextImage, 5000); // Change image every 5 seconds
   }
 };
 </script>
@@ -44,6 +44,7 @@ export default {
 .slider-images img {
   width: 100%;
   display: block;
+  height: 600px;
 }
 
 button {

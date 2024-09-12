@@ -6,8 +6,8 @@ export default defineEventHandler(async (event) => {
   
   // ข้อมูลสินค้า
   const products = [
-    { id: 1, name: 'Naraka', price: 100, image: '/naraka2.jpg', image2: '/nrk.jpg', image3: '/nrk.jpg',detail: 'Full Red-Star Skin' },
-    { id: 2, name: 'Digimon', price: 200, image: '/dg.jpg', image2: '/nrk.jpg', image3: '/nrk.jpg',detail: 'Full Red-Star Skin' },
+    { id: 1, name: 'Naraka', price: 4900, image: '/naraka2.jpg', image2: '/dnrk.jpg', image3: '/dnrk2.jpg',detail: 'Full Red-Star Skin' },
+    { id: 2, name: 'Digimon', price: 200, image: '/dddm.jpg', image2: '/nrk.jpg', image3: '/nrk.jpg',detail: 'Full Red-Star Skin' },
     { id: 3, name: 'Wukong', price: 300, image: '/wk.jpg', image2: '/nrk.jpg', image3: '/nrk.jpg',detail: 'Full Red-Star Skin' },
     { id: 4, name: 'APEX', price: 300, image: '/apx.jpg', image2: '/nrk.jpg', image3: '/nrk.jpg',detail: 'Full Red-Star Skin' },
     { id: 5, name: 'Green hell', price: 300, image: '/gh.jpg', image2: '/nrk.jpg', image3: '/nrk.jpg',detail: 'Full Red-Star Skin' },
