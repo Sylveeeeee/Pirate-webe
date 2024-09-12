@@ -11,10 +11,10 @@
           </div>
           <div class="tbimg2 w-[750px] mt-[20px] flex">
             <div class="w-[375px] h-[210px] overflow-hidden mr-[20px]">
-              <img v-if="product.image2" :src="product.image" />
+              <img v-if="product.image" :src="product.image2" />
             </div>
             <div class="w-[375px] h-[210px] overflow-hidden">
-              <img v-if="product.image3" :src="product.image" />
+              <img v-if="product.image" :src="product.image3" />
             </div>
           </div>
           <div class="w-[98.4%] mt-[20px]">
