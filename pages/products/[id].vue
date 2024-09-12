@@ -4,8 +4,8 @@
     <navbar2 />
     <title>{{ product?.name || 'Product Details' }}</title>
     <div v-if="Object.keys(product).length" class="flex justify-center">
-      <div class="TBDT">
-        <div class="DT w-[70%] flex">
+      <div class="w-[1200px] flex">
+        <div class="DT w-[800px] flex bg-[#f3474700]">
           <div class="tbimg1 w-[750px] h-[auto] overflow-hidden">
             <img v-if="product.image" :src="product.image" />
           </div>
@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="DT w-[30%]">
+        <div class="DT w-[400px] bg-[#ffb1b100]">
           <div class="flex w-[100%] flex-col justify-center">
             <div class="">
               <img v-if="product.image" class="w-[1000px]" :src="product.image" />
