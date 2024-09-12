@@ -14,7 +14,7 @@ export default {
     return {
       currentIndex: 0,
       images: [
-        'https://via.placeholder.com/600x300?text=+1',
+        '/forza.jpg',
         'https://via.placeholder.com/600x300?text=Image+2',
         'https://via.placeholder.com/600x300?text=Image+3'
       ]
