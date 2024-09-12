@@ -3,8 +3,8 @@
     <div class="slider-images">
       <img :src="images[currentIndex]" alt="Slider Image" />
     </div>
-    <button @click="prevImage">PREV</button>
-    <button @click="nextImage">NEXT</button>
+    <button @click="prevImage"><</button>
+    <button @click="nextImage">></button>
   </div>
 </template>
 
@@ -56,6 +56,7 @@ button {
   border-radius: 100%;
   padding: 10px;
   cursor: pointer;
+  margin: 10px;
 }
 
 button:nth-of-type(1) {
