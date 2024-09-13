@@ -4,19 +4,16 @@
         <label for="Search"></label>
         <input type="Search" id="site-search" name="q" placeholder="  SEARCH" />
         <button class="spinbutton">Search</button>
-        <a href="cart">
-            <div class="cart"> 
-            </div>
-        </a>
+        <router-link to="/cart">
+            <div class="cart"></div>
+        </router-link>
         <div class="sign-login">
-            <div class="sign"><a href="signup" >
-                <div class="BTsign">สมัครสมาชิก</div>           
-            </a></div>
-            <div class="login"> <a href="login" >
-                <div class="BTlogin">เข้าสู๋ระบบ
-                </div>
-                
-            </a></div>
+            <router-link to="/signup" class="sign">
+                <div class="BTsign">สมัครสมาชิก</div>
+            </router-link>
+            <router-link to="/login" class="login">
+                <div class="BTlogin">เข้าสู่ระบบ</div>
+            </router-link>
         </div>
     </div>
 </template>

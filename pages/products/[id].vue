@@ -50,20 +50,25 @@
     <div v-else class="flex content-center text-[#ffffff98]">
       <p>Loading product details...</p>
     </div>
+
+    <!-- Confirmation Dialog -->
+    <ConfirmationDialog :isVisible="showDialog" @close="handleDialogClose" />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from '#app';
 import axios from 'axios';
-import { useCartStore } from '../stores/cartStore';
+import { useCartStore } from '~/stores/cartStore';
+import ConfirmationDialog from '~/components/ConfirmationDialog.vue';
 
 const product = ref({});
 const route = useRoute();
+const router = useRouter();
 const apiUrl = import.meta.env.VITE_API;
-
 const cartStore = useCartStore();
+const showDialog = ref(false);
 
 const fetchProductDetail = async () => {
   try {
@@ -77,18 +82,24 @@ const fetchProductDetail = async () => {
 
 const addToCart = () => {
   try {
-    cartStore.addProduct(product.value.id); // เพิ่มสินค้าในตะกร้า
+    cartStore.addToCart(product.value); // Add product to cart
+    showDialog.value = true; // Show confirmation dialog
   } catch (error) {
     console.error('Error adding to cart:', error);
+  }
+};
+
+const handleDialogClose = (navigateToCart) => {
+  showDialog.value = false;
+  if (navigateToCart) {
+    router.push('/cart'); // Redirect to cart if user chooses to go there
   }
 };
 
 onMounted(fetchProductDetail);
 </script>
 
-
-  
-  <style>
+<style>
   .DT {
     display: flex;
     flex-direction: column;

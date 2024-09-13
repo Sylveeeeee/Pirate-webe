@@ -31,7 +31,7 @@
     "pinia": "^2.2.2",
     "prisma": "^5.19.1",
     "vue": "latest",
-    "vue-router": "^4.4.3"
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@iconify-json/fa-solid": "^1.1.9",
