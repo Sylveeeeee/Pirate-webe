@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@iconify-json/fa-solid": "^1.1.9",
+    "@iconify-json/gg": "^1.2.0",
     "@nuxt/icon": "^1.4.5",
     "autoprefixer": "^10.4.20",
     "nuxt-icon": "^1.0.0-beta.7",

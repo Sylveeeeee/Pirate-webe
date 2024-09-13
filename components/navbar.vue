@@ -5,7 +5,7 @@
         <input type="Search" id="site-search" name="q" placeholder="  SEARCH" />
         <button class="spinbutton">Search</button>
         <router-link to="/cart">
-            <div class="cart"></div>
+            <div class="bg-[#ffbaba00] px-[10px] flex content-center justify-center"><cart-icon /></div>
         </router-link>
         <div class="sign-login">
             <router-link to="/signup" class="sign">
@@ -17,6 +17,9 @@
         </div>
     </div>
 </template>
+<script setup>
+import CartIcon from '~/components/CartIcon.vue';
+</script>
 <style>
 #site-search label {
     border-radius: 5px;
@@ -88,15 +91,6 @@ input {
     padding-inline: 5px;
 }
 
-
-.cart {
-    height: 60px;
-    background: #ff9494;
-    width: 60px;
-    border-radius: 50%;
-    margin-right: 20px;
-    
-}
 .sign-login {
     height: 60px;
     width: auto;

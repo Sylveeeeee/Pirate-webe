@@ -1,9 +1,9 @@
 <template>
-    <div v-if="isVisible" class="dialog-overlay" @click="continueShopping">
-      <div class="dialog-content">
-        <p>เพิ่มสินค้าลงตะกร้าสำเร็จ</p>
-        <button @click="goToCart">Go to Cart</button>
-        <button @click="continueShopping">Continue Shopping</button>
+    <div v-if="isVisible" class="dialog-overlay">
+      <div class="text-center bg-[#ffff] rounded-[8px] px-[90px] py-[30px]">
+        <p class="text-[#00ff00] text-[30px] mb-[20px]">สำเร็จ</p>
+        <p class="mb-[20px] font-[300] ">เพิ่มสินค้าไปยังรถเข็นแล้ว</p>
+        <button @click="continueShopping" class="py-2 px-20 rounded bg-[#00000051] text-[20px]">ปิด</button>
       </div>
     </div>
   </template>
@@ -38,11 +38,6 @@
     align-items: center;
     justify-content: center;
   }
-  .dialog-content {
-    background: #1d1d1d;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-  }
+
   </style>
   

@@ -15,14 +15,14 @@
             </div>
 
             <!-- Display cart items -->
-            <div v-for="item in cartItems" :key="item.id" class="flex border-b-2">
+            <div v-for="item in cartItems" :key="item.id" class="flex border-b-[1px]">
               <div class="flex w-[390px] bg-[#ff505000]">
-                <div class="w-[150px] h-[200px] ml-[40px] my-[30px] overflow-hidden items-center flex content-center">
-                  <img :src="item.image" />
+                <div class="w-[150px] h-[160px] ml-[40px] my-[30px] rounded-[4px] overflow-hidden items-center flex content-center bg-[#ffff]">
+                  <img :src="item.imageC" />
                 </div>
                 <div class="flex flex-col pl-[30px] py-[25px] w-[173px]">
                   <div class="text-[#ffff] text-[20px]">{{ item.name }}</div>
-                  <div class="text-[16px] text-wrap w-[150px] text-[#ffffff81] my-[10px]">{{ item.description }}</div>
+                  <div class="text-[16px] text-wrap w-[150px]  text-[#ffffff81] my-[10px] h-[130px] overflow-hidden p-[px] bg-[#00000000]">{{ item.detail }}</div>
                 </div>
               </div>
               <div class="items-center justify-center text-[#ffff] text-[30px] w-[200px] flex bg-[#ffabab00]">฿ {{ item.price }}</div>
@@ -87,7 +87,7 @@ const decreaseQuantity = (id) => {
 }
 .PPP {
     margin-top: 20px;
-    border-bottom: #b1b1b1 solid 2px;
+    border-bottom: #b1b1b1 solid 1px;
     padding-inline: 40px;
     padding-bottom: 10px;
 }

@@ -238,7 +238,7 @@ header {
     text-decoration: none;
     border-radius: 4px;
     margin-top: 16px;
-    color: aqua;
+    color: #00ffff;
     border: 1px solid;
     border-color: aqua;
     color: white;

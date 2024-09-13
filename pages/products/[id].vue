@@ -4,44 +4,44 @@
     <navbar2 />
     <title>{{ product?.name || 'Product Details' }}</title>
     <div v-if="Object.keys(product).length" class="flex justify-center">
-      <div class="w-[1200px] flex">
-        <div class="DT w-[800px] flex bg-[#f3474700]">
-          <div class="tbimg1 w-[750px] h-[auto] overflow-hidden">
+      <div class="w-[1200px] flex bg-[#ffffff10]">
+        <div class="DT w-[800px] flex bg-[#f3474700] ">
+          <div class="tbimg1 w-[750px] h-[auto] overflow-hidden rounded-[10px]">
             <img v-if="product.image" :src="product.image" />
           </div>
           <div class="tbimg2 w-[750px] mt-[20px] flex">
-            <div class="w-[375px] h-[210px] overflow-hidden mr-[20px]">
+            <div class="w-[375px] h-[210px] overflow-hidden mr-[20px] rounded-[10px]">
               <img v-if="product.image" :src="product.image2" />
             </div>
-            <div class="w-[375px] h-[210px] overflow-hidden">
+            <div class="w-[375px] h-[210px] overflow-hidden rounded-[10px]">
               <img v-if="product.image" :src="product.image3" />
             </div>
           </div>
           <div class="w-[98.4%] mt-[20px]">
-            <div class="DTPD flex border-b-2 border-[#ffffff81] text-[#ffff]">
+            <div class="DTPD flex border-b-2 border-[#ffffff81] text-[#ffff] pb-2 text-[20px]">
               รายละเอียดสินค้า
             </div>
-            <div class="bg-transparent px-2 text-[#ffffff98]">
+            <div class="bg-transparent px-2 text-[#ffffff98] py-3">
               {{ product.detail || 'รายละเอียดยังไม่มี' }}
             </div>
           </div>
         </div>
         <div class="DT w-[400px] bg-[#ffb1b100]">
-          <div class="flex w-[100%] flex-col justify-center">
-            <div class="">
-              <img v-if="product.image" class="w-[1000px]" :src="product.image" />
-              <div class="bg-transparent px-2 border-b-2 border-[#ffffff81] text-[#ffffff98]">
+          <div class="flex w-[100%] flex-col justify-center ">
+            <div class="h-[495px]">
+              <img v-if="product.image" class="w-[1000px] mb-4 rounded-[10px]" :src="product.image" />
+              <div class="bg-transparent px-2 border-b-2 border-[#ffffff81] text-[#ffffff98] pb-2">
                 {{ product.detail || 'รายละเอียดยังไม่มี' }}
               </div>
             </div>
-            <div class="TBpay mt-[10px] flex flex-col items-center">
-              <a class="text-[30px] text-[#ffffff98]">
+            <div class="TBpay mt-[10px] flex flex-col items-center bg-[#ffa3a300] ">
+              <a class="text-[30px] text-[#ffffff]">
                 {{ product.name || 'ชื่อสินค้า' }}
               </a>
-              <a class="text-[25px] text-[#ffffff98]">
+              <a class="text-[25px] text-[#ffffff]">
                 {{ product.price || 'ราคา' }}
               </a>
-              <button @click="addToCart" class="border-2 p-[10px] mt-[10px] px-20 rounded-[5px] text-[#ffffff98]">เพิ่มลงตะกร้า</button>
+              <button @click="addToCart" class=" border-2 border-[#00ffff] p-[10px] mt-[10px] px-20 rounded-[5px] text-[#ffffff] hover:text-[#000000] hover:bg-[#00ffff] ">เพิ่มลงตะกร้า</button>
             </div>
           </div>
         </div>
