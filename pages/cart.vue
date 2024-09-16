@@ -37,7 +37,7 @@
 
             <!-- No items in cart -->
             <div v-if="cartItems.length === 0" class="PPP">
-              <a class="text-[#ffff]">ไม่มีสินค้าในตะกร้า</a>
+              <a class="text-[#ffff] flex items-center justify-center bg-[#ffa9a900] text-[50px]">ไม่มีสินค้าในตะกร้า</a>
             </div>
           </div>
 

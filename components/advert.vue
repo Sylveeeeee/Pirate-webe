@@ -3,8 +3,8 @@
     <div class="slider-images">
       <img :src="images[currentIndex]" alt="Slider Image" />
     </div>
-    <button @click="prevImage"></button>
-    <button @click="nextImage">></button>
+    <button class="" @click="prevImage"> < </button>
+    <button class="" @click="nextImage"> > </button>
   </div>
 </template>
 
