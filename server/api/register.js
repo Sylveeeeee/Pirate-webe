@@ -1,27 +1,15 @@
-import pool from '../db'; // นำเข้า pool จากไฟล์ db.js
+const pool = require('../db/database');  // เปลี่ยนเส้นทางให้เหมาะสมกับโครงสร้างโปรเจ็กต์ของคุณ
 
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  const { email, password } = body;
-
-  console.log('Received data:', { email, password });
-
-  if (!email || !password) {
-    return { statusCode: 400, body: { error: 'Email and password are required' } };
-  }
+const registerUser = async (req, res) => {
+  const { email, password } = req.body;
 
   try {
-    // Hash password (optional but recommended for security)
-    // const hashedPassword = await bcrypt.hash(password, 10);
-
-    const [result] = await pool.query(
-      'INSERT INTO users (email, password) VALUES (?, ?)',
-      [email, password] // ใช้ hashedPassword แทน password หากทำการเข้ารหัส
-    );
-
-    return { message: 'User registered successfully', userId: result.insertId };
+    const [results] = await pool.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
+    res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     console.error('Error registering user:', error);
-    return { statusCode: 500, body: { error: 'Error registering user' } };
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+};
+
+module.exports = { registerUser };

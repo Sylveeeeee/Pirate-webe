@@ -9,7 +9,7 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input v-model="password" type="password" id="password" placeholder="PASSWORD" />
+          <input v-model="password" :type="passwordInputType" id="password" placeholder="PASSWORD" ref="passwordInput" />
           <i class="fa fa-eye" aria-hidden="true" @click="togglePasswordVisibility"></i>
         </div>
         <button class="btn btn-primary" @click="login">LOG IN</button>
@@ -39,9 +39,15 @@ import { useRouter } from 'vue-router'
 
 const username = ref('')
 const password = ref('')
+const passwordInputType = ref('password')
 const router = useRouter()
 
 const login = async () => {
+  if (!username.value || !password.value) {
+    alert('Please fill in both fields.')
+    return
+  }
+
   try {
     const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
@@ -64,8 +70,7 @@ const login = async () => {
 }
 
 const togglePasswordVisibility = () => {
-  const passwordInput = document.getElementById('password')
-  passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password'
+  passwordInputType.value = passwordInputType.value === 'password' ? 'text' : 'password'
 }
 </script>
 

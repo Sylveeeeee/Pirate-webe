@@ -14,4 +14,6 @@ export default defineNuxtConfig({
     preset: 'node',
   },
   compatibilityDate: '2024-08-19',
+  
 });
+

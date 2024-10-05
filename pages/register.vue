@@ -1,29 +1,29 @@
 <template>
-    <div class="BG">
-        <div class="rgP"> 
-            <div class="text-4xl mb-50px">REGISTER</div>
-            <form @submit.prevent="register">
-                <div class="input-group">
-                    <input v-model="email" type="email" required>
-                    <label for="">E-mail</label>
-                </div>
-                <div class="input-group">
-                    <input v-model="password" type="password" required>
-                    <label for="">Password</label>
-                </div>
-                <div class="input-group">
-                    <input v-model="confirmPassword" type="password" required>
-                    <label for="">Confirm Password</label>
-                </div>
-                <div class="CoN">
-                    <a href="signup">
-                        <div class="BTC">CANCEL</div>
-                    </a>
-                    <button type="submit" class="BTN">NEXT</button>
-                </div>
-            </form>
+  <div class="BG">
+    <div class="rgP"> 
+      <div class="text-4xl mb-50px">REGISTER</div>
+      <form @submit.prevent="register">
+        <div class="input-group">
+          <input v-model="email" type="email" required />
+          <label>E-mail</label>
         </div>
+        <div class="input-group">
+          <input v-model="password" type="password" required />
+          <label>Password</label>
+        </div>
+        <div class="input-group">
+          <input v-model="confirmPassword" type="password" required />
+          <label>Confirm Password</label>
+        </div>
+        <div class="CoN">
+          <router-link to="/signup">
+            <div class="BTC">CANCEL</div>
+          </router-link>
+          <button type="submit" class="BTN">NEXT</button>
+        </div>
+      </form>
     </div>
+  </div>
 </template>
 
 <script setup>
@@ -36,38 +36,31 @@ const confirmPassword = ref('')
 const router = useRouter()
 
 const register = async () => {
-  // ตรวจสอบว่ารหัสผ่านและการยืนยันรหัสผ่านตรงกัน
   if (password.value !== confirmPassword.value) {
     alert('Passwords do not match');
     return;
   }
 
   try {
-    // ส่งคำร้องไปยัง API ของเซิร์ฟเวอร์เพื่อทำการลงทะเบียน
-    const response = await fetch('/api/register', {
-      method: 'POST',  // ส่งข้อมูลด้วยวิธี POST
-      headers: { 'Content-Type': 'application/json' },  // กำหนดรูปแบบของข้อมูลที่ส่งเป็น JSON
-      body: JSON.stringify({ email: email.value, password: password.value })  // ส่งข้อมูล email และ password
+    const response = await fetch('http://localhost:3000/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.value, password: password.value })
     });
 
-    // แปลงคำตอบที่ได้จากเซิร์ฟเวอร์เป็น JSON
     const result = await response.json();
 
-    // ตรวจสอบว่าการลงทะเบียนสำเร็จหรือไม่
     if (response.ok) {
       alert('Registration successful');
-      router.push('/login');  // หากสำเร็จจะนำผู้ใช้ไปยังหน้า login
+      router.push('/login');
     } else {
-      // แสดงข้อความผิดพลาดหากการลงทะเบียนล้มเหลว
       alert(result.error || 'Registration failed');
     }
   } catch (error) {
-    // จัดการข้อผิดพลาดกรณีที่ไม่สามารถติดต่อเซิร์ฟเวอร์ได้
     console.error('Registration failed:', error);
     alert('Something went wrong, please try again later.');
   }
 };
-
 </script>
 
 <style>
