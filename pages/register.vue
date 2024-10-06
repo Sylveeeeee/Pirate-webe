@@ -1,64 +1,79 @@
 <template>
   <div class="BG">
     <div class="rgP"> 
-      <div class="text-4xl mb-50px">REGISTER</div>
-      <form @submit.prevent="register">
-        <div class="input-group">
-          <input v-model="email" type="email" required />
-          <label>E-mail</label>
-        </div>
-        <div class="input-group">
-          <input v-model="password" type="password" required />
-          <label>Password</label>
-        </div>
-        <div class="input-group">
-          <input v-model="confirmPassword" type="password" required />
-          <label>Confirm Password</label>
-        </div>
-        <div class="CoN">
-          <router-link to="/signup">
-            <div class="BTC">CANCEL</div>
-          </router-link>
-          <button type="submit" class="BTN">NEXT</button>
-        </div>
-      </form>
+      <div class="text-5xl  text-[#fffd]  mb-[30px] bg-[#f000]">REGISTER</div>
+      <div class=" h-[40px] bg-[#ff848400] w-[500px] text-[16px] overflow-hidden rounded-[5px] mt-[5px]">
+              <div v-if="error" class="error bg-[#ff0000] text-[#fff] h-[40px] flex items-center pl-[10px] ">
+                <div class="mr-[10px]  flex items-center">
+                  <Icon  class="text-[25px]" name="material-symbols:error-circle-rounded-outline-sharp" />
+                </div>
+                {{ error }}
+              </div>
+              <div v-if="message" class="message error bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px]">{{ message }}</div>
+            </div>
+      <div class="bg-[#ffffff00] ">
+        <form @submit.prevent="register">
+          <div class="input-group">
+            <input v-model="email" type="email" required />
+            <label>E-mail</label>
+          </div>
+          <div class="input-group">
+            <input v-model="password" type="password" required />
+            <label>Password</label>
+          </div>
+          <div class="input-group">
+            <input v-model="confirmPassword" type="password" required />
+            <label>Confirm Password</label>
+          </div>
+          <div class="CoN">
+            <router-link to="/signup">
+              <div class="BTC">CANCEL</div>
+            </router-link>
+            <button type="submit" class="BTN">NEXT</button>
+          </div>            
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const router = useRouter()
+const email = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+const router = useRouter();
+const error = ref(null);
+const message = ref(null);
 
 const register = async () => {
-  if (password.value !== confirmPassword.value) {
-    alert('Passwords do not match');
-    return;
-  }
-
   try {
-    const response = await fetch('http://localhost:3000/api/register', {
+    // ส่งข้อมูลลงทะเบียนไปที่ API
+    const response = await $fetch('/api/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value, password: password.value })
+      body: {
+        email: email.value,
+        password: password.value,
+        confirmPassword: confirmPassword.value,
+      },
     });
 
-    const result = await response.json();
-
-    if (response.ok) {
-      alert('Registration successful');
-      router.push('/login');
+    // ตรวจสอบผลลัพธ์จาก API
+    if (response.error) {
+      error.value = response.error;
     } else {
-      alert(result.error || 'Registration failed');
+      // แสดงข้อความสำเร็จ
+      message.value = 'Registration successful! Redirecting to login...';
+      
+      // เปลี่ยนเส้นทางไปที่หน้า login
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000); // จะเปลี่ยนเส้นทางหลังจาก 2 วินาที
     }
-  } catch (error) {
-    console.error('Registration failed:', error);
-    alert('Something went wrong, please try again later.');
+  } catch (err) {
+    error.value = 'An error occurred during registration';
   }
 };
 </script>
@@ -141,6 +156,7 @@ body {
     flex-direction: column;
     height: 500px;
     min-height: 100vh;
+    
 }
 
 .input-group input:focus~label,

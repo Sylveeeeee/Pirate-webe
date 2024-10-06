@@ -1,13 +1,9 @@
-// db.js
+// server/db.js
 import mysql from 'mysql2/promise';
 
-// สร้างการเชื่อมต่อฐานข้อมูล
-const pool = mysql.createPool({
-  host: process.env.DB_HOST, // ระบุ host
-  user: process.env.DB_USER, // ระบุ user
-  password: process.env.DB_PASSWORD, // ระบุ password
-  database: process.env.DB_NAME // ระบุ database
+export const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
-
- 
-export default pool;

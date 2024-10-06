@@ -34,44 +34,45 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const username = ref('')
-const password = ref('')
-const passwordInputType = ref('password')
-const router = useRouter()
+const username = ref('');
+const password = ref('');
+const error = ref(null);
+const passwordInputType = ref('password');
+const router = useRouter();
+
+// ฟังก์ชันเพื่อสลับการแสดง/ซ่อนรหัสผ่าน
+const togglePasswordVisibility = () => {
+  passwordInputType.value = passwordInputType.value === 'password' ? 'text' : 'password';
+};
 
 const login = async () => {
-  if (!username.value || !password.value) {
-    alert('Please fill in both fields.')
-    return
-  }
-
   try {
-    const response = await fetch('http://localhost:3000/api/login', {
+    // ส่งข้อมูลไปที่ API สำหรับการล็อกอิน
+    const response = await $fetch('/api/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: username.value, password: password.value })
-    })
+      body: {
+        username: username.value,
+        password: password.value,
+      },
+    });
 
-    const result = await response.json()
-
-    if (response.ok) {
-      alert('Login successful')
-      router.push('/dashboard') // Redirect to a different page on successful login
+    // ตรวจสอบผลลัพธ์จาก API
+    if (response.error) {
+      error.value = response.error;
     } else {
-      alert(result.error || 'Login failed')
-    }
-  } catch (error) {
-    console.error('Login failed:', error)
-    alert('Something went wrong, please try again later.')
-  }
-}
+      // ล็อกอินสำเร็จ เก็บ token ลงใน localStorage หรือทำ action ที่คุณต้องการ
+      localStorage.setItem('token', response.token);
 
-const togglePasswordVisibility = () => {
-  passwordInputType.value = passwordInputType.value === 'password' ? 'text' : 'password'
-}
+      // นำผู้ใช้ไปยังหน้า dashboard หรือหน้าอื่นๆ
+      router.push('/dashboard');
+    }
+  } catch (err) {
+    error.value = 'An error occurred during login';
+  }
+};
 </script>
 
 <style>
