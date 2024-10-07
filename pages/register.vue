@@ -18,12 +18,14 @@
             <label>E-mail</label>
           </div>
           <div class="input-group">
-            <input v-model="password" type="password" required />
+            <input v-model="password " :type="passwordInputType1" required  />
             <label>Password</label>
+            <i class="fa fa-eye" aria-hidden="true" @click="togglePasswordVisibility1"></i>
           </div>
           <div class="input-group">
-            <input v-model="confirmPassword" type="password" required />
+            <input v-model ="confirmPassword" :type="passwordInputType2"   required />
             <label>Confirm Password</label>
+            <i class="fa fa-eye" aria-hidden="true" @click="togglePasswordVisibility2"></i>
           </div>
           <div class="CoN">
             <router-link to="/signup">
@@ -47,7 +49,15 @@ const confirmPassword = ref('');
 const router = useRouter();
 const error = ref(null);
 const message = ref(null);
+const passwordInputType1 = ref('password');
+const passwordInputType2 = ref('password');
 
+const togglePasswordVisibility1 = () => {
+  passwordInputType1.value = passwordInputType1.value === 'password' ? 'text' : 'password';
+};
+const togglePasswordVisibility2 = () => {
+  passwordInputType2.value = passwordInputType2.value === 'password' ? 'text' : 'password';
+};
 const register = async () => {
   try {
     // ส่งข้อมูลลงทะเบียนไปที่ API
