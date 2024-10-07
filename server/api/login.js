@@ -1,6 +1,5 @@
-// server/api/login.js
-import { pool } from '../db';  // ดึงข้อมูลการเชื่อมต่อจาก db.js ที่เราได้สร้างไว้ก่อนหน้า
-import bcrypt from 'bcryptjs'; // สำหรับเข้ารหัสรหัสผ่าน (ในกรณีที่ใช้ bcrypt)
+import { pool } from '../db';  // ดึงข้อมูลการเชื่อมต่อจาก db.js
+import bcrypt from 'bcryptjs'; // สำหรับเข้ารหัสรหัสผ่าน
 import jwt from 'jsonwebtoken'; // สำหรับสร้าง JSON Web Token
 
 export default defineEventHandler(async (event) => {

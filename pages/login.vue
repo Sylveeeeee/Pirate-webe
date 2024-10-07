@@ -3,19 +3,37 @@
     <div class="bg-[#ffbbbb00]">
       <div class="bg-[#ff858500] mt-[50px]">
         <h1 class="text-[50px]">LOGIN</h1>
-        <div class="input-group">
-            <input v-model="email" type="email" required />
-            <label>E-mail</label>
+        <div class="h-[40px] bg-[#ff848400] w-[500px] text-[16px] overflow-hidden rounded-[5px] mt-[5px]">
+          <!-- แสดงข้อความข้อผิดพลาด -->
+          <div v-if="error" class="error-message bg-[#ff0000] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
+            <div class="mr-[10px] flex items-center">
+              <Icon class="text-[25px]" name="material-symbols:error-circle-rounded-outline-sharp" />
+            </div>
+            {{ error }}
           </div>
+
+          <!-- แสดงข้อความสำเร็จ -->
+          <div v-if="message" class="success-message bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
+            {{ message }}
+          </div>
+        </div>
+        
         <div class="input-group">
-          <input v-model="password" :type="passwordInputType"  required/>
+          <input v-model="email" type="email" required />
+          <label>E-mail</label>
+        </div>
+        
+        <div class="input-group">
+          <input v-model="password" :type="passwordInputType" required />
           <label>Password</label>
           <i class="fa fa-eye bor" aria-hidden="true" @click="togglePasswordVisibility"></i>
         </div>
+        
         <button class="btn btn-primary h-[50px]" @click="login">LOG IN</button>
         <div class="or text-[#ffff] ">OR</div>
+        
         <div class="social-login">
-          <button class="btn btn-google">
+          <button class="btn btn-google" @click="loginWithGoogle">
             <Icon class="text-[30px] mr-[5px]" name="bxl:google"/>
             Log in with Google
           </button>
@@ -24,6 +42,7 @@
             Log in with Facebook
           </button>
         </div>
+        
         <a href="#" class="forgot-password">Forgot password?</a>
       </div>
       <div class="register">
@@ -37,40 +56,43 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const username = ref('');
+const email = ref('');
 const password = ref('');
 const error = ref(null);
+const message = ref(null);
 const passwordInputType = ref('password');
 const router = useRouter();
 
-// ฟังก์ชันเพื่อสลับการแสดง/ซ่อนรหัสผ่าน
 const togglePasswordVisibility = () => {
   passwordInputType.value = passwordInputType.value === 'password' ? 'text' : 'password';
 };
 
 const login = async () => {
   try {
-    // ส่งข้อมูลไปที่ API สำหรับการล็อกอิน
     const response = await $fetch('/api/login', {
       method: 'POST',
       body: {
-        username: username.value,
+        email: email.value,
         password: password.value,
       },
     });
 
     // ตรวจสอบผลลัพธ์จาก API
     if (response.error) {
-      error.value = response.error;
+      error.value = response.error; // แสดงข้อความข้อผิดพลาด
+      message.value = null; // ลบข้อความสำเร็จ
     } else {
-      // ล็อกอินสำเร็จ เก็บ token ลงใน localStorage หรือทำ action ที่คุณต้องการ
-      localStorage.setItem('token', response.token);
-
-      // นำผู้ใช้ไปยังหน้า dashboard หรือหน้าอื่นๆ
-      router.push('/dashboard');
+      message.value = response.message; // แสดงข้อความสำเร็จ
+      error.value = null; // ลบข้อความข้อผิดพลาด
+      
+      // นำทางไปยังหน้าอื่นหลังจาก login สำเร็จ
+      setTimeout(() => {
+        router.push('/'); // เปลี่ยนเส้นทางไปยังหน้า home หรือหน้าอื่นๆ ที่คุณต้องการ
+      }, 2000); // รอ 2 วินาทีก่อนเปลี่ยนเส้นทาง
     }
   } catch (err) {
-    error.value = 'An error occurred during login';
+    error.value = 'An error occurred during login'; // แสดงข้อความข้อผิดพลาด
+    message.value = null; // ลบข้อความสำเร็จ
   }
 };
 </script>

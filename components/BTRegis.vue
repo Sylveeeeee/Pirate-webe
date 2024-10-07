@@ -17,6 +17,7 @@
     border-radius: 6px;
     font-size: 17px;
     color: black;
+    font-weight: 600;
 }
 
 .rgE:hover {

@@ -1,5 +1,5 @@
-// server/api/register.js
-import { pool } from '../db';  // ดึงข้อมูลการเชื่อมต่อจาก db.js (ที่ได้สร้างไว้ก่อนหน้า)
+import { pool } from '../db';  // ดึงข้อมูลการเชื่อมต่อจาก db.js
+import bcrypt from 'bcryptjs'; // สำหรับเข้ารหัสรหัสผ่าน
 
 export default defineEventHandler(async (event) => {
   // ดึงข้อมูลที่ถูกส่งมาจากฟอร์ม
@@ -20,10 +20,13 @@ export default defineEventHandler(async (event) => {
       return { error: 'Email already registered.' };
     }
 
+    // เข้ารหัสรหัสผ่านก่อนบันทึกลงฐานข้อมูล
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 คือจำนวนรอบของ salt
+
     // บันทึกข้อมูลผู้ใช้ลงฐานข้อมูล
     const [result] = await pool.query(
       'INSERT INTO users (email, password) VALUES (?, ?)',
-      [email, password]
+      [email, hashedPassword] // ใช้ hashedPassword แทน password
     );
 
     return { message: 'User registered successfully', userId: result.insertId };

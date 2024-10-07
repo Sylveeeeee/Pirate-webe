@@ -1,31 +1,32 @@
 <template>
   <div class="BG">
     <div class="rgP"> 
-      <div class="text-5xl  text-[#fffd]  mb-[30px] bg-[#f000]">REGISTER</div>
-      <div class=" h-[40px] bg-[#ff848400] w-[500px] text-[16px] overflow-hidden rounded-[5px] mt-[5px]">
-              <div v-if="error" class="error bg-[#ff0000] text-[#fff] h-[40px] flex items-center pl-[10px] ">
-                <div class="mr-[10px]  flex items-center">
-                  <Icon  class="text-[25px]" name="material-symbols:error-circle-rounded-outline-sharp" />
-                </div>
-                {{ error }}
-              </div>
-              <div v-if="message" class="message error bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px]">{{ message }}</div>
-            </div>
-      <div class="bg-[#ffffff00] ">
+      <div class="text-5xl text-[#00ffff] mb-[30px] bg-[#f000]">REGISTER</div>
+      <div class="h-[40px] bg-[#ff848400] w-[500px] text-[16px] overflow-hidden rounded-[5px] mt-[5px]">
+        <!-- แสดงข้อความแจ้งเตือนล่าสุด -->
+        <div v-if="error" class="error bg-[#ff0000] text-[#fff] h-[40px] flex items-center pl-[10px]">
+          <div class="mr-[10px] flex items-center">
+            <Icon class="text-[25px]" name="material-symbols:error-circle-rounded-outline-sharp" />
+          </div>
+          {{ error }}
+        </div>
+        <div v-else-if="message" class="message bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px]">{{ message }}</div>
+      </div>
+      <div class="bg-[#ffffff00]">
         <form @submit.prevent="register">
           <div class="input-group">
             <input v-model="email" type="email" required />
             <label>E-mail</label>
           </div>
           <div class="input-group">
-            <input v-model="password " :type="passwordInputType1" required  />
+            <input v-model="password" :type="passwordInputType1" required />
             <label>Password</label>
-            <i class="fa fa-eye" aria-hidden="true" @click="togglePasswordVisibility1"></i>
+            <i class="fa" :class="passwordInputType1 === 'password' ? 'fa-eye' : 'fa-eye-slash'" @click="togglePasswordVisibility1"></i>
           </div>
           <div class="input-group">
-            <input v-model ="confirmPassword" :type="passwordInputType2"   required />
+            <input v-model="confirmPassword" :type="passwordInputType2" required />
             <label>Confirm Password</label>
-            <i class="fa fa-eye" aria-hidden="true" @click="togglePasswordVisibility2"></i>
+            <i class="fa" :class="passwordInputType2 === 'password' ? 'fa-eye' : 'fa-eye-slash'" @click="togglePasswordVisibility2"></i>
           </div>
           <div class="CoN">
             <router-link to="/signup">
@@ -52,13 +53,30 @@ const message = ref(null);
 const passwordInputType1 = ref('password');
 const passwordInputType2 = ref('password');
 
+// แสดงหรือซ่อนรหัสผ่าน
 const togglePasswordVisibility1 = () => {
   passwordInputType1.value = passwordInputType1.value === 'password' ? 'text' : 'password';
 };
+
 const togglePasswordVisibility2 = () => {
   passwordInputType2.value = passwordInputType2.value === 'password' ? 'text' : 'password';
 };
+
+// ล้างข้อความเก่าเมื่อมีการตั้งค่าข้อความใหม่
+const clearMessages = () => {
+  error.value = null;
+  message.value = null;
+};
+
 const register = async () => {
+  clearMessages(); // ล้างข้อความเก่าทุกครั้งก่อนเริ่มการส่งข้อมูลใหม่
+
+  // ตรวจสอบว่ารหัสผ่านและการยืนยันรหัสผ่านตรงกันหรือไม่
+  if (password.value !== confirmPassword.value) {
+    error.value = 'Passwords do not match!';
+    return; // หยุดการทำงานถ้ารหัสผ่านไม่ตรงกัน
+  }
+
   try {
     // ส่งข้อมูลลงทะเบียนไปที่ API
     const response = await $fetch('/api/register', {
@@ -72,18 +90,15 @@ const register = async () => {
 
     // ตรวจสอบผลลัพธ์จาก API
     if (response.error) {
-      error.value = response.error;
+      error.value = response.error; // ตั้งค่าข้อความ error
     } else {
-      // แสดงข้อความสำเร็จ
-      message.value = 'Registration successful! Redirecting to login...';
-      
-      // เปลี่ยนเส้นทางไปที่หน้า login
+      message.value = 'Registration successful! Redirecting to login...'; // ตั้งค่าข้อความสำเร็จ
       setTimeout(() => {
         router.push('/login');
-      }, 2000); // จะเปลี่ยนเส้นทางหลังจาก 2 วินาที
+      }, 2000); // เปลี่ยนเส้นทางหลังจาก 2 วินาที
     }
   } catch (err) {
-    error.value = 'An error occurred during registration';
+    error.value = 'An error occurred during registration'; // ข้อความแสดงเมื่อเกิดข้อผิดพลาด
   }
 };
 </script>
