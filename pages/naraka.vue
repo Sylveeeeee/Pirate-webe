@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-<<template>
-    
-</template>
-=======
 <template>
     <div>
-
         <navbar/>
         <navbar2 />
         <div class="card-container">
@@ -141,4 +135,3 @@
 }
 
 </style>
->>>>>>> 7e08548f9173f435d1f12482774aa795345370fb
