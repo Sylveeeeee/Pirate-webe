@@ -9,12 +9,24 @@
       <div class="body2">
         <div class="prpanel">
           <div class="pr">
-            <button class="pr1">NARAKA</button>
-            <button class="pr2">PUBG</button>
-            <button class="pr3">APEX LEGEND</button>
-            <button class="pr4">ELDEN RING</button>
-            <button class="pr5">FORZA</button>
-            <button class="pr6">GTA V</button>
+            <router-link to="/naraka">
+              <button class="pr1">NARAKA</button>
+            </router-link>
+            <router-link to="/pubg">
+              <button class="pr2">PUBG</button>
+            </router-link>
+            <router-link to="/apex">
+              <button class="pr3">APEX LEGEND</button>
+            </router-link>
+            <router-link to="/eldenring">
+              <button class="pr4">ELDEN RING</button>
+            </router-link>
+            <router-link to="/forza">
+              <button class="pr5">FORZA</button>
+            </router-link>
+            <router-link to="/gta">
+              <button class="pr6">GTA V</button>
+            </router-link>   
           </div>
           <div class="TBpr">
             <ul v-if="products.length" class="pr7"> 
