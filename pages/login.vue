@@ -108,6 +108,7 @@ h1 {
   font-weight: 400;
   font-style: normal;
   color: aqua;
+  font-size: 30px;
 }
 
 .form-group {
