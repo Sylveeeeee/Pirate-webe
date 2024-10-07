@@ -1,26 +1,26 @@
 <template>
   <div class="sss">
-    <div class="container">
-      <div class="login-form">
-        <h1>LOG IN</h1>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input v-model="username" type="text" id="username" placeholder="EMAIL OR PHONE NUMBER" />
+    <div class="bg-[#ffbbbb00]">
+      <div class="bg-[#ff858500] mt-[50px]">
+        <h1 class="text-[50px]">LOGIN</h1>
+        <div class="input-group">
+            <input v-model="email" type="email" required />
+            <label>E-mail</label>
+          </div>
+        <div class="input-group">
+          <input v-model="password" :type="passwordInputType"  required/>
+          <label>Password</label>
+          <i class="fa fa-eye bor" aria-hidden="true" @click="togglePasswordVisibility"></i>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input v-model="password" :type="passwordInputType" id="password" placeholder="PASSWORD" ref="passwordInput" />
-          <i class="fa fa-eye" aria-hidden="true" @click="togglePasswordVisibility"></i>
-        </div>
-        <button class="btn btn-primary" @click="login">LOG IN</button>
-        <div class="or">OR</div>
+        <button class="btn btn-primary h-[50px]" @click="login">LOG IN</button>
+        <div class="or text-[#ffff] ">OR</div>
         <div class="social-login">
           <button class="btn btn-google">
-            <i class="fa fa-google" aria-hidden="true"></i>
+            <Icon class="text-[30px] mr-[5px]" name="bxl:google"/>
             Log in with Google
           </button>
           <button class="btn btn-facebook">
-            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <Icon class="text-[30px] mr-[5px]" name="bxl:facebook"/>
             Log in with Facebook
           </button>
         </div>
@@ -79,7 +79,6 @@ const login = async () => {
 .sss {
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: #1d1d1d;
   height: 100vh;
 }
@@ -120,19 +119,6 @@ h1 {
   position: relative;
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-}
 
 .fa-eye {
   position: absolute;
@@ -160,7 +146,7 @@ input {
 
 .btn-primary:hover {
   background-color: aqua;
-  border: solid;
+  border: solid 3px;
   border-color: aqua;
   background-color: transparent;
   color: aqua;
@@ -242,5 +228,41 @@ input {
 
 .register a:hover {
   text-decoration: underline;
+}
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #ffffff60;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .3s;
+    width: auto;
+}
+
+.input-group input {
+    width: 500px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 0 10px;
+    background: #1d1d1d;
+    border-radius: 5px;
+    border: solid 1px;
+    outline: none;
+}
+.input-group input:focus~label,
+.input-group input:valid~label {
+    top: 0;
+    font-size: 16px;
+    background: #1d1d1d;
+    color: aqua;
+}
+
+.input-group input:focus,
+.input-group input:valid {
+    border: 1px solid aqua;
 }
 </style>
