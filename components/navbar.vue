@@ -15,6 +15,9 @@
                 <div class="BTlogin">เข้าสู่ระบบ</div>
             </router-link>
         </div>
+        <router-link to="/profile">
+            <div class="bg-[#ffbaba00] px-[10px] flex content-center justify-center"><cart-icon /></div>
+        </router-link>
     </div>
 </template>
 <script setup>

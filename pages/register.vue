@@ -21,12 +21,24 @@
           <div class="input-group">
             <input v-model="password" :type="passwordInputType1" required />
             <label>Password</label>
-            <i class="fa" :class="passwordInputType1 === 'password' ? 'fa-eye' : 'fa-eye-slash'" @click="togglePasswordVisibility1"></i>
+            <!-- ไอคอนลูกตา -->
+            <i class="fa" 
+               :class="passwordInputType1 === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
+               :style="{ color: passwordInputType1 === 'password'  }"
+               aria-hidden="true" 
+               @click="togglePasswordVisibility1">
+            </i>
           </div>
           <div class="input-group">
             <input v-model="confirmPassword" :type="passwordInputType2" required />
             <label>Confirm Password</label>
-            <i class="fa" :class="passwordInputType2 === 'password' ? 'fa-eye' : 'fa-eye-slash'" @click="togglePasswordVisibility2"></i>
+            <!-- ไอคอนลูกตา -->
+            <i class="fa" 
+               :class="passwordInputType2 === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
+               :style="{ color: passwordInputType2 === 'password'  }"
+               aria-hidden="true" 
+               @click="togglePasswordVisibility2">
+            </i>
           </div>
           <div class="CoN">
             <router-link to="/signup">
@@ -145,7 +157,7 @@ body {
 .input-group {
     margin: 20px 0;
     position: relative;
-    height: 50;
+    height: 50px;
     color: white;
 }
 
@@ -181,7 +193,6 @@ body {
     flex-direction: column;
     height: 500px;
     min-height: 100vh;
-    
 }
 
 .input-group input:focus~label,
@@ -195,6 +206,16 @@ body {
 .input-group input:focus,
 .input-group input:valid {
     border: 1px solid aqua;
+}
+
+/* Style for the eye icon */
+.input-group i {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
 .BTC:hover {
