@@ -24,9 +24,17 @@
         </div>
         
         <div class="input-group">
-          <input v-model="password" :type="passwordInputType" required />
-          <label>Password</label>
-          <i class="fa fa-eye bor" aria-hidden="true" @click="togglePasswordVisibility"></i>
+          <!-- Password input -->
+           <input v-model="password" :type="passwordInputType" required />
+           <label>Password</label>
+           <!-- Toggle eye icon -->
+            <i 
+            class="fa" 
+            :class="passwordInputType === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
+            :style="{ color: passwordInputType === 'password'  }" 
+            aria-hidden="true" 
+            @click="togglePasswordVisibility">
+          </i>
         </div>
         
         <button class="btn btn-primary h-[50px]" @click="login">LOG IN</button>
@@ -79,22 +87,21 @@ const login = async () => {
 
     // ตรวจสอบผลลัพธ์จาก API
     if (response.error) {
-      error.value = response.error; // แสดงข้อความข้อผิดพลาด
-      message.value = null; // ลบข้อความสำเร็จ
+      error.value = response.error; // แสดงข้อความข้อผิดพลาดจากเซิร์ฟเวอร์
+      message.value = null;
     } else {
-      message.value = response.message; // แสดงข้อความสำเร็จ
-      error.value = null; // ลบข้อความข้อผิดพลาด
-      
-      // นำทางไปยังหน้าอื่นหลังจาก login สำเร็จ
+      message.value = response.message;
+      error.value = null;
       setTimeout(() => {
-        router.push('/'); // เปลี่ยนเส้นทางไปยังหน้า home หรือหน้าอื่นๆ ที่คุณต้องการ
-      }, 2000); // รอ 2 วินาทีก่อนเปลี่ยนเส้นทาง
+        router.push('/'); // เปลี่ยนไปยังแดชบอร์ดหลังจาก 2 วินาที
+      }, 2000);
     }
   } catch (err) {
     error.value = 'An error occurred during login'; // แสดงข้อความข้อผิดพลาด
     message.value = null; // ลบข้อความสำเร็จ
   }
 };
+
 </script>
 
 <style>
