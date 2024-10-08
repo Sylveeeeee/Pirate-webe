@@ -142,6 +142,7 @@ const save = (field) => {
 <style scoped>
 body {
   background: #1d1d1d;
+  height: auto;
 }
 
 /* ซ่อนไอคอนที่ไม่ต้องการ */

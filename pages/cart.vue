@@ -7,7 +7,7 @@
         <a id="CTT">CART</a>
         <div class="TBP_F">
           <div class="TBP">
-            <div class="TL">รายการ</div>
+            <div class="TL">CATALOG</div>
             <div class="PPP flex items-center">
               <a class="text-[#ffff] text-[30px] w-[380px] h-[40px] flex items-center bg-[#ff505000]">สินค้า</a>
               <a class="text-[#ffff] text-[30px] w-[200px] h-[40px] flex items-center justify-center bg-[#ffabab00]">ราคา</a>
@@ -37,7 +37,7 @@
 
             <!-- No items in cart -->
             <div v-if="cartItems.length === 0" class="PPP">
-              <a class="text-[#ffff] flex items-center justify-center bg-[#ffa9a900] text-[50px]">ไม่มีสินค้าในตะกร้า</a>
+              <a class="text-[#ffff] flex items-center justify-center bg-[#ffa9a900] text-[40px]">ไม่มีสินค้าในตะกร้า</a>
             </div>
           </div>
 
@@ -84,6 +84,7 @@ const decreaseQuantity = (id) => {
     width: 40%;
     background: #444444;
     padding: 20px;
+    border-radius: 10px;
 }
 .PPP {
     margin-top: 20px;
@@ -95,6 +96,9 @@ const decreaseQuantity = (id) => {
     padding-inline: 40px;
     color: aqua;
     font-size: 35px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    justify-content: center;
+    display: flex;
 }
 .TBP {
     width: 60%;
@@ -110,8 +114,12 @@ const decreaseQuantity = (id) => {
 }
 #CTT {
     font-size: 40px;
-    color: aqua;
+    background: linear-gradient(to right, aqua , white );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-top: 50px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
 }
 .TBP_F {
     width: 70%;

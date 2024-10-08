@@ -44,5 +44,9 @@
     font-size: 14px;
     font-weight: 500;
   }
+
+  .cart-icon-container:hover {
+    color: aqua;
+  }
   </style>
   
