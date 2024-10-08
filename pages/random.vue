@@ -1,83 +1,52 @@
 <template>
-    <div>
+  <div>
 
-        <navbar/>
-        <navbar2/>
-    
-        <div>
-    <div class="wheel-container">
-      <div class="wheel" @click="spinWheel">
-        <div class="prize" v-for="(prize, index) in prizes" :key="index">
-          {{ prize.name }}
-        </div>
+      <navbar/>
+      <navbar2 />
+      <div class="htb-container">
+          <div class="card2">
+              <h3>CONTACT US</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt officia enim, nobis architecto reprehenderit veritatis ratione accusamus minima veniam deserunt accusantium harum ullam cum totam nesciunt aperiam voluptates. Ab, non!</p>
+          </div>
       </div>
-    </div>
-    <div class="result">
-      <p v-if="winner"> Congratulations! You won {{ winner.name }}! </p>
-    </div>
   </div>
-    </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      prizes: [
-        { name: 'Prize 1' },
-        { name: 'Prize 2' },
-        { name: 'Prize 3' },
-        // Add more prizes here
-      ],
-      winner: null
-    }
-  },
-  methods: {
-    spinWheel() {
-      // Generate a random number between 0 and the number of prizes
-      const randomIndex = Math.floor(Math.random() * this.prizes.length);
-      // Set the winner to the prize at the random index
-      this.winner = this.prizes[randomIndex];
-    }
-  }
-}
-</script>
-
 <style>
-.wheel-container {
+
+.htb-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 300px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
-
-.wheel {
-  display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
 }
 
-.prize {
-  flex-basis: 20%;
-  margin: 10px;
-  padding: 20px;
+.card2 {
+  width: 1400px;
+  height: auto;
+  background-color: rgb(49, 48, 48);
   border-radius: 10px;
-  background-color: #fff;
-  text-align: center;
+  border: 2px solid;
+  border-color: aqua;
+  overflow: hidden;
+  margin: 20px;
+
 }
 
-.result {
-  margin-top: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+.card2 h3 {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  font-size: 40px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: aqua;
+  background: linear-gradient(to right, rgb(255, 3, 205) , rgb(0, 255, 76) );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
 }
 
+.card2 p {
+  margin: 10PX;
+  color: white;
+}
 </style>

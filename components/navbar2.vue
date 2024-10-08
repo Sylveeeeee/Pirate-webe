@@ -10,7 +10,7 @@
             <button @click="goToTopup"> เติมเงิน</button>
         </div>
         <div class="random">
-            <button @click="goToRandom"> สุ่มรางวัล</button>
+            <button @click="goToRandom"> ช่วยเหลือ</button>
         </div>
     </div>
 </template>
