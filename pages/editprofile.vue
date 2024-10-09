@@ -14,7 +14,6 @@
           <label for="username">Username</label>
           <input v-model="username" type="text" id="username" required />
         </div>
-  
         <!-- ฟิลด์สำหรับแก้ไขรหัสผ่าน -->
         <div class="input-group">
           <label for="newPassword">New Password</label>

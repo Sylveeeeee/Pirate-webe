@@ -94,7 +94,7 @@ const decreaseQuantity = (id) => {
 }
 .TL {
     padding-inline: 40px;
-    color: aqua;
+    color: #00ffff;
     font-size: 35px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     justify-content: center;

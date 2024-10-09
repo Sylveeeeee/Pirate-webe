@@ -1,80 +1,81 @@
 <template>
   <div class="sss">
-    <div class="bg-[#ffbbbb00]">
-      <div class="bg-[#ff858500] mt-[50px]">
-        <h1 class="text-[50px]">LOGIN</h1>
-        <div class="h-[40px] bg-[#ff848400] w-[500px] text-[16px] overflow-hidden rounded-[5px] mt-[5px]">
-          <!-- แสดงข้อความข้อผิดพลาด -->
-          <div v-if="error" class="error-message bg-[#ff0000] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
-            <div class="mr-[10px] flex items-center">
-              <Icon class="text-[25px]" name="material-symbols:error-circle-rounded-outline-sharp" />
-            </div>
-            {{ error }}
+    <div class="  mt-[50px]">
+      <h1 class="text-[50px]">LOGIN</h1>
+      <div class="h-[40px] bg-[#ff848400] w-[500px] text-[16px] overflow-hidden rounded-[5px] mt-[5px]">
+        <!-- แสดงข้อความข้อผิดพลาด -->
+        <div v-if="error" class="error-message bg-[#ff0000] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
+          <div class="mr-[10px] flex items-center">
+            <Icon class="text-[25px]" name="material-symbols:error-circle-rounded-outline-sharp" />
           </div>
+          {{ error }}
+        </div>
 
-          <!-- แสดงข้อความสำเร็จ -->
-          <div v-if="message" class="success-message bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
-            {{ message }}
-          </div>
+        <!-- แสดงข้อความสำเร็จ -->
+        <div v-if="message" class="success-message bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
+          {{ message }}
         </div>
-        
-        <div class="input-group">
-          <input v-model="email" type="email" required />
-          <label>E-mail</label>
-        </div>
-        
-        <div class="input-group">
-          <!-- Password input -->
-           <input v-model="password" :type="passwordInputType" required />
-           <label>Password</label>
-           <!-- Toggle eye icon -->
-            <i 
-            class="fa" 
-            :class="passwordInputType === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
-            :style="{ color: passwordInputType === 'password'  }" 
-            aria-hidden="true" 
-            @click="togglePasswordVisibility">
-          </i>
-        </div>
-        
-        <button class="btn btn-primary h-[50px]" @click="login">LOG IN</button>
-        <div class="or text-[#ffff] ">OR</div>
-        
-        <div class="social-login">
-          <button class="btn btn-google" @click="loginWithGoogle">
-            <Icon class="text-[30px] mr-[5px]" name="bxl:google"/>
-            Log in with Google
-          </button>
-          <button class="btn btn-facebook">
-            <Icon class="text-[30px] mr-[5px]" name="bxl:facebook"/>
-            Log in with Facebook
-          </button>
-        </div>
-        
-        <a href="#" class="forgot-password">Forgot password?</a>
       </div>
-      <div class="register">
-        <a href="/register" class="btn btn-secondary">Register</a>
+      
+      <div class="input-group">
+        <input v-model="email" type="email" required />
+        <label>E-mail</label>
       </div>
+      
+      <div class="input-group">
+        <!-- Password input -->
+         <input v-model="password" :type="passwordInputType" required />
+         <label>Password</label>
+         <!-- Toggle eye icon -->
+          <i 
+          class="fa" 
+          :class="passwordInputType === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
+          :style="{ color: passwordInputType === 'password'  }" 
+          aria-hidden="true" 
+          @click="togglePasswordVisibility">
+        </i>
+      </div>
+      
+      <button class="btn btn-primary h-[50px]" @click="login">LOG IN</button>
+      <div class="or text-[#ffff] ">OR</div>
+      
+      <div class="social-login">
+        <button class="btn btn-google" @click="loginWithGoogle">
+          <Icon class="text-[30px] mr-[5px]" name="bxl:google"/>
+          Log in with Google
+        </button>
+        <button class="btn btn-facebook">
+          <Icon class="text-[30px] mr-[5px]" name="bxl:facebook"/>
+          Log in with Facebook
+        </button>
+      </div>
+      
+      <a href="#" class="forgot-password">Forgot password?</a>
+    </div>
+    <div class="register">
+      <RouterLink to = "/register" class="btn btn-secondary">Register</RouterLink>
     </div>
   </div>
+  
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const email = ref('');
-const password = ref('');
-const error = ref(null);
-const message = ref(null);
-const passwordInputType = ref('password');
-const router = useRouter();
+const email = ref(''); // รับค่า email จาก input
+const password = ref(''); // รับค่า password จาก input
+const error = ref(null); // ข้อความแสดงข้อผิดพลาด
+const message = ref(null); // ข้อความแสดงสำเร็จ
+const passwordInputType = ref('password'); // กำหนดประเภทของ input password
+const router = useRouter(); // ใช้ router เพื่อเปลี่ยนหน้า
 
+// ฟังก์ชันเปลี่ยนการแสดงผลของ password
 const togglePasswordVisibility = () => {
   passwordInputType.value = passwordInputType.value === 'password' ? 'text' : 'password';
 };
 
+// ฟังก์ชัน login
 const login = async () => {
   try {
     const response = await $fetch('/api/login', {
@@ -88,15 +89,21 @@ const login = async () => {
     // ตรวจสอบผลลัพธ์จาก API
     if (response.error) {
       error.value = response.error; // แสดงข้อความข้อผิดพลาดจากเซิร์ฟเวอร์
-      message.value = null;
+      message.value = null; // ล้างข้อความสำเร็จ
     } else {
-      message.value = response.message;
-      error.value = null;
+      // ถ้า login สำเร็จ เก็บ token ลงใน localStorage
+      localStorage.setItem('token', response.token);
+
+      message.value = 'Login successful!'; // แสดงข้อความสำเร็จ
+      error.value = null; // ล้างข้อความข้อผิดพลาด
+
+      // เปลี่ยนไปยังแดชบอร์ดหลังจาก 2 วินาที
       setTimeout(() => {
-        router.push('/'); // เปลี่ยนไปยังแดชบอร์ดหลังจาก 2 วินาที
+        router.push('/'); // เปลี่ยนหน้าไปยังแดชบอร์ด
       }, 2000);
     }
   } catch (err) {
+    // ถ้ามีข้อผิดพลาดเกิดขึ้น (เช่นการเชื่อมต่อเซิร์ฟเวอร์ล้มเหลว)
     error.value = 'An error occurred during login'; // แสดงข้อความข้อผิดพลาด
     message.value = null; // ลบข้อความสำเร็จ
   }
@@ -109,7 +116,7 @@ const login = async () => {
   display: flex;
   justify-content: center;
   background-color: #1d1d1d;
-  height: 100vh;
+  
 }
 
 .container {
