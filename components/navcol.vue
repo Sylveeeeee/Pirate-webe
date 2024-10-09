@@ -30,8 +30,8 @@
       <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px]">รายการบัญชี</div>
       
       <!-- ปุ่มออกจากระบบ -->
-      <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px] h-[70px]">
-        <button v-if="isLoggedIn" @click="logout" class="BTlogout">ออกจากระบบ</button>
+      <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px] h-[70px]" v-if="isLoggedIn" >
+        <button  @click="logout" class="BTlogout">ออกจากระบบ</button>
       </div>
     </div>
   </div>
