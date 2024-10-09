@@ -1,6 +1,8 @@
 <template>
   <div class="nav">
-    <div class="logo">PirateID</div>
+    <div class="logo">
+            <button @click="goToIndex">PirateID</button>
+        </div>
     <label for="site-search" class="sr-only">ค้นหา</label>
     <input type="search" id="site-search" name="q" placeholder="SEARCH" />
     <button class="spinbutton" @click="handleSearch">Search</button>
