@@ -150,4 +150,19 @@ input {
   color: aqua;
   border-radius: 2px;
 }
+
+
+
 </style>
+
+<script>
+export default {
+  methods: {
+    goToIndex() {
+      this.$router.push('/');
+    },
+}
+}
+</script>
+
+
