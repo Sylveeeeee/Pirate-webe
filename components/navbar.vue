@@ -1,6 +1,8 @@
 <template>
     <div class="nav">
-        <div class="logo"> PirateID</div>
+        <div class="logo">
+            <button @click="goToIndex">PirateID</button>
+        </div>
         <label for="Search"></label>
         <input type="Search" id="site-search" name="q" placeholder="  SEARCH" />
         <button class="spinbutton">Search</button>
@@ -127,3 +129,15 @@ input {
 
 
 </style>
+
+<script>
+export default {
+  methods: {
+    goToIndex() {
+      this.$router.push('/');
+    },
+}
+}
+</script>
+
+

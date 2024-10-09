@@ -15,8 +15,8 @@ export default {
       currentIndex: 0,
       images: [
         '/naraka2.jpg',
-        '/wukong.jpg',
-        '/cod2.jpg'
+        '/wkk.jpg',
+        '/apex.jpg'
       ]
     };
   },
@@ -29,7 +29,7 @@ export default {
     }
   },
   mounted() {
-    setInterval(this.nextImage, 5000); // Change image every 5 seconds
+    setInterval(this.nextImage, 4000); 
   }
 };
 </script>
