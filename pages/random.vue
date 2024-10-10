@@ -26,7 +26,7 @@
   background-color: rgb(49, 48, 48);
   border-radius: 10px;
   border: 2px solid;
-  border-color: aqua;
+  border-color: #00ffff;
   overflow: hidden;
   margin: 20px;
 

@@ -1,33 +1,43 @@
+// routes/coins.js
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db'); // เชื่อมต่อฐานข้อมูล
+const db = require('../db'); // เปลี่ยนเป็นโมดูลการเชื่อมต่อฐานข้อมูลของคุณ
+import jwt from 'jsonwebtoken';
 
-// เติมเหรียญ
+// POST /api/coins/add-coins
 router.post('/add-coins', async (req, res) => {
-    const { userId, amount } = req.body;
+  const { coins } = req.body;
 
-    if (!userId || !amount) {
-        return res.status(400).json({ message: 'User ID and amount are required' });
+  // ตรวจสอบ Token จาก Header
+  const token = req.headers['authorization']?.split(' ')[1];
+  
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'Unauthorized' });
+  }
+
+  try {
+    // ตรวจสอบและดึงข้อมูลผู้ใช้จาก Token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.userId; // ดึง userId จาก Token
+
+    // ตรวจสอบข้อมูลที่ส่งมา
+    if (!coins) {
+      return res.status(400).json({ success: false, message: 'กรุณาระบุจำนวนเหรียญ' });
     }
 
-    try {
-        await db.query('INSERT INTO coins (user_id, amount) VALUES (?, ?)', [userId, amount]);
-        res.status(201).json({ message: 'Coins added successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+    // ตัวอย่างการอัปเดตจำนวนเหรียญในฐานข้อมูล
+    const result = await db.query('UPDATE users SET coins = coins + ? WHERE id = ?', [coins, userId]);
 
-// ดึงข้อมูลเหรียญของผู้ใช้
-router.get('/user-coins/:userId', async (req, res) => {
-    const userId = req.params.userId;
-
-    try {
-        const [rows] = await db.query('SELECT SUM(amount) AS totalCoins FROM coins WHERE user_id = ?', [userId]);
-        res.json({ totalCoins: rows[0].totalCoins || 0 });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+    // ตรวจสอบว่ามีการอัปเดตข้อมูลหรือไม่
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: 'ไม่พบผู้ใช้' });
     }
+
+    return res.json({ success: true, message: 'เติมเหรียญเรียบร้อยแล้ว' });
+  } catch (error) {
+    console.error('เกิดข้อผิดพลาดในการเติมเหรียญ:', error);
+    return res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการเติมเหรียญ กรุณาลองใหม่อีกครั้ง' });
+  }
 });
 
 module.exports = router;

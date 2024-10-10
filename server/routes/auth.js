@@ -7,9 +7,9 @@ const router = express.Router();
 // สร้างการเชื่อมต่อกับฐานข้อมูล
 const dbConfig = {
   host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database',
+  user: 'root',
+  password: '',
+  database: 'piratedatabase',
 };
 
 // ฟังก์ชันสำหรับล็อกอิน

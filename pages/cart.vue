@@ -18,11 +18,11 @@
             <div v-for="item in cartItems" :key="item.id" class="flex border-b-[1px]">
               <div class="flex w-[390px] bg-[#ff505000]">
                 <div class="w-[150px] h-[160px] ml-[40px] my-[30px] rounded-[4px] overflow-hidden items-center flex content-center bg-[#ffff]">
-                  <img :src="item.imageC" />
+                  <img :src="item.imageC" alt="Product Image" />
                 </div>
                 <div class="flex flex-col pl-[30px] py-[25px] w-[173px]">
                   <div class="text-[#ffff] text-[20px]">{{ item.name }}</div>
-                  <div class="text-[16px] text-wrap w-[150px]  text-[#ffffff81] my-[10px] h-[130px] overflow-hidden p-[px] bg-[#00000000]">{{ item.detail }}</div>
+                  <div class="text-[16px] text-wrap w-[150px] text-[#ffffff81] my-[10px] h-[130px] overflow-hidden p-[px] bg-[#00000000]">{{ item.detail }}</div>
                 </div>
               </div>
               <div class="items-center justify-center text-[#ffff] text-[30px] w-[200px] flex bg-[#ffabab00]">฿ {{ item.price }}</div>
@@ -43,7 +43,24 @@
 
           <!-- Payment section -->
           <div class="PAY">
-            <div class="CRP">เลือกช่องทางชำระเงิน</div>
+            <div class="CRP flex justify-center">ราคาสินค้ารวม</div>
+            <div class="text-[30px] text-[#fFFF] flex justify-center border-b pb-[20px] mt-[10px]">{{ calculateTotal }} C</div>
+            <div class="text-[20px] text-[#fFFF] border-b pb-[10px] mt-[10px]">สรุปรายการสินค้า</div>
+            <div  v-for="item in cartItems" :key="item.id" class="text-[20px] text-[#fFFF] border-b pb-[10px] mt-[10px] flex pl-[20px] justify-between">
+              <div class="flex  justify-between w-full  ">
+                <div class="  ">{{ item.name }}</div>
+                <div class="pr-[20px] flex ">
+                  <div class="mr-[20px]">{{ item.quantity }}</div>
+                  <div class="w-[70px]   flex justify-end">{{ item.price * item.quantity }} C </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-[20px] text-[#fFFF] pb-[10px] mt-[10px]">ราคารวมสินค้า</div>
+            <div class="text-[20px] text-[#fFFF] flex justify-center mt-[20px]">
+              <button @click="processPayment" class="py-[10px] text-[#00ffff] border-[#00ffff] border rounded-md w-[1000px] bg-[#00ffff00] hover:bg-[#00ffff] hover:text-[#000000]">
+                ยืนยันการสั่งซื้อ
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -62,6 +79,14 @@ const router = useRouter();
 // Access cartItems from the store
 const cartItems = computed(() => cartStore.cartItems);
 
+// ฟังก์ชันคำนวณราคารวม
+const calculateTotal = computed(() => {
+  return cartItems.value.reduce((total, item) => {
+    return total + (item.price * item.quantity); // คำนวณราคาโดยรวม
+  }, 0);
+});
+
+// ฟังก์ชันเพิ่มจำนวนสินค้า
 const increaseQuantity = (id) => {
   const item = cartItems.value.find(item => item.id === id);
   if (item) {
@@ -69,15 +94,61 @@ const increaseQuantity = (id) => {
   }
 };
 
+// ฟังก์ชันลดจำนวนสินค้า
 const decreaseQuantity = (id) => {
-  cartStore.removeFromCart(id); // Remove item from cart
+  const item = cartItems.value.find(item => item.id === id);
+  if (item && item.quantity > 1) {
+    cartStore.removeFromCart(id); // Decrease quantity
+  } else if (item) {
+    cartStore.removeItem(id); // Remove item if quantity is 1
+  }
+};
+
+// ฟังก์ชันจัดการการชำระเงิน
+const processPayment = async () => {
+  if (cartItems.value.length === 0) {
+    alert('กรุณาเพิ่มสินค้าในตะกร้าก่อนชำระเงิน');
+    return;
+  }
+
+  // สร้างอ็อบเจ็กต์สำหรับการชำระเงิน
+  const paymentData = {
+    items: cartItems.value.map(item => ({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+    })),
+    total: calculateTotal.value, // ฟังก์ชันเพื่อคำนวณยอดรวม
+  };
+
+  try {
+    const response = await fetch('/api/payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(paymentData),
+    });
+
+    if (!response.ok) {
+      throw new Error('การชำระเงินไม่สำเร็จ');
+    }
+
+    const result = await response.json();
+    alert(`ชำระเงินสำเร็จ: ${result.message}`);
+    router.push('/confirmation'); // เปลี่ยนเส้นทางไปยังหน้าการยืนยัน
+  } catch (error) {
+    console.error('เกิดข้อผิดพลาดในการชำระเงิน:', error);
+    alert('เกิดข้อผิดพลาดในการชำระเงิน');
+  }
 };
 </script>
 
 <style>
 /* CSS สไตล์ */
 .CRP {
-    color: aqua;
+    color: #00ffff;
     font-size: 30px;
 }
 .PAY {
@@ -85,6 +156,7 @@ const decreaseQuantity = (id) => {
     background: #444444;
     padding: 20px;
     border-radius: 10px;
+    height: fit-content;
 }
 .PPP {
     margin-top: 20px;
@@ -119,7 +191,6 @@ const decreaseQuantity = (id) => {
     -webkit-text-fill-color: transparent;
     margin-top: 50px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-
 }
 .TBP_F {
     width: 70%;

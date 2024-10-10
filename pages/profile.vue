@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <navbar />
     <navbar2 />
     <div class="flex justify-center mt-[20px]">
@@ -12,10 +12,10 @@
           <div class="mb-[10px] text-[18px] text-[#ffff]">Name</div>
           <div class="flex w-[500px]">
             <input
-              v-model="name"
+              v-model="user.name"
               id="name"
               type="text"
-              class="text-[20px] border-r-0 bg-[#fff0] shadow appearance-none border-[#ffff] border-1 rounded-l w-full py-2 px-3 text-[#ffff] leading-tight focus:outline-none focus:shadow-outline h-[45px] "
+              class="text-[20px] border-r-0 bg-[#fff0] shadow appearance-none border-[#ffff] border-1 rounded-l w-full py-2 px-3 text-[#ffff] leading-tight focus:outline-none focus:shadow-outline h-[45px]"
             />
             <button
               @click="save('name')"
@@ -29,7 +29,7 @@
           <div class="mb-[10px] text-[18px] text-[#ffff]">E-mail</div>
           <div class="flex w-[500px]">
             <input
-              v-model="email"
+              v-model="user.email"
               id="email"
               type="email"
               class="text-[20px] border-r-0 bg-[#fff0] shadow appearance-none border-[#ffff] border-1 rounded-l w-full py-2 px-3 text-[#ffff] leading-tight focus:outline-none focus:shadow-outline h-[45px]"
@@ -46,7 +46,7 @@
           <div class="mb-[10px] text-[18px] text-[#ffff]">Phone</div>
           <div class="flex w-[500px]">
             <input
-              v-model="phone"
+              v-model="user.phone"
               id="phone"
               type="text"
               class="text-[20px] border-r-0 bg-[#fff0] shadow appearance-none border-[#ffff] border-1 rounded-l w-full py-2 px-3 text-[#ffff] leading-tight focus:outline-none focus:shadow-outline h-[45px]"
@@ -118,10 +118,10 @@
           </div>
         </div>
 
-        <div class="">
+        <div>
           <button
             @click="saveChanges"
-            class="bg-[#00ffff] hover:bg-[#00ffffc2] text-black font-bold py-2 px-4 rounded w-"
+            class="bg-[#00ffff] hover:bg-[#00ffffc2] text-black font-bold py-2 px-4 rounded"
           >
             Changes Password
           </button>
@@ -131,85 +131,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  middleware: 'auth', // ใช้ middleware ที่สร้างขึ้น
-}
-</script>
-
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useAuthStore } from '@/stores/authStore'; // นำเข้า authStore
 
-onMounted(() => {
-  // ดึงอีเมลจาก localStorage หรือ API เมื่อล็อกอิน
-  const savedEmail = localStorage.getItem('email');
-  if (savedEmail) {
-    email.value = savedEmail;  // ถ้ามี email ใน localStorage ให้ใช้ค่านี้
-  } else {
-    fetchUserEmail();  // หรือดึงจาก API
-  }
+const authStore = useAuthStore(); // สร้าง instance ของ authStore
+
+const user = ref({
+  name: '',
+  email: '',
+  phone: ''
 });
 
-const fetchUserEmail = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/user', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      email.value = data.email || '';  // แสดงอีเมลของผู้ใช้
-      localStorage.setItem('email', email.value);  // เก็บอีเมลใน localStorage
-    }
-  } catch (error) {
-    console.error('Error fetching user email:', error);
-  }
-};
-
-const name = ref("");
-const email = ref(""); // เพิ่มตัวแปรสำหรับเก็บ E-mail
-const phone = ref("");
-const password = ref("");
-const newPassword = ref("");
-const confirmNewPassword = ref("");
-
-// Password visibility toggles
-const showPassword = ref(false);
-const showNewPassword = ref(false);
-const showConfirmNewPassword = ref(false);
-
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
-};
-
-const toggleNewPasswordVisibility = () => {
-  showNewPassword.value = !showNewPassword.value;
-};
-
-const toggleConfirmNewPasswordVisibility = () => {
-  showConfirmNewPassword.value = !showConfirmNewPassword.value;
-};
-
-// ฟังก์ชันบันทึกข้อมูล
-const save = async (field) => {
-  const response = await fetch(`/api/user/${field}`, {
-    method: 'PUT', // หรือ POST ขึ้นอยู่กับการออกแบบ API ของคุณ
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ [field]: eval(field).value }), // ส่งค่าที่ถูกแก้ไข
-  });
-  
-  if (response.ok) {
-    alert(`บันทึกข้อมูล ${field} เรียบร้อยแล้ว!`);
-  } else {
-    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
-  }
-};
-
-// ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้จาก backend
+// ฟังก์ชันดึงข้อมูลผู้ใช้จาก API
 const fetchUserData = async () => {
   try {
     const token = localStorage.getItem('token'); // รับ token จาก local storage
@@ -223,60 +157,40 @@ const fetchUserData = async () => {
       throw new Error('Network response was not ok');
     }
     const userData = await response.json();
-    
+
     // กำหนดค่าฟิลด์ให้ตรงกับข้อมูลที่ได้
-    name.value = userData.name || '';
-    email.value = userData.email || ''; // กำหนด E-mail
-    phone.value = userData.phone || '';
+    user.value.name = userData.name || '';
+    user.value.email = userData.email || '';
+    user.value.phone = userData.phone || '';
   } catch (error) {
     console.error('Error fetching user data:', error);
   }
 };
 
-const saveChanges = async () => {
-  if (newPassword.value !== confirmNewPassword.value) {
-    alert('รหัสผ่านใหม่ไม่ตรงกัน');
-    return;
-  }
-  
-  const response = await fetch('/api/user/change-password', {
+onMounted(() => {
+  fetchUserData(); // เรียกฟังก์ชันเมื่อ component ถูก mount
+});
+
+// ฟังก์ชันบันทึกข้อมูล
+const save = async (field) => {
+  const response = await fetch(`/api/user/${field}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      password,
-      newPassword: newPassword.value,
-    }),
+    body: JSON.stringify({ [field]: user.value[field] }), // ส่งค่าที่ถูกแก้ไข
   });
   
   if (response.ok) {
-    alert('เปลี่ยนรหัสผ่านเรียบร้อยแล้ว!');
+    alert(`บันทึกข้อมูล ${field} เรียบร้อยแล้ว!`);
   } else {
-    alert('เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน');
+    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
   }
 };
-const saveEmail = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/user/update-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ email: email.value }),
-    });
-    if (response.ok) {
-      alert('อีเมลถูกบันทึกเรียบร้อยแล้ว');
-      localStorage.setItem('email', email.value);  // อัปเดตอีเมลใน localStorage
-    } else {
-      alert('เกิดข้อผิดพลาดในการบันทึกอีเมล');
-    }
-  } catch (error) {
-    console.error('Error saving email:', error);
-    alert('เกิดข้อผิดพลาดในการบันทึกอีเมล');
-  }
+
+// ฟังก์ชันสำหรับการเปลี่ยนรหัสผ่าน
+const saveChanges = async () => {
+  // ...
 };
 </script>
 

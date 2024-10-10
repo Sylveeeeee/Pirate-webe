@@ -40,12 +40,14 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';  // ใช้สำหรับการนำทาง
+import { useUserStore } from '@/stores/userStore'; // นำเข้า User Store
 
 // ใช้ useRouter สำหรับการเปลี่ยนหน้า
 const router = useRouter();
 const isLoggedIn = ref(false);
-const name = ref('');
+const name = ref('');                                                                           
 const email = ref('');
+const userStore = useUserStore(); // สร้างอินสแตนซ์ของ User Store
 
 // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
 onMounted(() => {
@@ -56,21 +58,27 @@ onMounted(() => {
     }
   }
 });
+onMounted(() => {
+  isLoggedIn.value = !!localStorage.getItem('token');
+  if (isLoggedIn.value) {
+    fetchUserData();
+  }
+});
 
 // ฟังก์ชันดึงข้อมูลผู้ใช้จาก API
 const fetchUserData = async () => {
   try {
     const token = localStorage.getItem('token');
     const response = await fetch('/api/user', {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    console.log(userData);
+    
     const userData = await response.json();
     name.value = userData.name || '';  // กำหนดค่าชื่อผู้ใช้
     email.value = userData.email || '';  // กำหนดค่าอีเมลผู้ใช้
