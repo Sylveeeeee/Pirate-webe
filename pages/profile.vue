@@ -134,7 +134,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore'; // นำเข้า authStore
-
+import navcol from './components/navcol.vue';
 const authStore = useAuthStore(); // สร้าง instance ของ authStore
 
 const user = ref({

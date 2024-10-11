@@ -6,11 +6,12 @@
         <div class="w-[100px] h-[100px] rounded-full bg-gray-700 overflow-hidden">
           <img src="https://via.placeholder.com/100" alt="Profile Picture" class="w-full h-full object-cover" />
         </div>
-        <div class="ml-[20px] flex flex-col text-[#ffff]">
-            <span class="font-bold text-[20px]">{{ email }}</span>
-            <span class="font-bold text-[20px]">{{ name }}</span>
+        <div v-if="error" class="error">{{ error }}</div>
+        <div v-if="userData" class="ml-[20px] flex flex-col text-[#ffff]">
+          <span class="font-bold text-[20px]">{{ email }}</span>
+          <span class="font-bold text-[20px]">{{ name }}</span>
         </div>
-    </div>
+      </div>
       <!-- เมนูต่าง ๆ -->
       <router-link
         to="/profile"
@@ -28,10 +29,10 @@
       </router-link>
       <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px]">รายการเติมเงิน</div>
       <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px]">รายการบัญชี</div>
-      
+
       <!-- ปุ่มออกจากระบบ -->
-      <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px] h-[70px]" v-if="isLoggedIn" >
-        <button  @click="logout" class="BTlogout">ออกจากระบบ</button>
+      <div class="text-[#ffff] text-[20px] p-[20px] border-b-2 border-[#1d1d1d] pb-[20px] h-[70px]" v-if="isLoggedIn">
+        <button @click="logout" class="BTlogout">ออกจากระบบ</button>
       </div>
     </div>
   </div>
@@ -39,67 +40,48 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';  // ใช้สำหรับการนำทาง
-import { useUserStore } from '@/stores/userStore'; // นำเข้า User Store
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../stores/userStore';
 
-// ใช้ useRouter สำหรับการเปลี่ยนหน้า
 const router = useRouter();
+const userStore = useUserStore();
 const isLoggedIn = ref(false);
-const name = ref('');                                                                           
-const email = ref('');
-const userStore = useUserStore(); // สร้างอินสแตนซ์ของ User Store
+const error = ref(null); // ข้อความผิดพลาด
 
-// ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
-onMounted(() => {
-  if (process.client) {
-    isLoggedIn.value = !!localStorage.getItem('token');
-    if (isLoggedIn.value) {
-      fetchUserData();  // ดึงข้อมูลผู้ใช้เมื่อมี token
-    }
-  }
-});
-onMounted(() => {
+// ตรวจสอบสถานะการล็อกอิน
+const checkLoginStatus = () => {
   isLoggedIn.value = !!localStorage.getItem('token');
-  if (isLoggedIn.value) {
-    fetchUserData();
-  }
-});
+};
 
-// ฟังก์ชันดึงข้อมูลผู้ใช้จาก API
+// ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้
 const fetchUserData = async () => {
   try {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/user', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    
-    const userData = await response.json();
-    name.value = userData.name || '';  // กำหนดค่าชื่อผู้ใช้
-    email.value = userData.email || '';  // กำหนดค่าอีเมลผู้ใช้
-  } catch (error) {
-    console.error('Error fetching user data:', error);
+    await userStore.fetchUserData(); // ดึงข้อมูลผู้ใช้จาก store
+  } catch (err) {
+    error.value = err.message; // เก็บข้อความผิดพลาด
   }
 };
 
-// ฟังก์ชันออกจากระบบ
+// ฟังก์ชันสำหรับออกจากระบบ
 const logout = () => {
-  if (process.client) {
-    localStorage.removeItem('token');  // ลบ token จาก localStorage
-    isLoggedIn.value = false;  // อัพเดตสถานะ isLoggedIn เป็น false
-    router.push('/login');  // นำผู้ใช้ไปที่หน้า login
-  }
+  localStorage.removeItem('token'); // ลบ token
+  checkLoginStatus(); // อัปเดตสถานะการล็อกอิน
+  router.push('/login'); // เปลี่ยนเส้นทางไปยังหน้าล็อกอิน
 };
 
 // ฟังก์ชันตรวจสอบเส้นทางปัจจุบัน
 const isActiveRoute = (route) => {
   return router.currentRoute.value.path === route;
 };
+
+// เรียกใช้เมื่อคอมโพเนนต์ถูกติดตั้ง
+onMounted(() => {
+  checkLoginStatus(); // ตรวจสอบสถานะการล็อกอิน
+  if (isLoggedIn.value) {
+    fetchUserData(); // ดึงข้อมูลผู้ใช้เมื่อมี token
+  }
+});
+
 </script>
 
 <style scoped>

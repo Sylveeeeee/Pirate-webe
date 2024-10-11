@@ -75,4 +75,8 @@ const addCoins = async () => {
 .text-green-500 {
   color: green;
 }
+body {
+background: #1d1d1d;;
+}
+
 </style>

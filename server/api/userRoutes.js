@@ -1,13 +1,11 @@
-// server/userRoutes.js
 const express = require('express');
 const router = express.Router();
 const db = require('./db'); // นำเข้าโมดูล db.js เพื่อเชื่อมต่อกับฐานข้อมูล
 const { verifyToken } = require('./middleware'); // ฟังก์ชันสำหรับยืนยัน token
 
 // GET /api/user
-app.get('/api/user', authenticateToken, (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   const userId = req.user.id; // กำหนด userId จาก token
-  // ค้นหาผู้ใช้ในฐานข้อมูล
   db.query('SELECT name, email FROM users WHERE id = ?', [userId], (error, results) => {
     if (error) return res.status(500).json({ error: 'Database error' });
     if (results.length > 0) {
@@ -17,6 +15,5 @@ app.get('/api/user', authenticateToken, (req, res) => {
     }
   });
 });
-
 
 module.exports = router;

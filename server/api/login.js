@@ -1,40 +1,71 @@
-import { pool } from '../db';  // ดึงข้อมูลการเชื่อมต่อจาก db.js
-import bcrypt from 'bcryptjs'; // สำหรับเข้ารหัสรหัสผ่าน
-import jwt from 'jsonwebtoken'; // สำหรับสร้าง JSON Web Token
+import { createConnection } from '../db'; // ใช้การเชื่อมต่อฐานข้อมูลที่สร้างไว้
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);  // รับข้อมูลจาก request body
+  if (event.req.method !== 'POST') {
+    throw createError({ statusCode: 405, message: 'Method Not Allowed' });
+  }
+
+  const body = await readBody(event); // อ่านข้อมูลจาก request body
   const { email, password } = body;
 
-  // ตรวจสอบว่าข้อมูลถูกส่งมาครบหรือไม่
   if (!email || !password) {
-    return { error: 'Email and password are required.' };
+    throw createError({ statusCode: 400, message: 'Email and password are required' });
   }
 
+  let connection;
   try {
-    // ตรวจสอบว่ามีผู้ใช้อยู่ในระบบหรือไม่
-    const [users] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    connection = await createConnection(); // เชื่อมต่อกับฐานข้อมูล
 
-    if (users.length === 0) {
-      return { error: 'User not found.' };
+    // ค้นหาผู้ใช้
+    const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
+
+    if (rows.length === 0) {
+      return {
+          error: true,
+          message: 'Invalid email or password',
+          user: null
+      };
+  }
+
+    const user = rows[0];
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      throw createError({ statusCode: 401, message: 'Invalid email or password' });
     }
 
-    const user = users[0];
+    // สร้าง token
+    const token = jwt.sign({ id: user.id }, '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1', { expiresIn: '1h' });
 
-    // ตรวจสอบรหัสผ่าน (หากใช้ bcrypt ในการเข้ารหัสรหัสผ่าน)
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      return { error: 'Incorrect password.' };
-    }
-
-    // สร้าง JWT Token สำหรับผู้ใช้
-    const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: '1h', // Token จะหมดอายุใน 1 ชั่วโมง
-    });
-
-    return { message: 'Login successful', token };  // ส่ง Token กลับไป
+    return {
+      message: 'Login successful',
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    };
   } catch (error) {
-    return { error: error.message };
+    throw createError({ statusCode: 500, message: 'Internal server error' });
+  } finally {
+    if (connection) {
+      await connection.end(); // ปิดการเชื่อมต่อฐานข้อมูล
+    }
   }
 });
+async function connectToDatabase() {
+  try {
+      const connection = await createConnection();
+      console.log('Database connection successful');
+      return connection;
+  } catch (error) {
+      console.error('Database connection failed:', error);
+  }
+}
+connectToDatabase();
+

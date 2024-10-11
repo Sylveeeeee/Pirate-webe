@@ -33,7 +33,7 @@
         </i>
       </div>
 
-      <button class="btn btn-primary h-[50px]" @click="authStore.login(email, password)">LOG IN</button>
+      <button class="btn btn-primary h-[50px]" @click="handleLogin "  >LOG IN</button>
       
       <div class="or text-[#ffff] ">OR</div>
 
@@ -79,19 +79,13 @@ const togglePasswordVisibility = () => {
 const loginWithGoogle = () => {
   authStore.loginWithGoogle();
 };
-
-// ฟังก์ชัน login ด้วย email และ password
-const login = async () => {
-  try {
-    // เรียกใช้งานฟังก์ชัน login ใน authStore
-    await authStore.login(email.value, password.value);
-
-    // ถ้าเข้าสู่ระบบสำเร็จ และไม่มีข้อผิดพลาด
-    if (!authStore.error) {
-      router.push('/profile'); // เปลี่ยนเส้นทางไปยังหน้าโปรไฟล์
-    }
-  } catch (err) {
-    console.error(err);  // แสดงข้อผิดพลาดใน console
+const handleLogin = async () => {
+  const success = await authStore.login(email.value, password.value);
+  if (success) {
+    // เปลี่ยนเส้นทางไปยังหน้าหลักหลังจากล็อกอินสำเร็จ
+    setTimeout(() => {
+      router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
+    }, 2000);
   }
 };
 </script>

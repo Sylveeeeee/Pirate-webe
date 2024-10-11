@@ -9,7 +9,9 @@ router.post('/add-coins', async (req, res) => {
   const { coins } = req.body;
 
   // ตรวจสอบ Token จาก Header
-  const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
+  
+
   
   if (!token) {
     return res.status(401).json({ success: false, message: 'Unauthorized' });

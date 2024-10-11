@@ -6,52 +6,72 @@ export const useAuthStore = defineStore('auth', {
     user: {
       name: '',
       email: '',
-      phone: ''
+      id: null,
+      coin_balance: 0, // เพิ่มยอดเหรียญใน state
     },
-    // ...other state properties
+    token: null,
+    error: null,
+    message: null,
   }),
 
   actions: {
-    setUser(data) {
-        this.user = data; // อัปเดตข้อมูลผู้ใช้
-      },
     async login(email, password) {
       try {
         const response = await $fetch('/api/login', {
           method: 'POST',
           body: {
-            email: email,
-            password: password,
+            email,
+            password,
+          },
+        });
+        console.log('API Response:', response);
+    
+        if (response.error) {
+          this.error = response.error;
+          this.message = null;
+          return false;
+        }
+    
+        this.token = response.token;
+    
+        // หากไม่ส่งข้อมูล user กลับมา ก็ไม่ต้องอัปเดต this.user
+        localStorage.setItem('token', response.token);
+        this.message = 'Login successful...';
+        this.error = null;
+    
+        return true;
+      } catch (err) {
+        console.error('Error details:', err);
+        this.error = 'An error occurred during login';
+        this.message = null;
+        return false;
+      }
+    },
+
+    // เพิ่มฟังก์ชันเติมเหรียญ
+    async topUpCoins(amount) { // ลบ userId ออก
+      try {
+        const response = await $fetch('/api/topup', {
+          method: 'POST',
+          body: {
+            amount,
           },
         });
 
         if (response.error) {
           this.error = response.error;
-          this.message = null;
-        } else {
-          // ถ้า login สำเร็จ เก็บ token และ user ลงใน state
-          this.token = response.token;
-          this.user = response.user;  // เก็บข้อมูลผู้ใช้ เช่น ชื่อ, อีเมล
-          localStorage.setItem('token', response.token);  // เก็บ token ใน localStorage
-
-          this.message = 'Login successful!';
-          this.error = null;
+          return false;
         }
+
+        // อัปเดตยอดเหรียญใน state
+        this.user.coin_balance = response.newBalance; // อัปเดตยอดเหรียญ
+        this.message = 'Top-up successful!';
+        return true;
       } catch (err) {
-        this.error = 'An error occurred during login';
-        this.message = null;
+        console.error('Error during coin top-up:', err);
+        this.error = 'An error occurred during top-up';
+        return false;
       }
     },
-
-    async loginWithGoogle() {
-      // โค้ดสำหรับ login ด้วย Google
-    },
-
-    logout() {
-      this.user = null;
-      this.token = null;
-      localStorage.removeItem('token');
-      this.message = 'Logged out successfully!';
-    }
   },
 });
