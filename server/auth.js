@@ -1,6 +1,6 @@
 // server/auth.js (backend)
 const express = require('express');
-const { initDB } = require('../server/db'); // ปรับเส้นทางหากจำเป็น
+const { initDB } = require('./db'); // ปรับเส้นทางหากจำเป็น
 const router = express.Router();
 const bcrypt = require('bcrypt'); // Assuming you use bcrypt for password hashing
 const jwt = require('jsonwebtoken'); // Assuming you use JWT for token generation
@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
-
+    console.log(rows);
     if (rows.length > 0) {
       const user = rows[0];
       

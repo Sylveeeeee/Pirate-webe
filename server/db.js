@@ -1,20 +1,16 @@
-// server/db.js
-const { createConnection } = require('mysql2/promise');
+// db.js
+const mysql = require('mysql2/promise');
+require('dotenv').config(); // โหลดตัวแปร environment จาก .env
 
-async function initDB() {
-    try {
-        const connection = await createConnection({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-        });
-        console.log('Database connected successfully');
-        return connection;
-    } catch (error) {
-        console.error('Database connection failed:', error);
-        throw error; // ทำการส่งข้อผิดพลาดเพื่อให้จัดการได้อย่างถูกต้อง
-    }
-}
+const initDB = async () => {
+    const connection = await mysql.createConnection({
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '',
+        database: process.env.DB_NAME || 'piratedatabase',
+    });
 
-module.exports = { initDB }; // ส่งออกฟังก์ชัน
+    return connection;
+};
+
+module.exports = { initDB };

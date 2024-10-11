@@ -1,71 +1,49 @@
-import { createConnection } from '../db'; // ใช้การเชื่อมต่อฐานข้อมูลที่สร้างไว้
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+// server/api/login.js
+const { initDB } = require('../db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-
-
-export default defineEventHandler(async (event) => {
-  if (event.req.method !== 'POST') {
-    throw createError({ statusCode: 405, message: 'Method Not Allowed' });
-  }
-
-  const body = await readBody(event); // อ่านข้อมูลจาก request body
-  const { email, password } = body;
+const handler = async (req, res) => {
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    throw createError({ statusCode: 400, message: 'Email and password are required' });
+    return res.status(400).json({ message: 'Email and password are required' });
   }
 
-  let connection;
+  const connection = await initDB();
+
   try {
-    connection = await createConnection(); // เชื่อมต่อกับฐานข้อมูล
+    const [users] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
 
-    // ค้นหาผู้ใช้
-    const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
-
-    if (rows.length === 0) {
-      return {
-          error: true,
-          message: 'Invalid email or password',
-          user: null
-      };
-  }
-
-    const user = rows[0];
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      throw createError({ statusCode: 401, message: 'Invalid email or password' });
+    if (users.length === 0) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // สร้าง token
-    const token = jwt.sign({ id: user.id }, '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1', { expiresIn: '1h' });
+    const user = users[0];
 
-    return {
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    return res.json({
       message: 'Login successful',
-      token,
-      user: {
+      token: token,
+      user: { 
         id: user.id,
-        name: user.name,
         email: user.email,
-      },
-    };
+        name: user.name,
+        phone: user.phone || ''
+      }
+    });
   } catch (error) {
-    throw createError({ statusCode: 500, message: 'Internal server error' });
+    console.error('Error during login:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   } finally {
-    if (connection) {
-      await connection.end(); // ปิดการเชื่อมต่อฐานข้อมูล
-    }
+    connection.end();
   }
-});
-async function connectToDatabase() {
-  try {
-      const connection = await createConnection();
-      console.log('Database connection successful');
-      return connection;
-  } catch (error) {
-      console.error('Database connection failed:', error);
-  }
-}
-connectToDatabase();
+};
 
+module.exports = { handler };

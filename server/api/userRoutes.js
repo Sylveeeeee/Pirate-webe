@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db'); // นำเข้าโมดูล db.js เพื่อเชื่อมต่อกับฐานข้อมูล
+const db = require('../db'); // นำเข้าโมดูล db.js เพื่อเชื่อมต่อกับฐานข้อมูล
 const { verifyToken } = require('./middleware'); // ฟังก์ชันสำหรับยืนยัน token
 
 // GET /api/user
