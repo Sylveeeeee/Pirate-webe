@@ -10,46 +10,52 @@
           </div>
           {{ authStore.error }}
         </div>
-  
+
         <!-- Success Message -->
         <div v-if="authStore.message" class="success-message bg-[#0aa505] text-[#fff] h-[40px] flex items-center pl-[10px] w-[500px]">
           {{ authStore.message }}
         </div>
       </div>
-      
 
-      <div class="input-group">
-        <input v-model="email" type="email" required />
-        <label>E-mail</label>
+      <div class="bg-[#ffffff00]">
+        <form @submit.prevent="handleLogin">
+          <div class="input-group">
+            <input v-model="email" type="email" required />
+            <label>E-mail</label>
+          </div>
+
+          <div class="input-group">
+            <input v-model="password" :type="passwordInputType" required />
+            <label>Password</label>
+            <i 
+              class="fa" 
+              :class="passwordInputType === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
+              @click="togglePasswordVisibility">
+            </i>
+          </div>
+
+          <div class="CoN">
+            <button type="submit" class="btn btn-primary h-[50px]">LOG IN</button>
+          </div>
+          
+          <div class="or text-[#ffff]">OR</div>
+
+          <div class="social-login">
+            <button type="button" class="btn btn-google" @click="loginWithGoogle">
+              <Icon class="text-[30px] mr-[5px]" name="bxl:google"/>
+              Log in with Google
+            </button>
+            <button type="button" class="btn btn-facebook">
+              <Icon class="text-[30px] mr-[5px]" name="bxl:facebook"/>
+              Log in with Facebook
+            </button>
+          </div>
+
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </form>
       </div>
-
-      <div class="input-group">
-        <input v-model="password" :type="passwordInputType" required />
-        <label>Password</label>
-        <i 
-          class="fa" 
-          :class="passwordInputType === 'password' ? 'fa-eye' : 'fa-eye-slash'" 
-          @click="togglePasswordVisibility">
-        </i>
-      </div>
-
-      <button class="btn btn-primary h-[50px]" @click="handleLogin "  >LOG IN</button>
-      
-      <div class="or text-[#ffff] ">OR</div>
-
-      <div class="social-login">
-        <button class="btn btn-google" @click="loginWithGoogle">
-          <Icon class="text-[30px] mr-[5px]" name="bxl:google"/>
-          Log in with Google
-        </button>
-        <button class="btn btn-facebook">
-          <Icon class="text-[30px] mr-[5px]" name="bxl:facebook"/>
-          Log in with Facebook
-        </button>
-      </div>
-
-      <a href="#" class="forgot-password">Forgot password?</a>
     </div>
+
     <div class="register">
       <RouterLink to="/register" class="btn btn-secondary">Register</RouterLink>
     </div>
@@ -58,8 +64,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';  // นำเข้า authStore จาก Pinia
-import { useRouter } from 'vue-router';  // ใช้ router สำหรับการเปลี่ยนหน้า
+import { useAuthStore } from '../stores/auth';  // นำเข้า authStore จาก Pinia
+import { useRouter } from 'vue-router';
 
 // เข้าถึง store ของ Pinia
 const authStore = useAuthStore();
@@ -76,19 +82,35 @@ const togglePasswordVisibility = () => {
 };
 
 // ฟังก์ชัน login ด้วย Google
-const loginWithGoogle = () => {
-  authStore.loginWithGoogle();
-};
-const handleLogin = async () => {
-  const success = await authStore.login(email.value, password.value);
+const loginWithGoogle = async () => {
+  const success = await authStore.loginWithGoogle();
   if (success) {
     // เปลี่ยนเส้นทางไปยังหน้าหลักหลังจากล็อกอินสำเร็จ
-    setTimeout(() => {
-      router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
-    }, 2000);
+    router.push('/');
+  } else {
+    console.error(authStore.error);
+  }
+};
+
+// ฟังก์ชันจัดการล็อกอิน
+const handleLogin = async () => {
+  if (!email.value || !password.value) {
+    authStore.setError('Email and password are required.');
+    return;
+  }
+
+  const success = await authStore.login(email.value, password.value); // เรียกใช้ login จาก authStore
+  if (success) {
+    // หากล็อกอินสำเร็จ
+    router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
+    email.value = ''; // เคลียร์ค่า email
+    password.value = ''; // เคลียร์ค่า password
+  } else {
+    console.error(authStore.error); // แสดงข้อความข้อผิดพลาด
   }
 };
 </script>
+
 
 
 <style>
@@ -96,7 +118,6 @@ const handleLogin = async () => {
   display: flex;
   justify-content: center;
   background-color: #1d1d1d;
-  
 }
 
 .container {
@@ -105,15 +126,6 @@ const handleLogin = async () => {
   justify-content: center;
   align-items: center;
   color: #ffffff;
-}
-
-.login-form {
-  background-color: #222;
-  padding: 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 400px;
-  margin-bottom: 300px;
 }
 
 h1 {
@@ -126,15 +138,9 @@ h1 {
   font-size: 30px;
 }
 
-.form-group {
+.input-group {
   margin-bottom: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: aqua;
-  text-align: left;
-  width: 330px;
-  position: relative;
 }
-
 
 .fa-eye {
   position: absolute;
@@ -161,10 +167,9 @@ h1 {
 }
 
 .btn-primary:hover {
-  background-color: aqua;
+  background-color: transparent;
   border: solid 3px;
   border-color: aqua;
-  background-color: transparent;
   color: aqua;
 }
 
@@ -179,8 +184,7 @@ h1 {
 
 .or {
   text-align: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .social-login {
@@ -220,10 +224,6 @@ h1 {
   background-color: #29487d;
 }
 
-.fa {
-  margin-right: 10px;
-}
-
 .forgot-password {
   display: block;
   text-align: center;
@@ -245,40 +245,40 @@ h1 {
 .register a:hover {
   text-decoration: underline;
 }
+
 .input-group label {
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    font-size: 20px;
-    color: #ffffff60;
-    padding: 0 5px;
-    pointer-events: none;
-    transition: .3s;
-    width: auto;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #ffffff60;
+  padding: 0 5px;
+  pointer-events: none;
+  transition: .3s;
 }
 
 .input-group input {
-    width: 500px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: 300;
-    padding: 0 10px;
-    background: #1d1d1d;
-    border-radius: 5px;
-    border: solid 1px;
-    outline: none;
+  width: 500px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 300;
+  padding: 0 10px;
+  background: #1d1d1d;
+  border-radius: 5px;
+  border: solid 1px;
+  outline: none;
 }
-.input-group input:focus~label,
-.input-group input:valid~label {
-    top: 0;
-    font-size: 16px;
-    background: #1d1d1d;
-    color: aqua;
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+  top: 0;
+  font-size: 16px;
+  color: aqua;
 }
 
 .input-group input:focus,
 .input-group input:valid {
-    border: 1px solid aqua;
+  border: 1px solid aqua;
 }
-</style>  
+</style>

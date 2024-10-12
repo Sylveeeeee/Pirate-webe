@@ -32,12 +32,13 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useAuthStore } from '../stores/auth';
 
 // กำหนดตัวแปรสำหรับจำนวนเหรียญที่ผู้ใช้จะเติม
 const amount = ref(0);
 const successMessage = ref(''); // ตัวแปรสำหรับเก็บข้อความเมื่อเติมเหรียญสำเร็จ
 const errorMessage = ref(''); // ตัวแปรสำหรับเก็บข้อความเมื่อเกิดข้อผิดพลาด
-
+const authStore = useAuthStore();
 // ฟังก์ชันสำหรับเติมเหรียญ
 const addCoins = async () => {
   const token = localStorage.getItem('token');

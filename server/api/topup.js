@@ -1,29 +1,40 @@
 // server/api/topup.js
-import { createConnection } from '../db';
+import express from 'express';
+import jwt from 'jsonwebtoken'; // เปลี่ยนจาก require เป็น import
+import { getUserById, updateUserCoinBalance } from '../models/user.js'; // เปลี่ยนจาก require เป็น import
 
-export default defineEventHandler(async (event) => {
+const router = express.Router();
+
+const JWT_SECRET = '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1';
+
+router.post('/topup', async (req, res) => {
+  const { amount } = req.body;
+  const token = req.headers.authorization?.split(' ')[1]; // ดึง JWT token จาก headers
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token is missing' });
+  }
+
   try {
-    const token = event.node.req.headers['authorization'].split(' ')[1];
-    const decoded = jwt.verify(token, '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1');
-    const userId = decoded.id;
-    
-    const body = await readBody(event);
-    const { amount } = body;
+    // ตรวจสอบความถูกต้องของ JWT token
+    const decoded = jwt.verify(token, JWT_SECRET);
 
-    const connection = await createConnection();
-    
-    // อัปเดตยอดเหรียญในฐานข้อมูล
-    await connection.execute('UPDATE users SET coin_balance = coin_balance + ? WHERE id = ?', [amount, userId]);
-    
-    const [rows] = await connection.execute('SELECT coin_balance FROM users WHERE id = ?', [userId]);
-    const newBalance = rows[0].coin_balance;
+    // ดึงข้อมูลผู้ใช้จากฐานข้อมูล
+    const user = await getUserById(decoded.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
-    return {
-      message: 'Top-up successful',
-      newBalance,
-    };
-  } catch (error) {
-    console.error('Top-up error:', error);
-    throw createError({ statusCode: 500, message: 'Internal Server Error' });
+    // อัปเดตยอดเหรียญ
+    const newBalance = user.coin_balance + amount;
+    await updateUserCoinBalance(user.id, newBalance);
+
+    // ส่งยอดเหรียญใหม่กลับไปให้ client
+    res.json({ newBalance });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+export default router; // ใช้ export default แทน module.exports

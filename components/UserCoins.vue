@@ -1,12 +1,14 @@
 <template>
   <div>
-    <span class="text-[#ffff] ml-[10px]">coin : {{ totalCoins }}</span>
+    <span class="text-[#ffff] ml-[10px]">coin : {{ authStore.user.coin_balance }}</span>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useAuthStore } from '../stores/auth';
 
+const authStore = useAuthStore();
 const totalCoins = ref(0);
 
 const fetchUserCoins = async () => {

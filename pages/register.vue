@@ -19,7 +19,7 @@
             <label>E-mail</label>
           </div>
           <div class="input-group">
-            <input v-model="password" :type="passwordInputType1" required />
+            <input v-model="password" :type="passwordInputType1" required :disabled="passwordInputDisabled" />
             <label>Password</label>
             <!-- ไอคอนลูกตา -->
             <i class="fa" 
@@ -30,7 +30,7 @@
             </i>
           </div>
           <div class="input-group">
-            <input v-model="confirmPassword" :type="passwordInputType2" required />
+            <input v-model="confirmPassword" :type="passwordInputType2" required :disabled="passwordInputDisabled" />
             <label>Confirm Password</label>
             <!-- ไอคอนลูกตา -->
             <i class="fa" 
@@ -64,6 +64,7 @@ const error = ref(null);
 const message = ref(null);
 const passwordInputType1 = ref('password');
 const passwordInputType2 = ref('password');
+const passwordInputDisabled = ref(false); // สถานะการปิดใช้งานช่องกรอกรหัสผ่าน
 
 // แสดงหรือซ่อนรหัสผ่าน
 const togglePasswordVisibility1 = () => {
@@ -102,9 +103,16 @@ const register = async () => {
 
     // ตรวจสอบผลลัพธ์จาก API
     if (response.error) {
-      error.value = response.error; // ตั้งค่าข้อความ error
+      // ถ้า API ส่งกลับข้อผิดพลาด
+      if (response.error === 'Email already registered.') {
+        error.value = 'This email is already registered. Please use another email.'; // แสดงข้อความเมื่ออีเมลถูกลงทะเบียนแล้ว
+        passwordInputDisabled.value = true; // ปิดใช้งานช่องกรอกรหัสผ่าน
+        confirmPassword.value = ''; // ล้างช่องกรอกยืนยันรหัสผ่าน
+      } else {
+        error.value = response.error; // ตั้งค่าข้อความ error อื่นๆ
+      }
     } else {
-      message.value = 'Registration successful! Redirecting to login...'; // ตั้งค่าข้อความสำเร็จ
+      message.value = 'Registration successful! Redirecting to login...'; // ข้อความสำเร็จ
       setTimeout(() => {
         router.push('/login');
       }, 2000); // เปลี่ยนเส้นทางหลังจาก 2 วินาที
@@ -113,7 +121,9 @@ const register = async () => {
     error.value = 'An error occurred during registration'; // ข้อความแสดงเมื่อเกิดข้อผิดพลาด
   }
 };
+
 </script>
+
 
 <style>
 .BTN {

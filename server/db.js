@@ -1,16 +1,28 @@
-// db.js
-const mysql = require('mysql2/promise');
-require('dotenv').config(); // โหลดตัวแปร environment จาก .env
+// server/db.js
+import mysql from 'mysql2/promise';
 
-const initDB = async () => {
-    const connection = await mysql.createConnection({
-        host: process.env.DB_HOST || 'localhost',
-        user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD || '',
-        database: process.env.DB_NAME || 'piratedatabase',
-    });
+// สร้างการเชื่อมต่อฐานข้อมูล
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'piratedatabase',
+});
 
-    return connection;
+// ฟังก์ชันทดสอบการเชื่อมต่อฐานข้อมูล (optional)
+const testConnection = async () => {
+  try {
+    const connection = await pool.getConnection();
+    console.log('Database connection successful!');
+    
+    connection.release();
+  } catch (error) {
+    console.error('Database connection failed:', error.message);
+  }
 };
 
-module.exports = { initDB };
+// เรียกใช้งานฟังก์ชันทดสอบการเชื่อมต่อเมื่อไฟล์นี้ถูกรัน
+testConnection();
+
+// ส่งออกการเชื่อมต่อฐานข้อมูล
+export default pool; 

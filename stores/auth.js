@@ -1,5 +1,5 @@
-// stores/auth.js
 import { defineStore } from 'pinia';
+import { loginApi } from '../api/auth.js';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -7,7 +7,7 @@ export const useAuthStore = defineStore('auth', {
       name: '',
       email: '',
       id: null,
-      coin_balance: 0, // เพิ่มยอดเหรียญใน state
+      coin_balance: 0,
     },
     token: null,
     error: null,
@@ -15,68 +15,92 @@ export const useAuthStore = defineStore('auth', {
   }),
 
   actions: {
+    initialize() {
+      // ตรวจสอบว่าอยู่ในเบราว์เซอร์หรือไม่
+      if (typeof window !== 'undefined') {
+        this.token = localStorage.getItem('token') || null;
+        this.user.id = localStorage.getItem('userId') || null;
+      }
+    },
+
     async login(email, password) {
       try {
-        const response = await $fetch('/api/login', {
-          method: 'POST',
-          body: { email, password },
-        });
-    
-        console.log('API Response:', response); // เพิ่มการ log เพื่อตรวจสอบการตอบกลับ
-    
-        if (response.error) {
-          this.error = response.error;
-          this.message = null;
+        const response = await loginApi(email, password);
+        console.log(response);
+
+        if (!response || !response.user) {
+          this.setError('User data not found in response.');
           return false;
         }
-    
+
+        // อัปเดตข้อมูลผู้ใช้
+        this.user = {
+          id: response.user.id,
+          name: response.user.name,
+          email: response.user.email,
+          coin_balance: response.user.coin_balance,
+        };
         this.token = response.token;
-    
-        // ตรวจสอบว่ามีข้อมูลผู้ใช้ใน response หรือไม่
-        if (response.user) {
-          this.user = response.user; // อัปเดตข้อมูลผู้ใช้
+
+        // ตรวจสอบว่าอยู่ในเบราว์เซอร์ก่อนที่จะเข้าถึง localStorage
+        if (typeof window !== 'undefined') {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('userId', response.user.id); // ตรวจสอบที่นี่
-          this.message = 'Login successful...';
-          this.error = null;
-        } else {
-          this.error = 'User data not found in response.'; // เปลี่ยนข้อความข้อผิดพลาด
-          this.message = null;
-          return false; // คืนค่า false ถ้าไม่มีข้อมูลผู้ใช้
+          localStorage.setItem('userId', response.user.id);
         }
-    
+
+        this.message = 'Login successful!';
+        this.clearError();
         return true;
       } catch (err) {
-        console.error('Error details:', err);
-        this.error = 'An error occurred during login';
-        this.message = null;
+        this.setError(err.message || 'An error occurred during login');
         return false;
       }
     },
-    // เพิ่มฟังก์ชันเติมเหรียญ
-    async topUpCoins(amount) { // ลบ userId ออก
+
+    async topUpCoins(amount) {
+      if (!this.token) {
+        this.setError('User not authenticated. Please log in.');
+        return false;
+      }
+
       try {
         const response = await $fetch('/api/topup', {
           method: 'POST',
-          body: {
-            amount,
+          headers: {
+            Authorization: `Bearer ${this.token}`,
           },
+          body: { amount },
         });
 
         if (response.error) {
-          this.error = response.error;
+          this.setError(response.error);
           return false;
         }
 
-        // อัปเดตยอดเหรียญใน state
-        this.user.coin_balance = response.newBalance; // อัปเดตยอดเหรียญ
+        this.user.coin_balance = response.newBalance;
         this.message = 'Top-up successful!';
+        this.clearError();
         return true;
       } catch (err) {
-        console.error('Error during coin top-up:', err);
-        this.error = 'An error occurred during top-up';
+        this.setError('An error occurred during top-up');
         return false;
       }
+    },
+
+    setError(errorMessage) {
+      this.error = errorMessage;
+    },
+
+    clearError() {
+      this.error = null;
+    },
+
+    logout() {
+      this.user = { name: '', email: '', id: null, coin_balance: 0 };
+      this.token = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      this.message = 'Logged out successfully.';
     },
   },
 });

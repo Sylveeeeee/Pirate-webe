@@ -8,8 +8,8 @@
         </div>
         <div v-if="error" class="error">{{ error }}</div>
         <div v-if="userData" class="ml-[20px] flex flex-col text-[#ffff]">
-          <span class="font-bold text-[20px]">{{ email }}</span>
-          <span class="font-bold text-[20px]">{{ name }}</span>
+          <span class="font-bold text-[20px]">{{ authStore.user.email }}</span>
+          <span class="font-bold text-[20px]">{{ authStore.user.name }}</span>
         </div>
       </div>
       <!-- เมนูต่าง ๆ -->
@@ -42,7 +42,9 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '../stores/userStore';
+import { useAuthStore } from '../stores/auth';
 
+const authStore = useAuthStore();
 const router = useRouter();
 const userStore = useUserStore();
 const isLoggedIn = ref(false);

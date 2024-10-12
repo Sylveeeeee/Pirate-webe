@@ -1,6 +1,6 @@
 // stores/coins.js
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+
 
 export const useCoinsStore = defineStore('coins', {
   state: () => ({
