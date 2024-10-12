@@ -64,8 +64,9 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../stores/auth';  // นำเข้า authStore จาก Pinia
+import { useAuthStore } from '../stores/auth'; // นำเข้า authStore จาก Pinia
 import { useRouter } from 'vue-router';
+import { loginApi } from '@/api/auth'; // นำเข้า loginApi จากไฟล์ auth.js
 
 // เข้าถึง store ของ Pinia
 const authStore = useAuthStore();
@@ -81,17 +82,6 @@ const togglePasswordVisibility = () => {
   passwordInputType.value = passwordInputType.value === 'password' ? 'text' : 'password';
 };
 
-// ฟังก์ชัน login ด้วย Google
-const loginWithGoogle = async () => {
-  const success = await authStore.loginWithGoogle();
-  if (success) {
-    // เปลี่ยนเส้นทางไปยังหน้าหลักหลังจากล็อกอินสำเร็จ
-    router.push('/');
-  } else {
-    console.error(authStore.error);
-  }
-};
-
 // ฟังก์ชันจัดการล็อกอิน
 const handleLogin = async () => {
   if (!email.value || !password.value) {
@@ -99,19 +89,20 @@ const handleLogin = async () => {
     return;
   }
 
-  const success = await authStore.login(email.value, password.value); // เรียกใช้ login จาก authStore
-  if (success) {
-    // หากล็อกอินสำเร็จ
-    router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
-    email.value = ''; // เคลียร์ค่า email
-    password.value = ''; // เคลียร์ค่า password
-  } else {
-    console.error(authStore.error); // แสดงข้อความข้อผิดพลาด
+  try {
+    const response = await loginApi(email.value, password.value); // เรียกใช้ loginApi
+    if (response.token) {
+      // บันทึก token หรือข้อมูลผู้ใช้ใน store
+      authStore.setToken(response.token); // ตั้งค่า token
+      authStore.setUser(response.user); // ตั้งค่าข้อมูลผู้ใช้
+      router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    authStore.setError('Login failed. Please try again.');
   }
 };
 </script>
-
-
 
 <style>
 .sss {

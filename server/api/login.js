@@ -1,8 +1,9 @@
 import express from 'express';
-import { loginUser } from './authController.js'; // นำเข้า controller
+import { loginUser } from '../controllers/authController.js'; // นำเข้าฟังก์ชันการล็อกอิน
 
 const router = express.Router();
 
-router.post('/', loginUser); // กำหนดเส้นทาง POST สำหรับ /api/auth
+// เส้นทางสำหรับการล็อกอิน
+router.post('/login', loginUser);
 
-export default router;
+export default router; // ส่งออก router แบบ default
