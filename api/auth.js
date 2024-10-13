@@ -1,17 +1,22 @@
 // api/auth.js
 export const loginApi = async (email, password) => {
+  console.log('Attempting to login with:', { email, password }); // ล็อกข้อมูลการล็อกอิน
+
   try {
-    const response = await fetch('http://localhost:3000/api/login', { // URL ของ API
+    const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
+        
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }), // ส่งข้อมูลอีเมลและรหัสผ่าน
     });
 
+    // ตรวจสอบว่าการตอบกลับเป็น OK หรือไม่
     if (!response.ok) {
       const errorResponse = await response.json();
-      throw new Error(errorResponse.error || 'Login failed.'); // โยนข้อผิดพลาดถ้าการตอบกลับไม่โอเค
+      console.error('Login failed response:', errorResponse); // ล็อกการตอบกลับข้อผิดพลาด
+      throw new Error(errorResponse.message || 'Login failed.'); // ใช้ message แทน error
     }
 
     const data = await response.json(); // รับข้อมูล JSON จากการตอบกลับ

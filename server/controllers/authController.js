@@ -1,12 +1,10 @@
-import bcrypt from 'bcrypt'; // อย่าลืมนำเข้า bcrypt
-import jwt from 'jsonwebtoken'; // อย่าลืมนำเข้า jsonwebtoken
-import { getUserByEmail } from '../models/user.js'; // นำเข้าโมเดลผู้ใช้ที่เหมาะสม
-import dotenv from 'dotenv'; // นำเข้า dotenv
-
-dotenv.config(); // เริ่มต้น dotenv เพื่อใช้ environment variables
+import bcrypt from 'bcrypt'; // นำเข้า bcrypt
+import jwt from 'jsonwebtoken'; // นำเข้า jsonwebtoken
+import { getUserByEmail } from '../models/user.js'; // นำเข้าโมเดลผู้ใช้
 
 export const loginUser = async (email, password) => {
-  // ตรวจสอบว่ามีข้อมูลที่จำเป็นหรือไม่
+  console.log('Login attempt with:', { email, password });
+
   if (!email || !password) {
     console.log('Email and password are required.');
     throw new Error('Email and password are required.');
@@ -14,23 +12,24 @@ export const loginUser = async (email, password) => {
 
   try {
     const user = await getUserByEmail(email);
+    console.log('User found:', user); // ล็อกข้อมูลผู้ใช้ที่ค้นพบ
 
     // ตรวจสอบว่าผู้ใช้มีอยู่หรือไม่
-    if (!user) {
-      console.log('Invalid email or password.'); // ควรทำ log แต่ไม่บอกว่าผู้ใช้มีอยู่หรือไม่
+    if (!user || user.length === 0 || !user[0].password) { 
+      console.log('Invalid email or password.');
       throw new Error('Invalid email or password.');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user[0].password);
     if (!isPasswordValid) {
-      console.log('Invalid email or password.'); // ควรทำ log แต่ไม่บอกว่าผู้ใช้มีอยู่หรือไม่
+      console.log('Invalid email or password.');
       throw new Error('Invalid email or password.');
     }
 
-    // สร้าง JWT โดยใช้ secret key จาก environment variable
+    // สร้าง JWT
     const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET, // ใช้ environment variable สำหรับ secret key
+      { id: user[0].id, email: user[0].email },
+      '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1',
       { expiresIn: '1h' }
     );
 
@@ -38,14 +37,15 @@ export const loginUser = async (email, password) => {
       message: 'Login successful',
       token: token,
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        coin_balance: user.coin_balance,
+        id: user[0].id,
+        email: user[0].email,
+        name: user[0].name,
+        coin_balance: user[0].coin_balance,
       },
     };
   } catch (error) {
     console.error('Login error:', error);
-    throw new Error('Internal server error.'); // โยนข้อผิดพลาดที่เหมาะสม
+    throw new Error('Internal server error.');
   }
 };
+

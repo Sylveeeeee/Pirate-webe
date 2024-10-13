@@ -22,10 +22,9 @@ export const useAuthStore = defineStore('auth', {
         const storedUser = localStorage.getItem('user');
 
         if (storedToken && storedUserId) {
-          this.token = storedToken;
+          this.token = storedToken;  
           this.user = JSON.parse(storedUser);
-        } else {
-          this.logout(); // Logout if no token or user
+        } else {  this.logout(); // Logout if no token or user
         }
       }
     },
@@ -46,9 +45,7 @@ export const useAuthStore = defineStore('auth', {
           email: response.user.email,
           coin_balance: response.user.coin_balance,
         };
-        this.token = response.token;
-
-        // Store in localStorage
+        this.token = response.token;// Store in localStorage
         if (typeof window !== 'undefined') {
           localStorage.setItem('token', response.token);
           localStorage.setItem('userId', response.user.id);
@@ -71,51 +68,48 @@ export const useAuthStore = defineStore('auth', {
         return false;
       }
     
-      try {
-        const response = await fetch('http://localhost:3000/api/topup', { // Specify the full URL
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ amount }), // Send coin top-up data
-        });
-    
-        if (!response.ok) {
-          const errorResponse = await response.json();
-          this.setError(errorResponse.error || 'An error occurred during top-up');
-          return false;
-        }
-    
-        const responseData = await response.json();
-        this.user.coin_balance = responseData.newBalance; // Update user coin balance
-        this.message = 'Top-up successful!';
-        this.clearError();
-        return true;
-      } catch (err) {
-        console.error('Top-up error:', err);
-        this.setError('An error occurred during top-up');
+      try {const response = await fetch('http://localhost:3000/api/topup', { // Specify the full URL
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'application/json',
+        }, body: JSON.stringify({ amount }), // Send coin top-up data
+      });
+  
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        this.setError(errorResponse.error || 'An error occurred during top-up');
         return false;
       }
-    },
-
-    setError(errorMessage) {
-      this.error = errorMessage;
-    },
-
-    clearError() {
-      this.error = null;
-    },
-
-    logout() {
-      this.user = { name: '', email: '', id: null, coin_balance: 0 };
-      this.token = null;
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('user');
-      }
-      this.message = 'Logged out successfully.';
-    },
+  
+      const responseData = await response.json(); this.user.coin_balance = responseData.newBalance; // Update user coin balance
+      this.message = 'Top-up successful!';
+      this.clearError();
+      return true;
+    } catch (err) {
+      console.error('Top-up error:', err);
+      this.setError('An error occurred during top-up');
+      return false;
+    }
   },
+
+  setError(errorMessage) {
+    this.error = errorMessage;
+  },
+
+  clearError() {
+    this.error = null;
+  },
+
+  logout() {
+    this.user = { name: '', email: '', id: null, coin_balance: 0 };
+    this.token = null;
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('user');
+    }
+    this.message = 'Logged out successfully.';
+  },
+},
 });

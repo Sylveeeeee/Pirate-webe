@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useAuthStore } from '../stores/auth'; // นำเข้า authStore จาก Pinia
 import { useRouter } from 'vue-router';
 
@@ -90,10 +90,10 @@ const handleLogin = async () => {
 
   try {
     // เรียกใช้ login จาก authStore
-    await authStore.login(email.value, password.value);
+    const success = await authStore.login(email.value, password.value);
 
     // ถ้าล็อกอินสำเร็จ เปลี่ยนเส้นทางไปยังหน้าหลัก
-    if (authStore.token) {
+    if (success) {
       // ตั้งค่าหน่วงเวลาก่อนเปลี่ยนเส้นทาง
       setTimeout(() => {
         router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก

@@ -1,35 +1,44 @@
-const express = require('express');
-const router = express.Router();
-const { getUserById, updateUserField } = require('../controllers/userController');
-const { authenticateJWT } = require('../middleware/authMiddleware'); // Middleware for JWT authentication
+// server/api/user.js
+import { createRouter } from 'h3';
+import { getUserById, updateUserField } from '../controllers/userController';
+import authenticateJWT from '../middleware/authMiddleware'; // Import the middleware
+
+const router = createRouter();
 
 // GET user data
-router.get('/', authenticateJWT, async (req, res) => {
+router.get('/', authenticateJWT, async (event) => {
+  const userId = event.node.req.user ? event.node.req.user.id : null; // Check if user exists
+  if (!userId) {
+    return { status: 200, body: { message: 'No user logged in' } }; // Allow access even if not logged in
+  }
+
   try {
-    const userId = req.user.id; // Assuming you store user ID in the JWT
     const user = await getUserById(userId);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return { status: 404, body: { message: 'User not found' } };
     }
-    res.json(user);
+    return { body: user };
   } catch (error) {
     console.error('Error fetching user data:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    return { status: 500, body: { message: 'Internal server error' } };
   }
 });
 
-// PATCH user data (update specific fields)
-router.patch('/:field', authenticateJWT, async (req, res) => {
-  const { field } = req.params;
-  const { value } = req.body;
+// PATCH user data
+router.patch('/:field', authenticateJWT, async (event) => {
+  const { field } = event.node.req.params;
+  const { value } = await readBody(event); // Read the body from the event
 
   try {
-    const updatedUser = await updateUserField(req.user.id, field, value);
-    res.json(updatedUser);
+    if (!event.node.req.user) {
+      return { status: 403, body: { message: 'Forbidden. No user logged in.' } }; // Prevent unauthorized access
+    }
+    const updatedUser = await updateUserField(event.node.req.user.id, field, value);
+    return { body: updatedUser };
   } catch (error) {
     console.error(`Error updating ${field}:`, error);
-    res.status(500).json({ message: 'Internal server error' });
+    return { status: 500, body: { message: 'Internal server error' } };
   }
 });
 
-module.exports = router;
+export default router;

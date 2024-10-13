@@ -1,20 +1,20 @@
 import express from 'express';
 import cors from 'cors';
-import loginApi from './server/api/login.js'; // นำเข้าเส้นทาง auth
-import topupRoutes from './server/api/topup.js'; // นำเข้าเส้นทาง topup
+import loginApi from './server/api/login.js'; // Import login routes
+import topupRoutes from './server/api/topup.js'; // Import topup routes
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ใช้ middleware
+// Use middleware
 app.use(cors());
-app.use(express.json()); // สำหรับจัดการกับ JSON request body
+app.use(express.json()); // For handling JSON request body
 
-// ใช้ router ของ auth
+// Use login routes
 app.use('/api/login', loginApi);
 
-// ใช้ router ของ topup
-app.use('/api/topup', topupRoutes); // ตั้งค่าเส้นทาง topup
+// Use topup routes
+app.use('/api/topup', topupRoutes); // Set topup routes
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
