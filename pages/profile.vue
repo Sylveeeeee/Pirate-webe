@@ -135,6 +135,7 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore'; // นำเข้า authStore
 import navcol from './components/navcol.vue';
+
 const authStore = useAuthStore(); // สร้าง instance ของ authStore
 
 const user = ref({
@@ -142,30 +143,28 @@ const user = ref({
   email: '',
   phone: ''
 });
+const password = ref('');
+const newPassword = ref('');
+const confirmNewPassword = ref('');
+const showPassword = ref(false);
+const showNewPassword = ref(false);
+const showConfirmNewPassword = ref(false);
 
 // ฟังก์ชันดึงข้อมูลผู้ใช้จาก API
 const fetchUserData = async () => {
   try {
-    const token = localStorage.getItem('token'); // รับ token จาก local storage
-    const response = await fetch('/api/user', {
-      headers: {
-        Authorization: `Bearer ${token}`, // ส่ง token
-      },
-    });
-
+    const response = await fetch('/api/user'); // ใช้ fetch แทน axios
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    const userData = await response.json();
-
-    // กำหนดค่าฟิลด์ให้ตรงกับข้อมูลที่ได้
-    user.value.name = userData.name || '';
-    user.value.email = userData.email || '';
-    user.value.phone = userData.phone || '';
+    const data = await response.json(); // แปลง response เป็น JSON
+    console.log(data); // ตรวจสอบข้อมูลที่ได้จาก API
+    user.value = data; // อัพเดต user state
   } catch (error) {
     console.error('Error fetching user data:', error);
   }
 };
+
 
 onMounted(() => {
   fetchUserData(); // เรียกฟังก์ชันเมื่อ component ถูก mount
@@ -173,35 +172,63 @@ onMounted(() => {
 
 // ฟังก์ชันบันทึกข้อมูล
 const save = async (field) => {
-  const response = await fetch(`/api/user/${field}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ [field]: user.value[field] }), // ส่งค่าที่ถูกแก้ไข
-  });
-  
-  if (response.ok) {
+  try {
+    const response = await fetch(`/api/user/${field}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ value: user.value[field] }), // ส่งข้อมูลในรูปแบบ JSON
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     alert(`บันทึกข้อมูล ${field} เรียบร้อยแล้ว!`);
-  } else {
+  } catch (error) {
     alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
   }
 };
 
 // ฟังก์ชันสำหรับการเปลี่ยนรหัสผ่าน
 const saveChanges = async () => {
-  // ...
+  if (newPassword.value !== confirmNewPassword.value) {
+    alert("รหัสผ่านใหม่ไม่ตรงกัน");
+    return;
+  }
+  try {
+    const response = await fetch('/api/change-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        oldPassword: password.value,
+        newPassword: newPassword.value,
+      }), // ส่งข้อมูลในรูปแบบ JSON
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    alert('เปลี่ยนรหัสผ่านเรียบร้อยแล้ว!');
+  } catch (error) {
+    alert('เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน');
+  }
+};
+
+// ฟังก์ชันสำหรับ toggle password visibility
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
+};
+
+const toggleNewPasswordVisibility = () => {
+  showNewPassword.value = !showNewPassword.value;
+};
+
+const toggleConfirmNewPasswordVisibility = () => {
+  showConfirmNewPassword.value = !showConfirmNewPassword.value;
 };
 </script>
 
-<style>
-body {
-  background: #1d1d1d;
-  height: auto;
-}
-
-/* ซ่อนไอคอนที่ไม่ต้องการ */
-button i {
-  display: none;
-}
+<style scoped>
+/* เพิ่มสไตล์ที่ต้องการ */
 </style>

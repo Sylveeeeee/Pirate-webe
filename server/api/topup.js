@@ -1,40 +1,28 @@
-// server/api/topup.js
-import express from 'express';
-import jwt from 'jsonwebtoken'; // เปลี่ยนจาก require เป็น import
-import { getUserById, updateUserCoinBalance } from '../models/user.js'; // เปลี่ยนจาก require เป็น import
+import { eventHandler, sendError, readBody } from 'h3'; 
+import jwt from 'jsonwebtoken'; 
+import { updateUserCoinBalance, getUserCoins, addUserCoins } from '../models/userCoins.js'; 
 
-const router = express.Router();
+const secretKey = '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1'; 
 
-const JWT_SECRET = '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1';
+export default eventHandler(async (event) => {
+    const { amount } = await readBody(event); 
+    const token = event.req.headers.authorization?.split(' ')[1]; 
 
-router.post('/topup', async (req, res) => {
-  const { amount } = req.body;
-  const token = req.headers.authorization?.split(' ')[1]; // ดึง JWT token จาก headers
-
-  if (!token) {
-    return res.status(401).json({ error: 'Token is missing' });
-  }
-
-  try {
-    // ตรวจสอบความถูกต้องของ JWT token
-    const decoded = jwt.verify(token, JWT_SECRET);
-
-    // ดึงข้อมูลผู้ใช้จากฐานข้อมูล
-    const user = await getUserById(decoded.id);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    if (!token) {
+        return sendError(event, { statusCode: 401, message: 'Access denied. No token provided.' });
     }
 
-    // อัปเดตยอดเหรียญ
-    const newBalance = user.coin_balance + amount;
-    await updateUserCoinBalance(user.id, newBalance);
+    try {
+        const decoded = jwt.verify(token, secretKey); 
+        const userId = decoded.id; 
 
-    // ส่งยอดเหรียญใหม่กลับไปให้ client
-    res.json({ newBalance });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+        await updateUserCoinBalance(userId, amount); 
+        await addUserCoins(userId, amount); 
+
+        const totalCoins = await getUserCoins(userId); 
+        return { message: 'Top-up successful!', newBalance: totalCoins }; 
+    } catch (error) {
+        console.error("Token verification error:", error); 
+        return sendError(event, { statusCode: 401, message: 'Invalid token.' }); 
+    }
 });
-
-export default router; // ใช้ export default แทน module.exports

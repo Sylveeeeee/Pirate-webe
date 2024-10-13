@@ -1,26 +1,18 @@
-// server/api/login.js
-import { loginUser } from '../controllers/authController'; // นำเข้าฟังก์ชัน loginUser จาก controller
+import { loginUser } from '../controllers/authController.js'; // นำเข้าฟังก์ชัน loginUser
+import express from 'express';
 
-export default defineEventHandler(async (event) => {
-  try {
-    // อ่านข้อมูล request body จากคำขอ
-    const body = await readBody(event);  
-    const { email, password } = body;  // ดึง email และ password จาก request body
+const router = express.Router();
 
-    // ตรวจสอบว่า email และ password ถูกส่งมาในคำขอหรือไม่
-    if (!email || !password) {
-      return { success: false, message: 'Email and password are required.' };
+// เส้นทางสำหรับการเข้าสู่ระบบ
+router.post('/', async (req, res) => {
+    const body = req.body; // อ่านข้อมูลจากคำขอ
+    try {
+        const response = await loginUser(body); // เรียกใช้ฟังก์ชัน loginUser
+        return res.status(200).json(response); // ส่งผลลัพธ์กลับไป
+    } catch (error) {
+        console.error('Error in login API:', error.message);
+        return res.status(400).json({ message: error.message }); // ข้อความแสดงข้อผิดพลาด
     }
-
-    // เรียกใช้ฟังก์ชัน loginUser จาก controller
-    const result = await loginUser(email, password);
-
-    // ถ้าล็อกอินสำเร็จ ส่งข้อมูลกลับไปยังฝั่ง frontend
-    return { success: true, ...result };
-
-  } catch (error) {
-    // ถ้าล็อกอินล้มเหลว ส่งข้อผิดพลาดกลับไปพร้อมสถานะที่เหมาะสม
-    event.res.statusCode = 401;  // ตั้งค่า HTTP status เป็น 401 (Unauthorized)
-    return { success: false, message: error.message };
-  }
 });
+
+export default router; // ส่งออก router

@@ -3,20 +3,23 @@ import db from '../db.js'; // นำเข้าการเชื่อมต�
 // ฟังก์ชันเพื่อดึงข้อมูลผู้ใช้จากตาราง users, user_profile และ user_coins ตามอีเมล
 export const getUserByEmail = async (email) => {
   try {
-    const userQuery = `
-      SELECT u.id, u.email, u.password, up.name, up.phone, uc.coin_balance
-      FROM users u
-      LEFT JOIN user_profile up ON u.id = up.user_id
-      LEFT JOIN user_coins uc ON u.id = uc.user_id
-      WHERE u.email = ?;
-    `;
-    const [rows] = await db.query(userQuery, [email]);
-    return rows[0] || null; // ส่งคืนข้อมูลผู้ใช้คนแรกหรือ null ถ้าไม่พบ
+    // ตรวจสอบว่ามีการส่งอีเมลหรือไม่
+    if (!email) {
+      throw new Error('Email is required'); // ถ้าไม่ส่งอีเมล
+    }
+
+    const result = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    if (result.length === 0) {
+      throw new Error('User not found'); // ถ้าไม่พบผู้ใช้
+    }
+
+    return result[0]; // คืนค่าผู้ใช้ที่ตรงตามอีเมล
   } catch (error) {
-    console.error('Error fetching user by email:', error.message);
-    throw new Error('Unable to fetch user by email'); // แจ้งข้อผิดพลาด
+    console.error('Error fetching user:', error.message);
+    throw new Error('Unable to fetch user by email'); // โยนข้อผิดพลาด
   }
 };
+
 
 // ฟังก์ชันเพื่อดึงข้อมูลผู้ใช้ตาม ID
 export const getUserById = async (id) => {

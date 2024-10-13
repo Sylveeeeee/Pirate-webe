@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
           throw new Error('No token found');
         }
 
-        const response = await fetch('/api/user', {
+        const response = await fetch('http://localhost:3000/api/topup', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

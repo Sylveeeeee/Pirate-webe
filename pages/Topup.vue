@@ -9,7 +9,7 @@
           <div class="text-[40px] text-[#00ffff] mb-[20px] font-bold">เติมเงิน</div>
           <div class="flex">
             <input
-              class="bg-[#fff0] h-[40px] border-[#ffff] rounded-md-l text-[20px] pl-[10px] border-r-0 pr-[10px]"
+              class="bg-[#fff0] h-[40px] border-[#ffff] rounded-l-md text-[20px] pl-[10px] border-r-0 pr-[10px]"
               v-model="amount"
               type="number"
               placeholder="จำนวนเหรียญ"
@@ -17,7 +17,7 @@
             />
             <button
               @click="addCoins"
-              class="bg-[#00ffff] h-[40px] border-[#ffff] rounded-r text-[20px] px-[10px] hover:bg-[#00ffffb4]"
+              class="bg-[#00ffff] h-[40px] border-[#ffff] rounded-r-md text-[20px] px-[10px] hover:bg-[#00ffffb4]"
             >
               เติมเหรียญ
             </button>
@@ -32,39 +32,39 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../stores/auth';
+import { useAuthStore } from '../stores/auth'; // นำเข้า authStore จาก Pinia
 
-// กำหนดตัวแปรสำหรับจำนวนเหรียญที่ผู้ใช้จะเติม
+// ตัวแปรสำหรับจำนวนเหรียญที่จะเติม
 const amount = ref(0);
-const successMessage = ref(''); // ตัวแปรสำหรับเก็บข้อความเมื่อเติมเหรียญสำเร็จ
-const errorMessage = ref(''); // ตัวแปรสำหรับเก็บข้อความเมื่อเกิดข้อผิดพลาด
+
+// ข้อความแสดงความสำเร็จและข้อผิดพลาด
+const successMessage = ref('');
+const errorMessage = ref('');
+
+// เรียกใช้ authStore
 const authStore = useAuthStore();
-// ฟังก์ชันสำหรับเติมเหรียญ
+
+// ฟังก์ชันสำหรับการเติมเหรียญ
 const addCoins = async () => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    console.error('User not logged in');
+  successMessage.value = ''; // ล้างข้อความเมื่อเริ่มต้น
+  errorMessage.value = '';
+
+  // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
+  if (!authStore.token) {
+    errorMessage.value = 'กรุณาเข้าสู่ระบบก่อนทำการเติมเหรียญ';
     return;
   }
 
-  const response = await fetch('/api/coins/add-coins', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,  // Pass the token here
-    },
-    body: JSON.stringify({ coins: amount.value }),  // No need for userId as it's inferred from token
-  });
+  // เรียกฟังก์ชัน topUpCoins จาก authStore
+  const success = await authStore.topUpCoins(amount.value);
 
-  if (response.ok) {
-    console.log('เพิ่มเหรียญสำเร็จ');
-    alert('เติมเหรียญเรียบร้อยแล้ว!');
-    amount.value = 0;
+  if (success) {
+    successMessage.value = 'เติมเหรียญสำเร็จ!'; // แสดงข้อความเมื่อเติมเหรียญสำเร็จ
+    amount.value = 0; // รีเซ็ตจำนวนเหรียญหลังเติมสำเร็จ
   } else {
-    console.error('เกิดข้อผิดพลาดในการเพิ่มเหรียญ');
+    errorMessage.value = authStore.error || 'เกิดข้อผิดพลาดในการเติมเหรียญ'; // แสดงข้อผิดพลาด
   }
 };
-
 </script>
 
 <style>
@@ -76,8 +76,8 @@ const addCoins = async () => {
 .text-green-500 {
   color: green;
 }
-body {
-background: #1d1d1d;;
-}
 
+body {
+  background: #1d1d1d;
+}
 </style>

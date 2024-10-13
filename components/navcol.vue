@@ -7,7 +7,7 @@
           <img src="https://via.placeholder.com/100" alt="Profile Picture" class="w-full h-full object-cover" />
         </div>
         <div v-if="error" class="error">{{ error }}</div>
-        <div v-if="userData" class="ml-[20px] flex flex-col text-[#ffff]">
+        <div v-if="authStore.user" class="ml-[20px] flex flex-col text-[#ffff]">
           <span class="font-bold text-[20px]">{{ authStore.user.email }}</span>
           <span class="font-bold text-[20px]">{{ authStore.user.name }}</span>
         </div>
@@ -41,32 +41,28 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '../stores/userStore';
 import { useAuthStore } from '../stores/auth';
 
 const authStore = useAuthStore();
 const router = useRouter();
-const userStore = useUserStore();
 const isLoggedIn = ref(false);
 const error = ref(null); // ข้อความผิดพลาด
 
 // ตรวจสอบสถานะการล็อกอิน
 const checkLoginStatus = () => {
-  isLoggedIn.value = !!localStorage.getItem('token');
+  isLoggedIn.value = !!authStore.token; // ตรวจสอบว่า token มีอยู่หรือไม่
 };
 
 // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้
-const fetchUserData = async () => {
-  try {
-    await userStore.fetchUserData(); // ดึงข้อมูลผู้ใช้จาก store
-  } catch (err) {
-    error.value = err.message; // เก็บข้อความผิดพลาด
+const fetchUserData = () => {
+  if (!authStore.user.id) {
+    error.value = 'User data not available'; // หากไม่มีข้อมูลผู้ใช้
   }
 };
 
 // ฟังก์ชันสำหรับออกจากระบบ
 const logout = () => {
-  localStorage.removeItem('token'); // ลบ token
+  authStore.logout(); // ใช้ฟังก์ชัน logout จาก authStore
   checkLoginStatus(); // อัปเดตสถานะการล็อกอิน
   router.push('/login'); // เปลี่ยนเส้นทางไปยังหน้าล็อกอิน
 };
@@ -83,7 +79,6 @@ onMounted(() => {
     fetchUserData(); // ดึงข้อมูลผู้ใช้เมื่อมี token
   }
 });
-
 </script>
 
 <style scoped>
