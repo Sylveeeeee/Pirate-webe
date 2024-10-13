@@ -1,41 +1,33 @@
-// controllers/authController.js
-import bcrypt from 'bcrypt'; // สำหรับการเข้ารหัสรหัสผ่าน
-import jwt from 'jsonwebtoken'; // สำหรับการสร้าง JWT
-import { getUserByEmail } from '../models/user.js'; // ฟังก์ชันที่จะใช้ดึงข้อมูลผู้ใช้จากฐานข้อมูล
+import bcrypt from 'bcrypt'; // อย่าลืมนำเข้า bcrypt
+import jwt from 'jsonwebtoken'; // อย่าลืมนำเข้า jsonwebtoken
+import { getUserByEmail } from '../models/user.js'; // นำเข้าโมเดลผู้ใช้ที่เหมาะสม
 
-// ฟังก์ชันจัดการการล็อกอิน
-export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-
+export const loginUser = async (email, password) => {
   // ตรวจสอบว่ามีข้อมูลที่จำเป็นหรือไม่
   if (!email || !password) {
-    return res.status(400).json({ message: 'Email and password are required.' });
+    console.log('Email and password are required.'); // เพิ่มการแสดงผลที่นี่
+    throw new Error('Email and password are required.'); // โยนข้อผิดพลาด
   }
 
   try {
-    // ดึงข้อมูลผู้ใช้จากฐานข้อมูลตามอีเมล
     const user = await getUserByEmail(email);
 
     // ตรวจสอบว่าผู้ใช้มีอยู่หรือไม่
     if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password.' });
+      console.log('Invalid email or password.'); // เพิ่มการแสดงผลที่นี่
+      throw new Error('Invalid email or password.'); // โยนข้อผิดพลาด
     }
 
-    // ตรวจสอบรหัสผ่านที่ได้รับกับรหัสผ่านที่เข้ารหัสในฐานข้อมูล
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid email or password.' });
+      console.log('Invalid email or password.'); // เพิ่มการแสดงผลที่นี่
+      throw new Error('Invalid email or password.'); // โยนข้อผิดพลาด
     }
 
     // สร้าง JWT
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1', // เปลี่ยนเป็น secret key ที่ปลอดภัย
-      { expiresIn: '1h' } // กำหนดเวลาหมดอายุของ token
-    );
+    const token = jwt.sign({ id: user.id, email: user.email }, '70e0bcf3c68c04427049d27a82953f95cb9055a581495ad9c879091f996628b3e11cde1fc833d0810ab21ae2eebdd27f3518f2e2cd241b19f2fa55802d8b38b1', { expiresIn: '1h' });
 
-    // ส่งข้อมูลการตอบกลับพร้อม token และข้อมูลผู้ใช้
-    res.json({
+    return {
       message: 'Login successful',
       token: token,
       user: {
@@ -44,9 +36,9 @@ export const loginUser = async (req, res) => {
         name: user.name,
         coin_balance: user.coin_balance,
       },
-    });
+    };
   } catch (error) {
-    console.error('Login error:', error); // เพิ่มการแสดงข้อผิดพลาดในคอนโซล
-    res.status(500).json({ message: 'Internal server error.', error: error.message }); // ส่งข้อมูลข้อผิดพลาดกลับไป
+    console.error('Login error:', error);
+    throw new Error('Internal server error.'); // โยนข้อผิดพลาดที่เหมาะสม
   }
 };

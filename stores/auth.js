@@ -23,9 +23,9 @@ export const useAuthStore = defineStore('auth', {
 
         if (storedToken && storedUserId) {
           this.token = storedToken;
-          this.user = JSON.parse(storedUser); // ดึงข้อมูลผู้ใช้จาก localStorage
+          this.user = JSON.parse(storedUser);
         } else {
-          this.logout(); // ล้างข้อมูลหากไม่มี token หรือ user
+          this.logout(); // Logout if no token or user
         }
       }
     },
@@ -39,6 +39,7 @@ export const useAuthStore = defineStore('auth', {
           return false;
         }
 
+        // Update user state
         this.user = {
           id: response.user.id,
           name: response.user.name,
@@ -47,7 +48,7 @@ export const useAuthStore = defineStore('auth', {
         };
         this.token = response.token;
 
-        // เก็บข้อมูลใน localStorage
+        // Store in localStorage
         if (typeof window !== 'undefined') {
           localStorage.setItem('token', response.token);
           localStorage.setItem('userId', response.user.id);
@@ -71,13 +72,13 @@ export const useAuthStore = defineStore('auth', {
       }
     
       try {
-        const response = await fetch('http://localhost:3000/api/topup', { // ระบุ URL แบบเต็ม
+        const response = await fetch('http://localhost:3000/api/topup', { // Specify the full URL
           method: 'POST',
           headers: {
             Authorization: `Bearer ${this.token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ amount }), // ส่งข้อมูลการเติมเหรียญ
+          body: JSON.stringify({ amount }), // Send coin top-up data
         });
     
         if (!response.ok) {
@@ -87,7 +88,7 @@ export const useAuthStore = defineStore('auth', {
         }
     
         const responseData = await response.json();
-        this.user.coin_balance = responseData.newBalance;
+        this.user.coin_balance = responseData.newBalance; // Update user coin balance
         this.message = 'Top-up successful!';
         this.clearError();
         return true;

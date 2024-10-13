@@ -66,7 +66,6 @@
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/auth'; // นำเข้า authStore จาก Pinia
 import { useRouter } from 'vue-router';
-import { loginApi } from '@/api/auth'; // นำเข้า loginApi จากไฟล์ auth.js
 
 // เข้าถึง store ของ Pinia
 const authStore = useAuthStore();
@@ -90,12 +89,15 @@ const handleLogin = async () => {
   }
 
   try {
-    const response = await loginApi(email.value, password.value); // เรียกใช้ loginApi
-    if (response.token) {
-      // บันทึก token หรือข้อมูลผู้ใช้ใน store
-      authStore.setToken(response.token); // ตั้งค่า token
-      authStore.setUser(response.user); // ตั้งค่าข้อมูลผู้ใช้
-      router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
+    // เรียกใช้ login จาก authStore
+    await authStore.login(email.value, password.value);
+
+    // ถ้าล็อกอินสำเร็จ เปลี่ยนเส้นทางไปยังหน้าหลัก
+    if (authStore.token) {
+      // ตั้งค่าหน่วงเวลาก่อนเปลี่ยนเส้นทาง
+      setTimeout(() => {
+        router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
+      }, 1000); // หน่วงเวลา 1000 มิลลิวินาที (1 วินาที)
     }
   } catch (error) {
     console.error('Login error:', error);
@@ -103,6 +105,7 @@ const handleLogin = async () => {
   }
 };
 </script>
+
 
 <style>
 .sss {
