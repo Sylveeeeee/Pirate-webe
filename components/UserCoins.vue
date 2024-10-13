@@ -1,19 +1,32 @@
 <template>
   <div>
-    <!-- แสดงจำนวนเหรียญจาก authStore โดยตรง -->
-    <span class="text-[#ffff] ml-[10px]">Coin : {{ authStore.user.coin_balance }}</span>
+    <!-- แสดงจำนวนเหรียญจาก coinStore -->
+    <span class="text-[#ffff] ml-[10px]">Coin : {{ coinBalance }}</span>
   </div>
 </template>
 
 <script setup>
-import { useAuthStore } from '../stores/auth'; // นำเข้า authStore
+import { computed, onMounted } from 'vue'; // นำเข้า computed และ onMounted
+import { useCoinStore } from '../stores/coinStore'; // นำเข้า coinStore
 
-const authStore = useAuthStore(); // เรียกใช้ authStore
+const coinStore = useCoinStore(); // เรียกใช้ coinStore
 
-// ตรวจสอบว่าผู้ใช้ล็อกอินอยู่หรือไม่ และเรียกข้อมูลผู้ใช้เมื่อคอมโพเนนต์ถูก mount
-authStore.initialize();
+// คำนวณยอดเหรียญจาก coinStore
+const coinBalance = computed(() => coinStore.getCoinBalance);
+
+// ดึงข้อมูลยอดเหรียญเมื่อคอมโพเนนต์ถูก mount
+onMounted(() => {
+  coinStore.fetchCoinBalance();
+});
 </script>
 
 <style scoped>
 /* สไตล์เพิ่มเติม */
+.text-red-500 {
+  color: red;
+}
+
+.text-green-500 {
+  color: green;
+}
 </style>

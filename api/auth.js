@@ -1,6 +1,5 @@
 // api/auth.js
 export const loginApi = async (email, password) => {
-  console.log('Attempting to login with:', { email, password }); // ล็อกข้อมูลการล็อกอิน
 
   try {
     const response = await fetch('http://localhost:3000/api/login', {
