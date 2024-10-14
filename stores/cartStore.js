@@ -7,7 +7,7 @@ export const useCartStore = defineStore('cart', {
   }),
   actions: {
     addProduct(productId) {
-      this.items.push(productId);
+      this.cartItems.push(productId);
       console.log('Product added to cart:', productId);
     },
     addToCart(product) {
@@ -22,13 +22,16 @@ export const useCartStore = defineStore('cart', {
     removeFromCart(productId) {
       const itemIndex = this.cartItems.findIndex(item => item.id === productId);
       if (itemIndex !== -1) {
-        if (this.cartItems[itemIndex].quantity > 1) {
-          this.cartItems[itemIndex].quantity -= 1;
-        } else {
+        // ลดจำนวนสินค้าลง 1
+        this.cartItems[itemIndex].quantity -= 1;
+
+        // ลบสินค้าออกจากตะกร้าเมื่อจำนวนสินค้าเป็น 0
+        if (this.cartItems[itemIndex].quantity <= 0) {
           this.cartItems.splice(itemIndex, 1);
         }
       }
     },
+    
     clearCart() {
       this.cartItems = [];
     }

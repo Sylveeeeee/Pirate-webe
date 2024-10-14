@@ -97,10 +97,13 @@ const increaseQuantity = (id) => {
 // ฟังก์ชันลดจำนวนสินค้า
 const decreaseQuantity = (id) => {
   const item = cartItems.value.find(item => item.id === id);
-  if (item && item.quantity > 1) {
+  if (item) {
     cartStore.removeFromCart(id); // Decrease quantity
-  } else if (item) {
-    cartStore.removeItem(id); // Remove item if quantity is 1
+
+    // เช็คจำนวนสินค้าและลบถ้าจำนวนเป็น 0
+    if (item.quantity <= 1) {
+      cartStore.removeFromCart(id); // Remove item from cart if quantity is 0
+    }
   }
 };
 
@@ -137,13 +140,14 @@ const processPayment = async () => {
 
     const result = await response.json();
     alert(`ชำระเงินสำเร็จ: ${result.message}`);
-    router.push('/confirmation'); // เปลี่ยนเส้นทางไปยังหน้าการยืนยัน
+    router.push('/login'); // เปลี่ยนเส้นทางไปยังหน้าการยืนยัน
   } catch (error) {
     console.error('เกิดข้อผิดพลาดในการชำระเงิน:', error);
     alert('เกิดข้อผิดพลาดในการชำระเงิน');
   }
 };
 </script>
+
 
 <style>
 /* CSS สไตล์ */

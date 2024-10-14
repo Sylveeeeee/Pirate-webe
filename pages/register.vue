@@ -81,8 +81,31 @@ const clearMessages = () => {
   message.value = null;
 };
 
+// ตรวจสอบรูปแบบอีเมล
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+// ตรวจสอบความแข็งแกร่งของรหัสผ่าน
+const isStrongPassword = (password) => {
+  return password.length >= 8; // กำหนดความยาวขั้นต่ำของรหัสผ่าน
+};
+
 const register = async () => {
   clearMessages(); // ล้างข้อความเก่าทุกครั้งก่อนเริ่มการส่งข้อมูลใหม่
+
+  // ตรวจสอบรูปแบบอีเมล
+  if (!isValidEmail(email.value)) {
+    error.value = 'Invalid email format!';
+    return;
+  }
+
+  // ตรวจสอบว่ารหัสผ่านมีความแข็งแกร่ง
+  if (!isStrongPassword(password.value)) {
+    error.value = 'Password must be at least 8 characters long!';
+    return;
+  }
 
   // ตรวจสอบว่ารหัสผ่านและการยืนยันรหัสผ่านตรงกันหรือไม่
   if (password.value !== confirmPassword.value) {
@@ -121,8 +144,8 @@ const register = async () => {
     error.value = 'An error occurred during registration'; // ข้อความแสดงเมื่อเกิดข้อผิดพลาด
   }
 };
-
 </script>
+
 
 
 <style>

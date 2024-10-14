@@ -48,7 +48,9 @@ export const useAuthStore = defineStore('auth', {
         };
         this.token = response.token; // เก็บโทเค็นใน state
     
+        // ตรวจสอบว่ามี window object หรือไม่เพื่อทำงานกับ localStorage
         if (typeof window !== 'undefined') {
+          // เก็บข้อมูลผู้ใช้และโทเค็นใน localStorage
           localStorage.setItem('token', response.token);
           localStorage.setItem('userId', response.user.id);
           localStorage.setItem('user', JSON.stringify(this.user));
@@ -63,6 +65,23 @@ export const useAuthStore = defineStore('auth', {
         return false; // คืนค่า false หากเกิดข้อผิดพลาด
       }
     },
+    
+    // ฟังก์ชันสำหรับโหลดข้อมูลผู้ใช้จาก localStorage
+    loadUserFromStorage() {
+      if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        
+        if (token) {
+          this.token = token; // กำหนดโทเค็นจาก localStorage
+        }
+    
+        if (user) {
+          this.user = JSON.parse(user); // กำหนดข้อมูลผู้ใช้จาก localStorage
+        }
+      }
+    },
+    
 
     setMessage(message) {
       this.message = message; // เก็บข้อความใน state
