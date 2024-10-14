@@ -1,7 +1,7 @@
 <template>
-  <div class="slider">
-    <div class="slider-images">
-      <img :src="images[currentIndex]" alt="Slider Image" />
+  <div class="slider flex justify-center">
+    <div class="slider-images  " >
+      <img  :src="images[currentIndex]" alt="Slider Image" />
     </div>
     <button class="" @click="prevImage"> < </button>
     <button class="" @click="nextImage"> > </button>
@@ -38,13 +38,14 @@ export default {
 .slider {
   position: relative;
   width: 1100px;
-  margin: 0 auto;
+  
 }
 
 .slider-images img {
-  width: 100%;
-  display: block;
+  width:  1100px;
+  display: flex;
   height: 600px;
+  
 }
 
 button {
