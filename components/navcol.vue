@@ -7,9 +7,9 @@
           <img src="https://via.placeholder.com/100" alt="Profile Picture" class="w-full h-full object-cover" />
         </div>
         <div v-if="error" class="error">{{ error }}</div>
-        <div v-if="authStore.user" class="ml-[20px] flex flex-col text-[#ffff]">
-          <span class="font-bold text-[20px]">{{ authStore.user.email }}</span>
-          <span class="font-bold text-[20px]">{{ authStore.user.name }}</span>
+        <div v-if="authStore.user" class="ml-[20px] flex flex-col  text-[#ffff]">
+          <span class="font-bold text-[20px] h-[30px]">{{ authStore.user.email }}</span>
+          <span class="font-bold text-[20px] h-[30px]">{{ authStore.user.name }}</span>
         </div>
       </div>
       <!-- เมนูต่าง ๆ -->

@@ -1,27 +1,23 @@
 // server/middleware/authMiddleware.js
 import jwt from 'jsonwebtoken';
-import { createError } from 'h3';
 
-export default defineEventHandler(async (event) => {
-  const authHeader = event.node.req.headers['authorization'];
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    const token = authHeader.split(' ')[1];
+export const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
 
-    try {
-      const decoded = await new Promise((resolve, reject) => {
-        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(user);
-          }
-        });
-      });
-
-      event.node.req.user = decoded; // Store user info in the request
-    } catch (err) {
-      console.error('Token verification failed:', err.message);
-      // Log the error but don't throw to allow access to the page
-    }
+  // ตรวจสอบว่ามี authorization header หรือไม่
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Authorization header missing or invalid' });
   }
-});
+
+  const token = authHeader.split(' ')[1]; // แยกเอา token จาก 'Bearer <token>'
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      console.error('Token verification failed:', err.message);
+      return res.status(403).json({ message: 'Invalid or expired token' });
+    }
+    
+    req.user = user; // เก็บข้อมูลผู้ใช้ที่ถอดรหัสใน request object
+    next(); // เรียกใช้ next เพื่อไปยัง middleware ถัดไป
+  });
+};

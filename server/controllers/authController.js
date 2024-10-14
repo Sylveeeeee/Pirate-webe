@@ -11,39 +11,38 @@ export const loginUser = async (email, password) => {
 
   try {
     const user = await getUserByEmail(email);
-    console.log('User found:', user); // ล็อกข้อมูลผู้ใช้ที่ค้นพบ
-  
+
     // ตรวจสอบว่าผู้ใช้มีอยู่หรือไม่
-    if (!user || user.length === 0 || !user[0].password) { 
+    if (!user || !user.password) {
       console.log('Invalid email or password.');
       throw new Error('Invalid email or password.');
     }
-  
-    const isPasswordValid = await bcrypt.compare(password, user[0].password);
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       console.log('Invalid email or password.');
       throw new Error('Invalid email or password.');
     }
-  
+
     // สร้าง JWT
     const token = jwt.sign(
-      { id: user[0].id, email: user[0].email },
+      { id: user.id, email: user.email },
       process.env.JWT_SECRET, // ใช้ JWT_SECRET จาก environment variables
       { expiresIn: '1h' }
     );
-  
+
     return {
       message: 'Login successful',
       token,
       user: {
-        id: user[0].id,
-        email: user[0].email,
-        name: user[0].name,
-        coin_balance: user[0].coin_balance,
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        coin_balance: user.coin_balance,
       },
     };
   } catch (error) {
     console.error('Login error:', error); // ล็อกข้อผิดพลาด
     throw new Error('Internal server error.'); // จัดการข้อผิดพลาดให้เหมาะสม
-  }  
+  }
 };

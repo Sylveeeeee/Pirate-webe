@@ -1,23 +1,45 @@
-import { createRouter } from 'h3';
-import { getUserById } from '../controllers/userController';
-import authenticateJWT from '../middleware/authMiddleware';
+import { getUserByEmail } from '../models/user.js'; // นำเข้าโมเดลผู้ใช้
 
-const router = createRouter();
+export const loginUser = async (email, password) => {
+  console.log('Login attempt with:', { email });
 
-router.get('/user', authenticateJWT, async (req, res) => {
+  if (!email || !password) {
+    throw new Error('Email and password are required.');
+  }
+
   try {
-    const userId = req.user.id; // สมมุติว่า userId ถูกจัดเก็บใน JWT
-    const user = await getUserById(userId); // เรียกฟังก์ชันเพื่อดึงข้อมูลผู้ใช้
+    const user = await getUserByEmail(email);
+    console.log('User found:', user);
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    if (!user || user.length === 0 || !user[0].password) {
+      console.log('Invalid email or password.');
+      throw new Error('Invalid email or password.');
     }
 
-    res.json(user); // ส่งข้อมูลผู้ใช้กลับ
-  } catch (error) {
-    console.error('Error fetching user data:', error); // ล็อกข้อผิดพลาด
-    res.status(500).json({ message: 'Internal Server Error' }); // ส่งข้อความผิดพลาดกลับ
-  }
-});
+    const isPasswordValid = await bcrypt.compare(password, user[0].password);
+    if (!isPasswordValid) {
+      console.log('Invalid email or password.');
+      throw new Error('Invalid email or password.');
+    }
 
-export default router;
+    const token = jwt.sign(
+      { id: user[0].id, email: user[0].email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    return {
+      message: 'Login successful',
+      token,
+      user: {
+        id: user[0].id,
+        email: user[0].email,
+        name: user[0].name,
+        coin_balance: user[0].coin_balance,
+      },
+    };
+  } catch (error) {
+    console.error('Login error:', error);
+    throw new Error('Internal server error.');
+  }  
+};

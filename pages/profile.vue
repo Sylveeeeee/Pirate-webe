@@ -132,7 +132,7 @@
 
         <!-- แสดงข้อความเมื่อข้อมูลผู้ใช้ยังไม่ถูกโหลด -->
         <div v-else>
-          <p class="text-[#ffffff]">Loading user data...</p>
+          <p class="text-[#ff696900]">Loading user data...</p>
         </div>
       </div>
     </div>
@@ -205,5 +205,7 @@ const toggleConfirmNewPasswordVisibility = () => {
 </script>
 
 <style scoped>
-/* styles ของคุณ */
+body {
+  color: #1d1d1d;
+}
 </style>

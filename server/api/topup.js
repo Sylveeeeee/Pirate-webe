@@ -1,13 +1,25 @@
 // server/api/topup.js
-import { topUpCoins } from '../controllers/topupController';
+import express from 'express';
+import { topUpCoins } from '../controllers/topupController.js';
 
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event); // ใช้ readBody เพื่ออ่านข้อมูลจาก body
-  const user = event.context.auth; // ต้องใช้ middleware เพื่อตั้งค่า auth context
-  
-  if (!user) {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' });
+const router = express.Router();
+
+// เส้นทางสำหรับการเติมเหรียญ
+router.post('/topup', async (req, res) => {
+  try {
+    const user = req.user; // ต้องแน่ใจว่ามี middleware ที่จัดการ token และตั้งค่า req.user
+    if (!user) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const body = req.body; // ใช้ req.body เพื่ออ่านข้อมูลจาก body
+    const result = await topUpCoins({ body, user });
+
+    res.json(result); // ส่งผลลัพธ์กลับไปยัง client
+  } catch (error) {
+    console.error('Error in top-up:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-
-  await topUpCoins({ body, user }, event); // ส่งข้อมูล body และ user ไปยัง controller
 });
+
+export default router;

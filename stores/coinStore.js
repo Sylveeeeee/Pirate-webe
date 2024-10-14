@@ -57,8 +57,8 @@ export const useCoinStore = defineStore('coin', {
 
     async fetchCoinBalance() {
       try {
-        const token = getTokenFromLocalStorage(); // ใช้ฟังก์ชันเพื่อดึงโทเค็น
-        const response = await fetch('http://localhost:3000/api/login', { // ใช้ URL ที่ถูกต้อง
+        const token = localStorage.getItem('token'); // ใช้ฟังก์ชันเพื่อดึงโทเค็น
+        const response = await fetch('http://localhost:3000/api/coin-balance', { // ใช้ URL ที่ถูกต้อง
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -40,6 +40,7 @@
     "nuxt": "^3.13.2",
     "pinia": "^2.2.4",
     "prisma": "^5.19.1",
+    "sequelize": "^6.37.4",
     "vue": "latest",
     "vue-router": "^4.4.5"
   },
