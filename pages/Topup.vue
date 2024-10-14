@@ -33,7 +33,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useCoinStore } from '../stores/coinStore'; // นำเข้า coinStore จาก Pinia
-import { useAuthStore } from '../stores/auth';
+import { loginApi } from '../api/auth';
 
 // ตัวแปรสำหรับจำนวนเหรียญที่จะเติม
 const amount = ref(0);
@@ -44,33 +44,32 @@ const errorMessage = ref('');
 
 // เรียกใช้ coinStore และ authStore
 const coinStore = useCoinStore();
-const authStore = useAuthStore();
 
 // ฟังก์ชันสำหรับการเติมเหรียญ
 const addCoins = async () => {
-  successMessage.value = ''; // ล้างข้อความเมื่อเริ่มต้น
+  successMessage.value = ''; // ล้างข้อความ
   errorMessage.value = '';
 
-  // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
-  if (!authStore.token) {
-    errorMessage.value = 'กรุณาเข้าสู่ระบบก่อนทำการเติมเหรียญ';
+  // ตรวจสอบให้แน่ใจว่าผู้ใช้เข้าสู่ระบบ
+  if (!coinStore.validateToken()) {
+    errorMessage.value = 'กรุณาเข้าสู่ระบบก่อนเติมเหรียญ';
     return;
   }
 
+  // ทำการเติมเหรียญ
   try {
-    // เรียกใช้ฟังก์ชัน topUpCoins จาก authStore
     const success = await coinStore.topUpCoins(amount.value);
-    
     if (success) {
       successMessage.value = 'เติมเหรียญสำเร็จ!';
-      amount.value = 0; // รีเซ็ตจำนวนเหรียญหลังเติมสำเร็จ
+      amount.value = 0; // รีเซ็ตจำนวน
     } else {
-      errorMessage.value = 'เกิดข้อผิดพลาดในการเติมเหรียญ';
+      errorMessage.value = coinStore.error || 'เกิดข้อผิดพลาดในการเติมเหรียญ';
     }
   } catch (err) {
-    errorMessage.value = 'มีข้อผิดพลาดในการเติมเหรียญ: ' + err.message; // แสดงข้อความข้อผิดพลาด
+    errorMessage.value = 'มีข้อผิดพลาดในการเติมเหรียญ: ' + err.message;
   }
 };
+
 </script>
 
 <style>

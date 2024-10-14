@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useAuthStore } from '../stores/auth'; // นำเข้า authStore จาก Pinia
 import { useRouter } from 'vue-router';
 
@@ -89,22 +89,35 @@ const handleLogin = async () => {
   }
 
   try {
-    // เรียกใช้ login จาก authStore
-    const success = await authStore.login(email.value, password.value);
+    const response = await authStore.login(email.value, password.value);
+    console.log('Login response:', response);
 
-    // ถ้าล็อกอินสำเร็จ เปลี่ยนเส้นทางไปยังหน้าหลัก
-    if (success) {
-      // ตั้งค่าหน่วงเวลาก่อนเปลี่ยนเส้นทาง
-      setTimeout(() => {
-        router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
-      }, 1000); // หน่วงเวลา 1000 มิลลิวินาที (1 วินาที)
+    // ตรวจสอบว่าการเข้าสู่ระบบสำเร็จ
+    if (response) {
+      const token = authStore.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        authStore.setMessage('Login successful!');
+
+        // หน่วงเวลาก่อนเปลี่ยนเส้นทาง
+        setTimeout(() => {
+          router.push('/'); // เปลี่ยนเส้นทางไปยังหน้าหลัก
+        }, 1000); // หน่วงเวลา 1000 มิลลิวินาที (1 วินาที)
+      } else {
+        authStore.setError('Login failed. Please try again.');
+      }
+    } else {
+      authStore.setError('Login failed. Please try again.');
     }
   } catch (error) {
     console.error('Login error:', error);
     authStore.setError('Login failed. Please try again.');
   }
 };
+
+
 </script>
+
 
 <style>
 .sss {

@@ -1,64 +1,70 @@
 import { defineStore } from 'pinia';
 
+// ฟังก์ชันเพื่อดึงโทเค็นจาก localStorage
+const getTokenFromLocalStorage = () => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('token');
+  }
+  return null; // หากไม่ใช่เบราว์เซอร์ให้คืนค่า null
+};
+
 export const useCoinStore = defineStore('coin', {
   state: () => ({
-    coin_balance: 0, // สามารถตั้งค่าเริ่มต้นเป็น 0 หรือค่าเริ่มต้นอื่น
+    token: getTokenFromLocalStorage() || null, // ใช้ฟังก์ชันเพื่อดึงโทเค็น
+    coin_balance: 0, // ค่าเริ่มต้นของยอดเหรียญ
   }),
 
   getters: {
-    // Getter สำหรับดึงข้อมูลยอดเหรียญ
     getCoinBalance: (state) => state.coin_balance,
   },
 
   actions: {
+    validateToken() {
+      return this.token !== null; // เช็คว่า token มีค่า
+    },
+
     async topUpCoins(amount) {
       try {
-        // ตรวจสอบว่า token มีอยู่หรือไม่
-        const token = localStorage.getItem('token');
-        if (!token) {console.error('No token found');
-          return;}
-  
-        // เรียก API สำหรับการเติมเหรียญ
+        const token = getTokenFromLocalStorage(); // ดึงโทเค็นจาก localStorage
+        console.log('Token:', token); // ล็อกโทเค็นเพื่อการดีบัก
+    
+        if (!token) {
+          throw new Error('Token not found. Please log in again.');
+        }
+    
         const response = await fetch('/api/topup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // ตรวจสอบว่า token ถูกส่ง
+            'Authorization': `Bearer ${token}`, // ส่งโทเค็นใน header
           },
-          body: JSON.stringify({ amount }), // ส่งยอดที่ต้องการเติม
+          body: JSON.stringify({ amount }), // ส่งจำนวนเหรียญที่เติม
         });
-  
-        // ตรวจสอบว่าการเรียก API สำเร็จหรือไม่
+    
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to top up coins');
+          const errorResponse = await response.json(); // รับข้อมูลข้อผิดพลาด
+          throw new Error(errorResponse.message || 'Failed to top up coins');
         }
-  
-        // รับข้อมูลที่ตอบกลับจาก API เช่น ยอดเหรียญใหม่
+    
         const data = await response.json();
-        if (data && data.updatedBalance !== undefined) {
-          this.coin_balance = data.updatedBalance; // อัปเดตยอดเหรียญใน store
-          alert('Top up successful! New balance: ' + this.coin_balance);
-        } else {
-          throw new Error('Invalid response from server');
-        }
+        this.coin_balance += amount; // อัปเดตยอดเหรียญใน store
+        alert('เติมเหรียญสำเร็จ! ยอดใหม่: ' + this.coin_balance); // แจ้งเตือนเมื่อเติมเหรียญสำเร็จ
       } catch (error) {
-        // จัดการกับข้อผิดพลาด
         console.error('Error topping up coins:', error);
-        alert(error.message || 'Something went wrong during top up');
+        alert('มีข้อผิดพลาดในการเติมเหรียญ: ' + error.message); // แจ้งเตือนข้อผิดพลาด
       }
     },
 
     async fetchCoinBalance() {
       try {
-        const token = localStorage.getItem('token'); // รับ token จาก localStorage
+        const token = localStorage.getItem('token'); 
         const response = await fetch('/api/topup', {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // ส่ง token
+            'Authorization': `Bearer ${token}`, // ส่งโทเค็น
           },
-          body: JSON.stringify({ amount }), // ส่งข้อมูล amount
+          // ปรับให้ส่งข้อมูลที่จำเป็น เช่น userId เป็นต้น
         });
 
         if (!response.ok) {
@@ -66,10 +72,10 @@ export const useCoinStore = defineStore('coin', {
         }
 
         const data = await response.json();
-        this.coin_balance = data.coin_balance; // อัปเดตยอดเหรียญจากการดึงข้อมูลผู้ใช้
-      } catch (error) {
-        console.error('Error fetching coin balance:', error);
-      }
-    },
+    this.coin_balance = data.coin_balance; // อัปเดตยอดเหรียญจากการดึงข้อมูลผู้ใช้
+  } catch (error) {
+    console.error('Error fetching coin balance:', error);
+  }
+},
   },
 });
