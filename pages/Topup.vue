@@ -4,7 +4,7 @@
     <navbar2 />
     <div class="flex justify-center mt-[20px]">
       <navcol />
-      <div class="max-w-2xl w-[800px] flex flex-col border-[#ffffff] px-[50px] rounded-md pt-[20px] border">
+      <div class="max-w-2xl w-[800px] flex flex-col border-[#00ffffb4] px-[50px] rounded-md pt-[20px] border">
         <div>
           <div class="text-[40px] text-[#00ffff] mb-[20px] font-bold">เติมเงิน</div>
           <div class="flex">
@@ -22,8 +22,8 @@
               เติมเหรียญ
             </button>
           </div>
-          <div v-if="errorMessage" class="text-red-500 mt-2">{{ errorMessage }}</div>
-          <div v-if="successMessage" class="text-green-500 mt-2">{{ successMessage }}</div>
+          <div v-if="errorMessage" class="text-red-500 mt-3 ">{{ errorMessage }}</div>
+          <div v-if="successMessage" class="text-green-500 mt-3">{{ successMessage }}</div>
         </div>
       </div>
     </div>
