@@ -1,19 +1,11 @@
-const User = require('../models/user'); // Assuming you have a User model set up
+import { getUserById as getUserByIdFromDB } from '../models/user'; // สมมุติว่าดึงจาก model
 
-// Get user by ID
-const getUserById = async (id) => {
-  return await User.findById(id).select('-password'); // Exclude password for security
-};
-
-// Update user field
-const updateUserField = async (id, field, value) => {
-  const validFields = ['name', 'email', 'phone']; // Specify valid fields for update
-  if (!validFields.includes(field)) {
-    throw new Error('Invalid field');
+export const getUserById = async (userId) => {
+  try {
+    const user = await getUserByIdFromDB(userId); // เรียกจาก model
+    return user; // ส่งกลับข้อมูลผู้ใช้
+  } catch (error) {
+    console.error('Error getting user by ID:', error); // ล็อกข้อผิดพลาด
+    throw error; // ส่งต่อข้อผิดพลาด
   }
-
-  const updatedUser = await User.findByIdAndUpdate(id, { [field]: value }, { new: true });
-  return updatedUser;
 };
-
-module.exports = { getUserById, updateUserField };
