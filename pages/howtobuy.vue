@@ -6,9 +6,7 @@
         <div class="htb-container">
             <div class="card2">
                 <h3>HOW TO BUY</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt officia enim, nobis architecto reprehenderit veritatis ratione accusamus minima veniam deserunt accusantium harum ullam cum totam nesciunt aperiam voluptates. Ab, non!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium consequuntur quidem beatae aliquam. Delectus quo ipsa tenetur fuga sint soluta laborum, dolores sunt, ducimus voluptatem nostrum eum, magnam esse asperiores.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem provident nemo veniam. Fuga temporibus incidunt omnis similique tempora cumque reiciendis quasi autem consequatur sunt, quod corporis facilis eligendi laudantium. Quia.</p>
+                <img src="public/htbb.jpg">
             </div>
         </div>
     </div>
@@ -22,10 +20,15 @@
     flex-wrap: wrap;
 }
 
+.card2 img {
+    height: auto;
+    width: 1200px;
+}
+
 .card2 {
     width: 1400px;
     height: auto;
-    background-color: rgb(49, 48, 48);
+    background-color: #2b2929;
     border-radius: 10px;
     border: 2px solid;
     border-color: aqua;

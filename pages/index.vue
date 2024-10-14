@@ -3,7 +3,7 @@
     <navbar/>
     <navbar2/>
     <div class="body">
-      <div class="TBadvert">
+      <div class="TBadvert ">
         <advert />  
       </div>
       <div class="body2">
@@ -100,8 +100,8 @@ header {
     flex-direction: column;
     background-color: #191919;   
 }
-.body2 {
-    background: #191919;
+.body2 {  
+    background: transparent;
     display: flex;
     justify-content: center;
     width: 100vw;
@@ -110,7 +110,7 @@ header {
 }
 .footer {
     height: auto;
-    background:#191919;
+    background:  #191919;
 }
 .prpanel {
     color: aqua;
@@ -119,7 +119,7 @@ header {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
-    background: #191919;
+    background: transparent;
 }
 #font {
     display: flex;
@@ -128,7 +128,7 @@ header {
     padding: 20px;
 }
 .pr {
-    background: #191919;
+    background: transparent;
     display: flex;
     justify-content: center;
     min-width: 90%;
